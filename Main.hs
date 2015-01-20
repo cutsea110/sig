@@ -1,18 +1,27 @@
 module Main where
 
-import Database.Relational.Query (relationalQuery)
-import Database.HDBC.Session (withConnectionIO, handleSqlError')
-import Database.HDBC.Record.Query (runQuery)
+import Control.Arrow
+import Data.Time
 
-import DataSource (connect)
+import qualified Stocks as S
 import Query
+import Util
 
-run conn rel param = runQuery conn (relationalQuery rel) param >>= print
+-- run conn rel param = runQuery conn (relationalQuery rel) param >>= print
 
 main :: IO ()
-main = handleSqlError' $ withConnectionIO connect $ \conn -> do
+main = withDB $ \conn -> do
+  xs <- collect findByCode "9475-T" conn
+  print $ map (S.day &&& S.closingprice) xs
+
+--   xs <- runQuery conn (relationalQuery findByCode) "9475-T"
+--   print $ map (\x -> (S.day x, S.closingprice x)) xs
 --  runQuery conn (relationalQuery find9475T) ()
-  run conn find9475T ()
-  run conn findByCode "9475-T"
+--  run conn find9475T ()
+--  run conn findByCode "9475-T"
 
-
+get :: IO [(Day, Maybe Double)]
+get = withDB $ \conn -> do
+   xs <- collect findByCode "9475-T" conn
+   putStrLn $ show $ length xs
+   return $ map (S.day &&& S.closingprice) xs
