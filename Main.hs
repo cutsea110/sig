@@ -1,6 +1,8 @@
 module Main where
 
 import Control.Arrow
+import Data.Aeson
+import Data.ByteString.Lazy (ByteString)
 import Data.Time
 
 import qualified Stocks as S
@@ -20,8 +22,14 @@ main = withDB $ \conn -> do
 --  run conn find9475T ()
 --  run conn findByCode "9475-T"
 
-get :: IO [(Day, Maybe Double)]
+get :: IO [S.Stocks]
 get = withDB $ \conn -> do
    xs <- collect findByCode "9475-T" conn
    putStrLn $ show $ length xs
-   return $ map (S.day &&& S.closingprice) xs
+   return xs
+
+get' :: IO [Value]
+get' = get >>= return . map toJSON
+
+get'' :: IO [ByteString]
+get'' = get' >>= return . map encode
