@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell, MultiParamTypeClasses, DeriveGeneric #-}
+{-# LANGUAGE TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances #-}
 module Stocks where
 
 import GHC.Generics
