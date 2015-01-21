@@ -10,19 +10,11 @@ import qualified Stocks as S
 import Query
 import Util
 
--- run conn rel param = runQuery conn (relationalQuery rel) param >>= print
-
 main :: IO ()
 main = withDB $ \conn -> do
   let y2014 = (fromGregorian 2014 1 1, fromGregorian 2014 12 31)
   xs <- collect findByCodeBetween ("9475-T", y2014) conn
   print $ map (S.day &&& S.closingprice) xs
-
---   xs <- runQuery conn (relationalQuery findByCode) "9475-T"
---   print $ map (\x -> (S.day x, S.closingprice x)) xs
---  runQuery conn (relationalQuery find9475T) ()
---  run conn find9475T ()
---  run conn findByCode "9475-T"
 
 get :: IO [S.Stocks]
 get = withDB $ \conn -> do
