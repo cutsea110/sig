@@ -14,6 +14,8 @@ withDB = handleSqlError' . withConnectionIO connect
 
 collect rel param = \conn -> runQuery conn (relationalQuery rel) param
 
+--wheres' :: (SqlProjectable p, PersistableWidth t, Functor f, Monad f) =>
+--     (t1 -> p t -> f b) -> t1 -> f (PlaceHolders t)
 wheres' :: (SqlProjectable p, PersistableWidth t, Functor f, Monad f) =>
-     (t1 -> p t -> f b) -> t1 -> f (PlaceHolders t)
-wheres' p s = (fst <$>) . placeholder $ p s
+     ((p t, r) -> f b) -> r -> f (PlaceHolders t)
+wheres' p s = (fst <$>) . placeholder $ flip (curry p) s

@@ -10,10 +10,10 @@ import qualified Stocks as S
 import Util
 
 whereByCode :: MonadRestrict Flat m => Projection Flat Stocks -> m (PlaceHolders String)
-whereByCode = wheres' (\s ph -> wheres $ s ! S.code' .=. ph)
+whereByCode = wheres' $ \(ph, s) -> wheres $ s ! S.code' .=. ph
 
 whereBetween :: MonadRestrict Flat m => Projection Flat Stocks -> m (PlaceHolders (Day, Day))
-whereBetween = wheres' (\s ph -> wheres $ ph ! fst' .<=. s ! S.day' `and'` s ! S.day' .<=. ph ! snd')
+whereBetween = wheres' $ \(ph, s) -> wheres $ ph ! fst' .<=. s ! S.day' `and'` s ! S.day' .<=. ph ! snd'
 
 findByCodeBetween :: Relation (String, (Day, Day)) Stocks
 findByCodeBetween = relation' $ do
