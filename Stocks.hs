@@ -8,7 +8,8 @@ import Database.HDBC.Schema.PostgreSQL (driverPostgreSQL)
 import Database.Record.TH (derivingShow)
 
 import DataSource (connect)
-import Ext (derivingGeneric)
+import Ext.TH (derivingGeneric)
+import Ext.Instances
 
 defineTableFromDB connect driverPostgreSQL "public" "stocks" [derivingShow, derivingGeneric]
 
