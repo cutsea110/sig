@@ -4,7 +4,7 @@ module Ext.Instances where
 import GHC.Generics
 import Data.Aeson
 import Data.Text (Text, unpack)
-import Data.Time.Calendar (Day, fromGregorian, toModifiedJulianDay)
+import Data.Time.Calendar (Day)
 
 -- | Day
 instance FromJSON Day where
