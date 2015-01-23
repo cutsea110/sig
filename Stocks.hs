@@ -1,17 +1,26 @@
-{-# LANGUAGE TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances #-}
-module Stocks where
+{-# LANGUAGE
+    TemplateHaskell
+  , TypeFamilies
+ #-}
+module Stocks
+       ( Stocks(..)
+       , module DB
+       )
+       where
 
-import GHC.Generics
 import Data.Aeson
-import Database.HDBC.Query.TH (defineTableFromDB)
-import Database.HDBC.Schema.PostgreSQL (driverPostgreSQL)
-import Database.Record.TH (derivingShow)
+import Data.JSON.Schema
+import Generics.Regular
+import Generics.Regular.XmlPickler
+import Text.XML.HXT.Arrow.Pickle
 
-import DataSource (connect)
-import Ext.TH (derivingGeneric)
+import DB
 import Ext.Instances
 
-defineTableFromDB connect driverPostgreSQL "public" "stocks" [derivingShow, derivingGeneric]
+deriveAll ''Stocks "PFStocks"
+type instance PF Stocks = PFStocks
 
+instance XmlPickler Stocks where xpickle = gxpickle
+instance JSONSchema Stocks where schema = gSchema
 instance FromJSON Stocks
 instance ToJSON Stocks
