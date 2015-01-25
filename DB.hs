@@ -16,4 +16,4 @@ import GHC.Generics
 import DataSource (connect)
 import Ext.TH (derivingGeneric, derivingTypeable, derivingOrd)
 
-defineTableFromDB connect driverPostgreSQL "public" "stocks" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
+defineTableFromDB connect driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]

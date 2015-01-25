@@ -1,11 +1,11 @@
-module Api.Stocks (resource) where
+module Api.Stock (resource) where
 
 import Control.Monad.Reader
 
 import Rest
 import qualified Rest.Resource as R
 
-import Stocks (Stocks)
+import Stock (Stock, Stocks(..))
 import Query
 import Util
 
@@ -21,5 +21,5 @@ resource = mkResourceReader
 get :: Handler (ReaderT Code IO)
 get = mkIdHandler xmlJsonO $ \_ cd -> liftIO $ readStocks cd
     where
-      readStocks :: Code -> IO [Stocks]
-      readStocks = withDB . collect' findByCode
+      readStocks :: Code -> IO Stocks
+      readStocks = fmap Stocks . withDB . collect' findByCode
