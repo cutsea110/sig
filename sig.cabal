@@ -33,6 +33,7 @@ executable sig
                      , mtl >=2.1 && <2.2
                      , names-th >=0.1 && <0.2
                      , persistable-record >=0.1 && <0.2
+                     , regex-compat >=0.95 && <0.96
                      , regular >=0.3 && <0.4
                      , regular-xmlpickler >=0.2 && <0.3
                      , relational-query >=0.4 && <0.5

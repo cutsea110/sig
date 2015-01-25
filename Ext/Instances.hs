@@ -11,11 +11,12 @@ module Ext.Instances where
 import Data.Aeson
 import Data.JSON.Schema
 import Data.Text (Text, unpack)
-import Data.Time.Calendar (Day, fromGregorian)
+import Data.Time.Calendar (Day, fromGregorian, showGregorian)
 import Data.Typeable
 import GHC.Generics
 import Generics.Regular
 import Generics.Regular.XmlPickler
+import Text.Regex (mkRegex, matchRegex)
 import Text.XML.HXT.Arrow.Pickle
 
 -- | Day
@@ -28,11 +29,16 @@ instance ToJSON Day where
 instance JSONSchema Day where
   schema _ = Value LengthBound { lowerLength = Just 10, upperLength = Just 10 }
 
-deriveAll ''Day "PFDay"
-type instance PF Day = PFDay
-
 instance XmlPickler Day where
-  xpickle = gxpickle
+  xpickle = xpDay
+      where
+        xpDay :: PU Day
+        xpDay = xpWrapMaybe (fromString, showGregorian) xpText
+            where
+              fromString :: String -> Maybe Day
+              fromString str = do
+                let Just [year, month, day] = matchRegex (mkRegex "(.*)-(.*)-(.*)") str
+                return $ fromGregorian (read year) (read month) (read day)
 
 -- | Double
 instance XmlPickler Double where
