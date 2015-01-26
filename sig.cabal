@@ -17,7 +17,7 @@ extra-source-files:  README.md
 cabal-version:       >=1.10
 
 executable sig
-  main-is:             Main.hs
+  main-is:             wai/Main.hs
   -- other-modules:       
   other-extensions:    TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances
   build-depends:

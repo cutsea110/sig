@@ -28,14 +28,11 @@ instance ToJSON Day where
 instance JSONSchema Day where
   schema _ = Value LengthBound { lowerLength = Just 10, upperLength = Just 10 }
 
+deriveAll ''Day "PFDay"
+type instance PF Day = PFDay
+
 instance XmlPickler Day where
-  xpickle = xpDay
-      where
-        xpDay :: PU Day
-        xpDay = xpWrapMaybe (return . read, showGregorian) xpText
-            where
-              fromString :: String -> Maybe Day
-              fromString = return . read
+  xpickle = gxpickle
 
 -- | Double
 instance XmlPickler Double where
