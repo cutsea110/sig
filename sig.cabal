@@ -58,6 +58,15 @@ executable sig
   build-depends:
                        base >=4.7 && <4.8
                      , rest-wai >=0.1 && <0.2
-                     , sig >=0.1 && <0.2
+                     , sig
                      , warp >=3.0 && <3.1
 
+executable sig-gen
+  default-language:    Haskell2010
+  main-is:             Main.hs
+  hs-source-dirs:      generate
+  build-depends:
+                       base >=4.7 && <4.8
+                     , rest-core >=0.34 && <0.35
+                     , rest-gen >=0.16 && <0.17
+                     , sig
