@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>sig dev</title>
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/sig.js"></script>
+    <script type="text/javascript">
+      var api = new RestsigApi('http://localhost/api');
+      var s9475 = api.Stocks.byCode('9475-T')
+      .get(
+      function (res) {
+        alert(res.length);
+      },
+      function (err) {
+        alert(err);
+      },
+      {type:'json'}
+      );
+    </script>
+  </head>
+  <body>
+    <p>sig dev</p>
+  </body>
+</html>
