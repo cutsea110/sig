@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Network.Wai.Handler.Warp
+import Network.Wai.Handler.Warp (run)
 import Rest.Driver.Wai (apiToApplication)
 
 import Api (api)
