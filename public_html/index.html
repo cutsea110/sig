@@ -4,22 +4,53 @@
     <meta charset="utf-8">
     <title>sig dev</title>
     <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="js/sig.js"></script>
     <script type="text/javascript">
+      // Load the Visualization API and the candlechart
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      // google.setOnLoadCallback(drawChart);
+      function drawChart(d) {
+        var data = google.visualization.arrayToDataTable(d, true);
+        var options = {
+          legend:'none',
+          candlestick: {
+            hollowIsRising: true,
+            fallingColor: {
+              fill: 'green',
+              stroke: 'green'
+            },
+            risingColor: {
+              fill: 'red',
+              stroke: 'red'
+            }
+          }
+        };
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      
       var api = new RestsigApi('http://localhost/api');
-      var s9475 = api.Stocks.byCode('9475-T')
+      var rsp = api.Stocks.byCode('9475-T')
       .get(
-      function (res) {
-        alert(res.length);
-      },
-      function (err) {
-        alert(err);
-      },
-      {type:'json'}
+        function (res) {
+          var data =
+            res.filter(function(s){
+              return s.day > "2014-07-31";
+            }).map(function(s){
+              return [s.day, s.lowprice, s.openingprice, s.closingprice, s.highprice]
+            });
+          drawChart(data);
+        },
+        function (err) {
+          alert(err);
+        },
+        {type:'json'}
       );
     </script>
   </head>
   <body>
     <p>sig dev</p>
+    <div id='chart_div' style='width: 1280px; height: 960px;'></div>
   </body>
 </html>
