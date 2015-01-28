@@ -9,11 +9,20 @@
 		<script type="text/javascript">
 $(function () {
     var api = new RestsigApi('http://localhost/api');
-    var rsp = api.Stocks.byCode('9475-T').get(function (data) {
+    var rsp = api.Stocks.byCode('4452-T').get(function (data) {
 
         // split the data set into ohlc and volume
-        var ohlc = [],
-            volume = [],
+        var ohlc = data.map(function(s) {
+                     return [ new Date(s.day)
+                            , s.openingprice
+                            , s.highprice
+                            , s.lowprice
+                            , s.closingprice
+                            ]}),
+            volume = data.map(function(s) {
+                       return [ new Date(s.day)
+                              , s.volumeoftrading
+                              ]}),
             dataLength = data.length,
             // set the allowed units for data grouping
             groupingUnits = [[
@@ -25,22 +34,6 @@ $(function () {
             ]],
 
             i = 0;
-
-        for (i; i < dataLength; i += 1) {
-            ohlc.push([
-                new Date(data[i].day), // the date
-                data[i].openingprice, // open
-                data[i].highprice, // high
-                data[i].lowprice, // low
-                data[i].closingprice // close
-            ]);
-
-            volume.push([
-                new Date(data[i].day), // the date
-                data[i].volumeoftrading // the volume
-            ]);
-        }
-
 
         // create the chart
         $('#container').highcharts('StockChart', {
