@@ -12,6 +12,19 @@ ${demo.css}
                 </style>
 		<script type="text/javascript">
 $(function () {
+
+    // TEST BEGIN
+    // Array is like as [[day, value],[day, value],[day, value],...]
+    Array.prototype.simpleSMA=function(n){
+      return this.map(function(x,i,v){
+        if(i<n-1)return NaN;
+        var res = v.filter(function(_,i2){return i2<=i && i2>i-n;}).reduce(function(p,c){return [c[0],p[1]+c[1]];});
+        return [res[0], res[1]/n];
+      }).slice(n);
+    };
+    // TEST END
+
+
     // sig REST API
     var api = new RestsigApi('http://localhost/api');
     var rsp = api.Stocks.byCode('4452-T').get(function (data) {
@@ -28,6 +41,11 @@ $(function () {
                        return [ new Date(s.day)
                               , s.volumeoftrading
                               ]}),
+            close = data.map(function(s) {
+                       return [ new Date(s.day)
+                              , s.closingprice
+                              ]}),
+
             // set the allowed units for data grouping
             groupingUnits = [ ['day', [1]]
                             , ['week', [1]]
@@ -36,6 +54,10 @@ $(function () {
 
         // create the chart
         $('#container').highcharts('StockChart', {
+
+            colors: [
+              'skyblue','red','green','gold','orange','pink','yellow','purple'
+            ],
 
             rangeSelector: {
                 inputEnabled: $('#container').width() > 480,
@@ -74,6 +96,31 @@ $(function () {
                 type: 'candlestick',
                 name: data[0].name,
                 data: ohlc,
+                yAxis: 0,
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            }, {
+                type: 'line',
+                name: 'SMA 10',
+                data: close.simpleSMA(10),
+                yAxis: 0,
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            }, {
+                type: 'line',
+                name: 'SMA 60',
+                data: close.simpleSMA(60),
+                yAxis: 0,
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            }, {
+                type: 'line',
+                name: 'SMA 150',
+                data: close.simpleSMA(150),
+                yAxis: 0,
                 dataGrouping: {
                     units: groupingUnits
                 }
