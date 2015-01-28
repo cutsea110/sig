@@ -5,9 +5,11 @@
 		<title>sig dev</title>
 
 		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="js/sig.js"></script>
 		<script type="text/javascript">
 $(function () {
-    $.getJSON('http://localhost/api/v1.0/stocks/code/9475-T?type=json', function (data) {
+    var api = new RestsigApi('http://localhost/api');
+    var rsp = api.Stocks.byCode('9475-T').get(function (data) {
 
         // split the data set into ohlc and volume
         var ohlc = [],
@@ -93,7 +95,12 @@ $(function () {
                 }
             }]
         });
-    });
+    },
+    function(err) {
+      alert(err);
+    },
+    {type: 'json'}
+    );
 });
 		</script>
 	</head>
