@@ -3,31 +3,37 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>sig dev</title>
+                <link href="js/jquery-ui.min.css" rel="stylesheet">
+	</head>
+	<body>
+	  <label for="code">CODE</label>
+	  <input id="code" type="search" size="20" maxlength="16" />
 
-		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
-		<script type="text/javascript" src="js/sig.js"></script>
+          <div id="container" style="height: 768px; min-width: 310px"></div>
 
-		<style type="text/css">
-${demo.css}
-                </style>
-		<script type="text/javascript">
+          <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+	  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+          <script type="text/javascript" src="js/sig.js"></script>
+          <script src="js/highstock.js"></script>
+          <script src="js/modules/exporting.js"></script>
+          <script type="text/javascript">
 $(function () {
 
-    // TEST BEGIN
-    // Array is like as [[day, value],[day, value],[day, value],...]
-    Array.prototype.simpleSMA=function(n){
-      return this.map(function(x,i,v){
-        if(i<n-1)return NaN;
-        var res = v.filter(function(_,i2){return i2<=i && i2>i-n;}).reduce(function(p,c){return [c[0],p[1]+c[1]];});
-        return [res[0], res[1]/n];
-      }).slice(n);
-    };
-    // TEST END
+// TEST BEGIN
+// Array is like as [[day, value],[day, value],[day, value],...]
+Array.prototype.simpleSMA=function(n){
+  return this.map(function(x,i,v){
+    if(i<n-1)return NaN;
+    var res = v.filter(function(_,i2){return i2<=i && i2>i-n;}).reduce(function(p,c){return [c[0],p[1]+c[1]];});
+    return [res[0], res[1]/n];
+  }).slice(n);
+};
+// TEST END
 
-
-    // sig REST API
+// Chart draw
+var drawChart = function (cd) {
     var api = new RestsigApi('http://localhost/api');
-    var rsp = api.Stocks.byCode('4452-T').get(function (data) {
+    api.Stocks.byCode(cd).get(function (data) {
 
         // split the data set into ohlc and volume
         var ohlc = data.map(function(s) {
@@ -140,12 +146,35 @@ $(function () {
     },
     {type: 'json'}
     );
+};
+
+
+drawChart('I101');
+
+// Autocomplete for code
+$('#code').autocomplete({
+  source: function(req,resp) {
+            // sig REST API
+            var api = new RestsigApi('http://localhost/api');
+            api.Brands.byLike('%' + req.term + '%').get(
+              function(data) {
+                resp(data.map(function(b){return {label: b.name + '(' + b.code + ')', value: b.code}}));
+              },
+              function (err) {
+                alert(err);
+              },
+              {type: 'json'}
+            )
+          },
+  select: function(event, ui) {
+    drawChart(ui.item.value);
+  },
+  autoFocus: true,
+  delay: 0,
+  minLength: 2
 });
-		</script>
-	</head>
-	<body>
-          <script src="js/highstock.js"></script>
-          <script src="js/modules/exporting.js"></script>
-          <div id="container" style="height: 768px; min-width: 310px"></div>
+
+});
+          </script>
 	</body>
 </html>
