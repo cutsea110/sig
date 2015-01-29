@@ -11,6 +11,15 @@ import Stock (Stock, stock)
 import qualified Stock as S
 import Util
 
+findLikeCodeOrName :: Relation (String, String) Brand
+findLikeCodeOrName = relation' $ do
+  b <- query brand
+  (ph, ()) <- placeholder $ \s ->
+    -- TODO : use SQL LIKE
+    wheres $ b ! B.code' .=. s ! fst' `or'` b ! B.name' .=. s ! snd'
+  asc $ b ! B.code'
+  return (ph, b)
+
 whereByCode :: MonadRestrict Flat m => Projection Flat Stock -> m (PlaceHolders String)
 whereByCode = wheres' $ \(ph, s) -> wheres $ s ! S.code' .=. ph
 
