@@ -18,6 +18,7 @@ library
   exposed-modules:
     Api
     Api.Stock
+    Brand
     DataSource
     Ext.Instances
     Query

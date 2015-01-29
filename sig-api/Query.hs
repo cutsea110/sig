@@ -5,6 +5,8 @@ import Data.Int (Int32)
 import Data.Time.Calendar (Day)
 import Database.Relational.Query
 
+import Brand (Brand, brand)
+import qualified Brand as B
 import Stock (Stock, stock)
 import qualified Stock as S
 import Util
