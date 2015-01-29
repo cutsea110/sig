@@ -191,6 +191,31 @@ RestsigApi.setContext =
       }
     }
   };RestsigApi.prototype.version = "1.0.0";
+RestsigApi.prototype.Brands =
+  function Brands (url, secureUrl, modifyRequest)
+  {
+    if (this instanceof Brands)
+    {
+      RestsigApi.setContext(this, url, secureUrl, modifyRequest);
+    }
+    else
+    {
+      return Brands.access(url, secureUrl, modifyRequest);
+    }
+  };
+RestsigApi.prototype.Brands.apiObjectType = "resourceDir";
+RestsigApi.prototype.Brands.byLike =
+  function (string)
+  {
+    var postfix = 'like/' + encodeURIComponent(string) + '/';
+    var accessor = new this(this.contextUrl + postfix, this.secureContextUrl + postfix, this.modifyRequest);
+    accessor.get =
+      function (success, error, params, callOpts)
+      {
+        return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
+      };
+    return accessor;
+  };
 RestsigApi.prototype.Stocks =
   function Stocks (url, secureUrl, modifyRequest)
   {
