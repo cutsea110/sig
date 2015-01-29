@@ -9,14 +9,14 @@ import Brand (Brand, brand)
 import qualified Brand as B
 import Stock (Stock, stock)
 import qualified Stock as S
+import Ext.Projectable (like)
 import Util
 
 findLikeCodeOrName :: Relation (String, String) Brand
 findLikeCodeOrName = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
-    -- TODO : use SQL LIKE
-    wheres $ b ! B.code' .=. s ! fst' `or'` b ! B.name' .=. s ! snd'
+    wheres $ (b ! B.code') `like` (s ! fst') `or'` (b ! B.name') `like` (s ! snd')
   asc $ b ! B.code'
   return (ph, b)
 
