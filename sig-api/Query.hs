@@ -16,7 +16,7 @@ findLikeCodeOrName :: Relation (String, String) Brand
 findLikeCodeOrName = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
-    wheres $ (b ! B.code') `like` (s ! fst') `or'` (b ! B.name') `like` (s ! snd')
+    wheres $ b ! B.code' `like` s ! fst' `or'` b ! B.name' `like` s ! snd'
   asc $ b ! B.code'
   return (ph, b)
 
