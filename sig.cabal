@@ -18,7 +18,6 @@ library
   exposed-modules:
     Api
     Api.Stock
-    DB
     DataSource
     Ext.Instances
     Query
