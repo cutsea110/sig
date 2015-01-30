@@ -56,18 +56,18 @@ var drawChart = function (cd) {
             brand = data.brands[data.brands.length-1],
             // split the data set into ohlc and volume
             ohlc = prices.map(function(s) {
-                     return [ new Date(s.date)
+                     return [ new Date(s.date).getTime()
                             , s.open
                             , s.high
                             , s.low
                             , s.close
                             ]}),
             volume = prices.map(function(s) {
-                       return [ new Date(s.date)
+                       return [ new Date(s.date).getTime()
                               , s.volume
                               ]}),
             close = prices.map(function(s) {
-                       return [ new Date(s.date)
+                       return [ new Date(s.date).getTime()
                               , s.close
                               ]}),
             // set the allowed units for data grouping
@@ -75,13 +75,13 @@ var drawChart = function (cd) {
                             , ['week', [1]]
                             , ['month', [1, 2, 3, 4, 6]]
                             ];
+		    for(var i=0;i<ohlc.length;i++)
+		    {
+		    console.log(brand.code+':'+ohlc[i]);
+		    }
 
         // create the chart
         $('#chart_div').highcharts('StockChart', {
-
-            colors: [
-              'skyblue','red','green','gold','orange','pink','yellow','purple'
-            ],
 
             rangeSelector: {
                 inputEnabled: $('#chart_div').width() > 480,
@@ -120,6 +120,7 @@ var drawChart = function (cd) {
                 type: 'candlestick',
                 name: 'OHLC',
                 data: ohlc,
+		color: 'skyblue',
                 yAxis: 0,
                 dataGrouping: {
                     units: groupingUnits
@@ -128,6 +129,7 @@ var drawChart = function (cd) {
                 type: 'line',
                 name: 'SMA 10',
                 data: close.simpleSMA(10),
+		color: 'red',
                 yAxis: 0,
                 dataGrouping: {
                     units: groupingUnits
@@ -136,6 +138,7 @@ var drawChart = function (cd) {
                 type: 'line',
                 name: 'SMA 60',
                 data: close.simpleSMA(60),
+		color: 'green',
                 yAxis: 0,
                 dataGrouping: {
                     units: groupingUnits
@@ -144,6 +147,7 @@ var drawChart = function (cd) {
                 type: 'line',
                 name: 'SMA 150',
                 data: close.simpleSMA(150),
+		color: 'gold',
                 yAxis: 0,
                 dataGrouping: {
                     units: groupingUnits
@@ -152,6 +156,7 @@ var drawChart = function (cd) {
                 type: 'column',
                 name: 'Volume',
                 data: volume,
+		color: 'orange',
                 yAxis: 1,
                 dataGrouping: {
                     units: groupingUnits
