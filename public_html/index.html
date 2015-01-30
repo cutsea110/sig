@@ -51,7 +51,7 @@ var drawChart = function (cd) {
                        return [ new Date(s.day)
                               , s.closingprice
                               ]}),
-
+            brand = data[data.length-1], // refer latest data
             // set the allowed units for data grouping
             groupingUnits = [ ['day', [1]]
                             , ['week', [1]]
@@ -71,7 +71,7 @@ var drawChart = function (cd) {
             },
 
             title: {
-                text: data[0].name + ' Historical'
+                text: brand.name + ' Historical'
             },
 
             yAxis: [{
@@ -100,7 +100,7 @@ var drawChart = function (cd) {
 
             series: [{
                 type: 'candlestick',
-                name: data[0].name,
+                name: brand.name,
                 data: ohlc,
                 yAxis: 0,
                 dataGrouping: {
