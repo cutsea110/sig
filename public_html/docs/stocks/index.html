@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <title>Silk API Documentation version 1.0.0 for stocks </title>
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/prettify.css">
+    <link rel="stylesheet" type="text/css" href="/docs.css">
+    <script type="text/javascript" src="/jquery-nightly.js"></script>
+    <script type="text/javascript" src="/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="/prettify.js"></script>
+    <script type="text/javascript" src="/docs.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="sidebar">
+        <p>Silk API 1.0.0</p>
+        <div class="page-header">
+          <h1>Navigation</h1>
+        </div>
+        <h3>Context</h3> <a class="resource-link" href="./stocks">stocks</a>
+        <h3>Sub-resources</h3>          
+        <div class="span8">
+          <ul>
+            <li><a class="resource-link" href="./stocks">stocks</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div class="row pageHeader resource-title"> 
+          <div class="span16">
+            <h1>stocks</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <h2>Description</h2>
+            <p></p>
+          </div>
+          <div class="span8">
+            <h2>Identifiers</h2>
+            <p>/stocks<span class="link-block">/code/&lt;string&gt;</span></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span16">
+            <table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks/code/&lt;string&gt;</td><td>GET</td><td>Retrieve stocks data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv2739825989971083370"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+  &lt;xs:element name=&#39;stocks&#39;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:element name=&#39;stock&#39; minOccurs=0&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name=&#39;day&#39;&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:element name=&#39;modifiedJulianDay&#39;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:element name=&#39;toModifiedJulianDay&#39; type=&#39;xs:string&#39;/&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element name=&#39;code&#39; type=&#39;xs:string&#39;/&gt;
+            &lt;xs:element name=&#39;name&#39; type=&#39;xs:string&#39;/&gt;
+            &lt;xs:element name=&#39;market&#39; type=&#39;xs:string&#39;/&gt;
+            &lt;xs:element name=&#39;category&#39; type=&#39;xs:string&#39;/&gt;
+            &lt;xs:element name=&#39;openingprice&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+            &lt;xs:element name=&#39;highprice&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+            &lt;xs:element name=&#39;lowprice&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+            &lt;xs:element name=&#39;closingprice&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+            &lt;xs:element name=&#39;volumeoftrading&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+            &lt;xs:element name=&#39;tradingvalue&#39; type=&#39;xs:string&#39; minOccurs=0 maxOccurs=1/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv2739825989971083370" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-2228305208404437542"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;stocks&gt;
+  &lt;stock&gt;
+    &lt;day&gt;
+      &lt;modifiedJulianDay&gt;
+        &lt;toModifiedJulianDay&gt;string&lt;/toModifiedJulianDay&gt;
+      &lt;/modifiedJulianDay&gt;
+    &lt;/day&gt;
+    &lt;code&gt;string&lt;/code&gt;
+    &lt;name&gt;string&lt;/name&gt;
+    &lt;market&gt;string&lt;/market&gt;
+    &lt;category&gt;string&lt;/category&gt;
+    &lt;openingprice&gt;string&lt;/openingprice&gt;
+    &lt;highprice&gt;string&lt;/highprice&gt;
+    &lt;lowprice&gt;string&lt;/lowprice&gt;
+    &lt;closingprice&gt;string&lt;/closingprice&gt;
+    &lt;volumeoftrading&gt;string&lt;/volumeoftrading&gt;
+    &lt;tradingvalue&gt;string&lt;/tradingvalue&gt;
+  &lt;/stock&gt;
+&lt;/stocks&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-2228305208404437542" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3916712861565246008"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ { &quot;volumeoftrading&quot;: 0
+  , &quot;tradingvalue&quot;: 0
+  , &quot;category&quot;: &quot;value&quot;
+  , &quot;openingprice&quot;: 0
+  , &quot;day&quot;: &quot;value&quot;
+  , &quot;market&quot;: &quot;value&quot;
+  , &quot;name&quot;: &quot;value&quot;
+  , &quot;code&quot;: &quot;value&quot;
+  , &quot;highprice&quot;: 0
+  , &quot;closingprice&quot;: 0
+  , &quot;lowprice&quot;: 0
+  }
+]</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3916712861565246008" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </body>
+</html>
