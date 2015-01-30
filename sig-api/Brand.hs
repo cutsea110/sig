@@ -11,7 +11,7 @@ module Brand where
 import Data.Aeson
 import Data.JSON.Schema
 import Data.Typeable
-import Database.HDBC.Query.TH (defineTableFromDB)
+import Database.HDBC.Query.TH (defineTableFromDB, makeRecordPersistableDefault)
 import Database.HDBC.Schema.PostgreSQL (driverPostgreSQL)
 import Database.Record.TH (derivingShow, derivingEq)
 import Generics.Regular
@@ -33,7 +33,17 @@ instance JSONSchema Brand where schema = gSchema
 instance FromJSON Brand
 instance ToJSON Brand
 
-data Brands = Brands [Brand] deriving (Eq, Generic, Ord, Show, Typeable)
+data Item = Item { brandCode :: String, brandName :: String } deriving (Eq, Generic, Ord, Show, Typeable)
+deriveAll ''Item "PFItem"
+type instance PF Item = PFItem
+makeRecordPersistableDefault ''Item
+
+instance XmlPickler Item where xpickle = gxpickle
+instance JSONSchema Item where schema = gSchema
+instance FromJSON Item
+instance ToJSON Item
+
+data Brands = Brands [Item] deriving (Eq, Generic, Ord, Show, Typeable)
 
 deriveAll ''Brands "PFBrands"
 type instance PF Brands = PFBrands

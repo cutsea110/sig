@@ -158,7 +158,9 @@ $('#code').autocomplete({
             var api = new RestsigApi('http://localhost/api');
             api.Brands.byLike('%' + req.term + '%').get(
               function(data) {
-                resp(data.map(function(b){return {label: b.name + '(' + b.code + ')', value: b.code}}));
+                resp(data.map(function(b){
+                  return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
+	        }));
               },
               function (err) {
                 alert(err);
