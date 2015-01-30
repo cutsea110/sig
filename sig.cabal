@@ -46,10 +46,12 @@ library
                      , relational-query-HDBC >=0.1 && <0.2
                      , rest-core >=0.34 && <0.35
                      , rest-wai >=0.1 && <0.2
+                     , scientific >=0.3 && <0.4
                      , sql-words >=0.1 && <0.2
                      , stm >=2.4 && <2.5
                      , text >=1.1 && <1.2
                      , time >=1.4 && <1.5
+                     , unix-time >=0.3 && <0.4
                      , warp >=3.0 && <3.1
   hs-source-dirs:      sig-api
   default-language:    Haskell2010

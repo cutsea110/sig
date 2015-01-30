@@ -22,4 +22,8 @@ get :: Handler (ReaderT Code IO)
 get = mkIdHandler xmlJsonO $ \_ cd -> liftIO $ readStocks cd
     where
       readStocks :: Code -> IO Stocks
-      readStocks = fmap Stocks . withDB . collect' findByCode
+      readStocks cd =
+        withDB $ \conn -> do
+            bs <- collect' findBrand cd conn
+            ss <- collect' findByCode cd conn
+            return $ Stocks { brands = bs, prices = ss }
