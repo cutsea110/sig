@@ -52,23 +52,24 @@ var drawChart = function (cd) {
     var api = new RestsigApi('http://localhost/api');
     api.Stocks.byCode(cd).get(function (data) {
 
-        // split the data set into ohlc and volume
-        var ohlc = data.map(function(s) {
-                     return [ new Date(s.day)
-                            , s.openingprice
-                            , s.highprice
-                            , s.lowprice
-                            , s.closingprice
+        var prices = data.prices,
+            brand = data.brands[data.brands.length-1],
+            // split the data set into ohlc and volume
+            ohlc = prices.map(function(s) {
+                     return [ new Date(s.date)
+                            , s.open
+                            , s.high
+                            , s.low
+                            , s.close
                             ]}),
-            volume = data.map(function(s) {
-                       return [ new Date(s.day)
-                              , s.volumeoftrading
+            volume = prices.map(function(s) {
+                       return [ new Date(s.date)
+                              , s.volume
                               ]}),
-            close = data.map(function(s) {
-                       return [ new Date(s.day)
-                              , s.closingprice
+            close = prices.map(function(s) {
+                       return [ new Date(s.date)
+                              , s.close
                               ]}),
-            brand = data[data.length-1], // refer latest data
             // set the allowed units for data grouping
             groupingUnits = [ ['day', [1]]
                             , ['week', [1]]
@@ -117,7 +118,7 @@ var drawChart = function (cd) {
 
             series: [{
                 type: 'candlestick',
-                name: brand.name,
+                name: 'OHLC',
                 data: ohlc,
                 yAxis: 0,
                 dataGrouping: {

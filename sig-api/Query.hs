@@ -5,14 +5,14 @@ import Data.Int (Int32)
 import Data.Time.Calendar (Day)
 import Database.Relational.Query
 
-import Brand (Brand, Item, brand)
+import Brand (Brand, brand)
 import qualified Brand as B
 import Stock (Stock, stock)
 import qualified Stock as S
 import Ext.Projectable (like)
 import Util
 
-findLikeCodeOrName :: Relation (String, String) Item
+findLikeCodeOrName :: Relation (String, String) B.Item
 findLikeCodeOrName = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
@@ -21,38 +21,25 @@ findLikeCodeOrName = relation' $ do
   asc $ b ! B.code'
   return (ph, B.Item |$| b ! B.code' |*| b ! B.name')
 
-whereByCode :: MonadRestrict Flat m => Projection Flat Stock -> m (PlaceHolders String)
-whereByCode = wheres' $ \(ph, s) -> wheres $ s ! S.code' .=. ph
+findBrand :: Relation String Brand
+findBrand = relation' $ do
+  b <- query brand
+  (ph, ()) <- placeholder $ \s ->
+    wheres $ b ! B.code' .=. s
+  return (ph, b)
 
-whereBetween :: MonadRestrict Flat m => Projection Flat Stock -> m (PlaceHolders (Day, Day))
-whereBetween = wheres' $ \(ph, s) -> wheres $ ph ! fst' .<=. s ! S.day' `and'` s ! S.day' .<=. ph ! snd'
-
-findByCodeBetween :: Relation (String, (Day, Day)) Stock
-findByCodeBetween = relation' $ do
-  s <- query stock
-  cph <- whereByCode s
-  dph <- whereBetween s
-  asc $ s ! S.day'
-  return (cph >< dph, s)
-
-findBetween :: Relation (Day, Day) Stock
-findBetween = relation' $ do
-  s <- query stock
-  ph <- whereBetween s
-  asc $ s ! S.day'
-  return (ph, s)
-
-findByCode :: Relation String Stock
+findByCode :: Relation String S.Item
 findByCode = relation' $ do
   s <- query stock
-  ph <- whereByCode s
+  (ph, ()) <- placeholder $ \c ->
+    wheres $ s ! S.code' .=. c
   asc $ s ! S.day'
-  return (ph, s)
-
-find9475T :: Relation () Stock
-find9475T = relation $ do
-  s <- query stock
-  wheres $ s ! S.code' .=. value "9475-T"
-  asc $ s ! S.day'
-  return s
-
+  return ( ph
+         , S.Item |$| s ! S.day'
+                  |*| s ! S.openingprice'
+                  |*| s ! S.highprice'
+                  |*| s ! S.lowprice'
+                  |*| s ! S.closingprice'
+                  |*| s ! S.volumeoftrading'
+                  |*| s ! S.tradingvalue'
+         )
