@@ -79,6 +79,9 @@ var drawChart = function (cd) {
         // create the chart
         $('#chart_div').highcharts('StockChart', {
 
+            legend : {
+              enabled: true
+            },
             rangeSelector: {
                 inputEnabled: $('#chart_div').width() > 480,
                 selected: 2
