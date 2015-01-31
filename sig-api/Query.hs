@@ -26,6 +26,7 @@ findBrand = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
     wheres $ b ! B.code' .=. s
+  desc $ b ! B.lastupdated'
   return (ph, b)
 
 findByCode :: Relation String S.Item
