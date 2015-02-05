@@ -22,12 +22,9 @@ cleansing :: [(k, Maybe v)] -> [(k, v)]
 cleansing = uncurry zip . cross (id, repair) . unzip . dropWhile (isNothing . snd)
 
 repair :: [Maybe a] -> [a]
-repair xxs@(Just x:xs) = unfoldr f (x, xxs)
+repair xxs@(Just x:xs) = unfoldr step (x, xxs)
     where
-      f (old, []) = Nothing
-      f (old, x:xs) = Just $ maybe nothing just x
-        where
-          nothing = (old, (old, xs))
-          just new = (new, (new, xs))
+      step (old, []) = Nothing
+      step (old, x:xs) = let just = (,) <*> (,xs) in Just $ maybe (just old) just x
 repair [] = []
 repair (Nothing:xs) = error "'repair' expect Just value as head of argument list."
