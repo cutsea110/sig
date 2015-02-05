@@ -20,5 +20,7 @@ sanitize :: [Maybe a] -> [Maybe a]
 sanitize xs = unfoldr f (Nothing, xs)
   where
     f (old, []) = Nothing
-    f (old, (Nothing:xs)) = Just (old, (old, xs))
-    f (old, (Just x:xs)) = Just (Just x, (Just x, xs))
+    f (old, x:xs) = Just $ maybe nothing just x
+        where
+          nothing = (old, (old, xs))
+          just x' = let new = Just x' in (new, (new, xs))
