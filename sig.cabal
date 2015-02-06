@@ -19,6 +19,7 @@ library
     Api
     Api.Brand
     Api.Stock
+    ApiTypes
     DataSource
     Ext.Instances
     Ext.Projectable
