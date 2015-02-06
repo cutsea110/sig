@@ -15,9 +15,19 @@ prepare = (id *** tails . cleansing) . unzip
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
 single n = uncurry zip . (drop (n-1) *** map (average . take n))
 
+para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
 para (a, b) x = (single a x, single b x)
+
+para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
+      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 para3 (a, b, c) x = (single a x, single b x, single c x)
+
+para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
+      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 para4 (a, b, c, d) x = (single a x, single b x, single c x, single d x)
+
+para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
+     -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 para5 (a, b, c, d, e) x = (single a x, single b x, single c x, single d x, single e x)
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
