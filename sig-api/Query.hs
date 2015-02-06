@@ -5,11 +5,11 @@ import Data.Int (Int32)
 import Data.Time.Calendar (Day)
 import Database.Relational.Query
 
-import Brand (Brand, brand)
-import qualified Brand as B
-import Stock (Stock, stock)
-import qualified Stock as S
 import Ext.Projectable (like)
+import Type.Brand (Brand, brand)
+import qualified Type.Brand as B
+import Type.Stock (Stock, stock)
+import qualified Type.Stock as S
 import Util
 
 findLikeCodeOrName :: Relation (String, String) B.Item

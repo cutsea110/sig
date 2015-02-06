@@ -6,8 +6,8 @@ import Control.Monad.Reader
 import Rest
 import qualified Rest.Resource as R
 
-import Brand (Brand, Brands(..))
 import Query
+import Type.Brand (Brand, Brands(..))
 import Util
 
 type Code = String

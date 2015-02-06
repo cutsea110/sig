@@ -5,8 +5,8 @@ import Control.Monad.Reader
 import Rest
 import qualified Rest.Resource as R
 
-import Stock (Stock, Stocks(..))
 import Query
+import Type.Stock (Stock, Stocks(..))
 import Util
 
 type Code = String

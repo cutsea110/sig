@@ -6,7 +6,7 @@
   , TemplateHaskell
   , TypeFamilies
  #-}
-module Brand where
+module Type.Brand where
 
 import Data.Aeson
 import Data.JSON.Schema

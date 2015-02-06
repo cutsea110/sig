@@ -19,12 +19,12 @@ library
     Api
     Api.Brand
     Api.Stock
-    Brand
     DataSource
     Ext.Instances
     Ext.Projectable
     Query
-    Stock
+    Type.Brand
+    Type.Stock
   other-extensions:    TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances
   build-depends:
                        HDBC-postgresql >=2.3 && <2.4

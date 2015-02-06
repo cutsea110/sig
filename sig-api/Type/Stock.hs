@@ -6,7 +6,7 @@
   , TemplateHaskell
   , TypeFamilies
  #-}
-module Stock where
+module Type.Stock where
 
 import Data.Aeson
 import Data.JSON.Schema
@@ -20,10 +20,10 @@ import Generics.Regular.XmlPickler
 import GHC.Generics
 import Text.XML.HXT.Arrow.Pickle
 
-import Brand (Brand)
 import DataSource (connect)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
+import Type.Brand (Brand)
 
 defineTableFromDB connect driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
