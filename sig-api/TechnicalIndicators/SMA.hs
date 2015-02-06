@@ -3,9 +3,9 @@ module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 import Control.Applicative ((<$>), (<*>), liftA, liftA2)
 import Data.List (tails, unfoldr)
 
-pair (f, g) x = (f x, g x)
 cross (f, g) (x, y) = (f x, g y)
 
+pair (f, g) x = (f x, g x)
 pair3 (f, g, h) x = (f x, g x, h x)
 pair4 (f, g, h, k) x = (f x, g x, h x, k x)
 pair5 (f, g, h, k, l) x = (f x, g x, h x, k x, l x)
