@@ -4,7 +4,21 @@ import Control.Arrow ((***))
 import Control.Applicative ((<$>), (<*>), liftA, liftA2)
 import Data.List (tails, unfoldr)
 
-(f ~> g) x = g x . f
+-- | special DSL which only use in this module
+--   The argument `x` is supplied to only function `g`.
+(~>) :: (a -> b) -> (t -> b -> c) -> t -> a -> c
+f ~> g = (.) <$> g <*> const f
+
+prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
+prepare = (id *** tails . cleansing) . unzip
+
+single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
+single n = uncurry zip . (drop (n-1) *** map (average . take n))
+
+para (a, b) x = (single a x, single b x)
+para3 (a, b, c) x = (single a x, single b x, single c x)
+para4 (a, b, c, d) x = (single a x, single b x, single c x, single d x)
+para5 (a, b, c, d, e) x = (single a x, single b x, single c x, single d x, single e x)
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
@@ -33,17 +47,6 @@ sma5 :: Fractional v =>
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 sma5 = prepare ~> para5
-
-prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
-prepare = (id *** tails . cleansing) . unzip
-
-single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . (drop (n-1) *** map (average . take n))
-
-para (a, b) x = (single a x, single b x)
-para3 (a, b, c) x = (single a x, single b x, single c x)
-para4 (a, b, c, d) x = (single a x, single b x, single c x, single d x)
-para5 (a, b, c, d, e) x = (single a x, single b x, single c x, single d x, single e x)
 
 average :: Fractional a => [a] -> a
 average xs = s / l
