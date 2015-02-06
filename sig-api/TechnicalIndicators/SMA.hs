@@ -1,48 +1,49 @@
 module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 
+import Control.Arrow ((***))
 import Control.Applicative ((<$>), (<*>), liftA, liftA2)
 import Data.List (tails, unfoldr)
 
-cross (f, g) (x, y) = (f x, g y)
-
-pair (f, g) x = (f x, g x)
-pair3 (f, g, h) x = (f x, g x, h x)
-pair4 (f, g, h, k) x = (f x, g x, h x, k x)
-pair5 (f, g, h, k, l) x = (f x, g x, h x, k x, l x)
+(f ~> g) x = g x . f
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
 
 sma :: Fractional v => Int -> [(k, Maybe v)] -> [(k, Maybe v)]
-sma n = single n . prepare
+sma = prepare ~> single
 
 sma2 :: Fractional v =>
      (Int, Int) -> [(k, Maybe v)] -> ([(k, Maybe v)], [(k, Maybe v)])
-sma2 (n, m) = pair (single n, single m) . prepare
+sma2 = prepare ~> para
 
 sma3 :: Fractional v =>
      (Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma3 (x, y, z) = pair3 (single x, single y, single z) . prepare
+sma3 = prepare ~> para3
 
 sma4 :: Fractional v =>
      (Int, Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma4 (x, y, z, w) = pair4 (single x, single y, single z, single w) . prepare
+sma4 = prepare ~> para4
 
 sma5 :: Fractional v =>
      (Int, Int, Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma5 (x, y, z, w, v) = pair5 (single x, single y, single z, single w, single v) . prepare
+sma5 = prepare ~> para5
 
 prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
-prepare = cross (id, tails . cleansing) . unzip
+prepare = (id *** tails . cleansing) . unzip
 
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . cross (drop (n-1), map (average . take n))
+single n = uncurry zip . (drop (n-1) *** map (average . take n))
+
+para (a, b) x = (single a x, single b x)
+para3 (a, b, c) x = (single a x, single b x, single c x)
+para4 (a, b, c, d) x = (single a x, single b x, single c x, single d x)
+para5 (a, b, c, d, e) x = (single a x, single b x, single c x, single d x, single e x)
 
 average :: Fractional a => [a] -> a
 average xs = s / l
