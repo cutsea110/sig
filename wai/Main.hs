@@ -5,11 +5,9 @@ import Rest.Driver.Wai (apiToApplication)
 
 import Api (api)
 import ApiTypes (Config(..), SigApi(..), runSigApi)
-import DataSource (connect)
+import DataSource (connect, defaultConfig)
 
 main :: IO ()
 main = do
   putStrLn "Starting warp server on http://localhost:3000"
-  con <- connect
-  let conf = Config con
-  run 3000 $ apiToApplication (runSigApi conf) api
+  run 3000 $ apiToApplication (runSigApi defaultConfig) api

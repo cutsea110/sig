@@ -4,10 +4,10 @@ module ApiTypes where
 import Control.Applicative (Applicative)
 import Control.Monad.Reader (MonadReader, ReaderT (..))
 import Control.Monad.Trans (MonadIO)
-import Database.HDBC.PostgreSQL (connectPostgreSQL, Connection)
+import Database.HDBC.PostgreSQL (Connection)
 
 data Config = Config
-    { conn :: Connection
+    { conn :: IO Connection
     }
 
 newtype SigApi a = SigApi { unSigApi :: ReaderT Config IO a }

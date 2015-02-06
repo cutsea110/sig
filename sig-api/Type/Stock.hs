@@ -20,12 +20,13 @@ import Generics.Regular.XmlPickler
 import GHC.Generics
 import Text.XML.HXT.Arrow.Pickle
 
-import DataSource (connect)
+import ApiTypes (conn)
+import DataSource (defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
 import Type.Brand (Brand)
 
-defineTableFromDB connect driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
+defineTableFromDB (conn defaultConfig) driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
 deriveAll ''Stock "PFStock"
 type instance PF Stock = PFStock

@@ -1,16 +1,16 @@
 module Util where
 
 import Control.Applicative ((<$>))
-import Database.Relational.Query (relationalQuery)
 import Database.HDBC.Session (withConnectionIO, handleSqlError')
 import Database.HDBC.Record.Query (runQuery, runQuery')
 import Database.HDBC.PostgreSQL (Connection)
 import Database.Record.Persistable
-import Database.Relational.Query
+import Database.Relational.Query (relationalQuery, SqlProjectable, PlaceHolders, placeholder)
 
-import DataSource (connect)
+import ApiTypes (conn)
+import DataSource (defaultConfig)
 
-withDB = handleSqlError' . withConnectionIO connect
+withDB = handleSqlError' . withConnectionIO (conn defaultConfig)
 
 collect rel param = \conn -> runQuery conn (relationalQuery rel) param
 
