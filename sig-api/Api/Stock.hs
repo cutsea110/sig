@@ -1,4 +1,8 @@
-module Api.Stock (resource) where
+module Api.Stock
+       ( resource
+       , Code
+       , WithStock
+       ) where
 
 import Control.Monad.Reader
 
