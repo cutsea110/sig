@@ -5,20 +5,23 @@ import Control.Monad.Reader
 import Rest
 import qualified Rest.Resource as R
 
-import Stock (Stock, Stocks(..))
+import ApiTypes
 import Query
+import Type.Stock (Stock, Stocks(..))
 import Util
 
 type Code = String
 
-resource :: Resource IO (ReaderT Code IO) Code Void Void
+type WithStock = ReaderT Code SigApi
+
+resource :: Resource SigApi WithStock Code Void Void
 resource = mkResourceReader
            { R.name = "stocks"
            , R.schema = noListing $ named [("code", singleBy id)]
            , R.get = Just get
            }
 
-get :: Handler (ReaderT Code IO)
+get :: Handler WithStock
 get = mkIdHandler xmlJsonO $ \_ cd -> liftIO $ readStocks cd
     where
       readStocks :: Code -> IO Stocks

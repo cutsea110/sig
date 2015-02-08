@@ -6,7 +6,7 @@
   , TemplateHaskell
   , TypeFamilies
  #-}
-module Brand where
+module Type.Brand where
 
 import Data.Aeson
 import Data.JSON.Schema
@@ -19,11 +19,12 @@ import Generics.Regular.XmlPickler
 import GHC.Generics
 import Text.XML.HXT.Arrow.Pickle
 
-import DataSource (connect)
+import ApiTypes (conn)
+import DataSource (defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
 
-defineTableFromDB connect driverPostgreSQL "public" "brand" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
+defineTableFromDB (conn defaultConfig) driverPostgreSQL "public" "brand" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
 deriveAll ''Brand "PFBrand"
 type instance PF Brand = PFBrand
