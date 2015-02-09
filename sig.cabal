@@ -18,12 +18,14 @@ library
   exposed-modules:
     Api
     Api.Brand
+    Api.Indicator
     Api.Stock
     ApiTypes
     DataSource
     Ext.Instances
     Ext.Projectable
     Query
+    TechnicalIndicators.SMA
     Type.Brand
     Type.Common
     Type.Stock
@@ -47,6 +49,7 @@ library
                      , relational-query-HDBC >=0.1 && <0.2
                      , rest-core >=0.34 && <0.35
                      , rest-wai >=0.1 && <0.2
+                     , safe >=0.3 && <0.4
                      , scientific >=0.3 && <0.4
                      , sql-words >=0.1 && <0.2
                      , stm >=2.4 && <2.5
