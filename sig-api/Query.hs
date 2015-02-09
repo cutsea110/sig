@@ -8,11 +8,12 @@ import Database.Relational.Query
 import Ext.Projectable (like)
 import Type.Brand (Brand, brand)
 import qualified Type.Brand as B
+import Type.Common (Code, Name)
 import Type.Stock (Stock, stock)
 import qualified Type.Stock as S
 import Util
 
-findLikeCodeOrName :: Relation (String, String) B.Item
+findLikeCodeOrName :: Relation (Code, Name) B.Item
 findLikeCodeOrName = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
@@ -21,7 +22,7 @@ findLikeCodeOrName = relation' $ do
   asc $ b ! B.code'
   return (ph, B.Item |$| b ! B.code' |*| b ! B.name')
 
-findBrand :: Relation String Brand
+findBrand :: Relation Code Brand
 findBrand = relation' $ do
   b <- query brand
   (ph, ()) <- placeholder $ \s ->
@@ -29,7 +30,7 @@ findBrand = relation' $ do
   desc $ b ! B.lastupdated'
   return (ph, b)
 
-findByCode :: Relation String S.Item
+findByCode :: Relation Code S.Item
 findByCode = relation' $ do
   s <- query stock
   (ph, ()) <- placeholder $ \c ->

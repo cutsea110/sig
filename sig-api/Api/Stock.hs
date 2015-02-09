@@ -11,10 +11,9 @@ import qualified Rest.Resource as R
 
 import ApiTypes
 import Query
+import Type.Common (Code)
 import Type.Stock (Stock, Stocks(..))
 import Util
-
-type Code = String
 
 type WithStock = ReaderT Code SigApi
 

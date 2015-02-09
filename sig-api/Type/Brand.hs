@@ -23,6 +23,7 @@ import ApiTypes (conn)
 import DataSource (defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
+import Type.Common (Code, Name)
 
 defineTableFromDB (conn defaultConfig) driverPostgreSQL "public" "brand" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
@@ -34,7 +35,7 @@ instance JSONSchema Brand where schema = gSchema
 instance FromJSON Brand
 instance ToJSON Brand
 
-data Item = Item { brandCode :: String, brandName :: String } deriving (Eq, Generic, Ord, Show, Typeable)
+data Item = Item { brandCode :: Code, brandName :: Name } deriving (Eq, Generic, Ord, Show, Typeable)
 deriveAll ''Item "PFItem"
 type instance PF Item = PFItem
 makeRecordPersistableDefault ''Item

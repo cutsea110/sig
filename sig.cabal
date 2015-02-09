@@ -25,6 +25,7 @@ library
     Ext.Projectable
     Query
     Type.Brand
+    Type.Common
     Type.Stock
   other-extensions:    TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances
   build-depends:

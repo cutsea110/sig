@@ -9,10 +9,8 @@ import qualified Rest.Resource as R
 import ApiTypes
 import Query
 import Type.Brand (Brand, Brands(..))
+import Type.Common (Code, Name)
 import Util
-
-type Code = String
-type Name = String
 
 type WithBrand = ReaderT (Code, Name) SigApi
 
