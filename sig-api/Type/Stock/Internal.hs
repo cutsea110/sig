@@ -26,6 +26,9 @@ import DataSource (defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
 import Type.Brand (Brand)
+import Type.Common (Label)
+
+type Raw = [(Day, Maybe Double)]
 
 defineTableFromDB (conn defaultConfig) driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
@@ -80,13 +83,23 @@ instance JSONSchema Tick where schema = gSchema
 instance FromJSON Tick
 instance ToJSON Tick
 
-type Timeline = [Tick]
+data Timeline = TL { label :: String
+                   , ticks ::[Tick]
+                   }
+                deriving (Eq, Generic, Ord, Show, Typeable)
+deriveAll ''Timeline "PFTimeline"
+type instance PF Timeline = PFTimeline
 
-data Result = Mono Timeline
-            | Di { n :: Timeline, s :: Timeline}
-            | Tri { n :: Timeline, s :: Timeline, m :: Timeline}
-            | Tetra { n :: Timeline, s :: Timeline, m :: Timeline, l :: Timeline}
-            | Penta { n :: Timeline, s :: Timeline, m :: Timeline, l :: Timeline, xl :: Timeline}
+instance XmlPickler Timeline where xpickle = gxpickle
+instance JSONSchema Timeline where schema = gSchema
+instance FromJSON Timeline
+instance ToJSON Timeline
+
+data Result = Mono {tl1 :: Timeline }
+            | Di { tl1 :: Timeline, tl2 :: Timeline }
+            | Tri { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline }
+            | Tetra { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline }
+            | Penta { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline, tl5 :: Timeline }
   deriving (Eq, Generic, Ord, Show, Typeable)
            
 deriveAll ''Result "PFResult"
@@ -97,23 +110,24 @@ instance JSONSchema Result where schema = gSchema
 instance FromJSON Result
 instance ToJSON Result
 
-type Raw = [(Day, Maybe Double)]
-
 toTick :: (Day, Maybe Double) -> Tick
 toTick = Tick <$> fst <*> snd
 
-mkMono :: Raw -> Result
-mkMono a = Mono (map toTick a)
+mkMono :: Label -> Raw -> Result
+mkMono l xs = Mono $ TL l (map toTick xs)
 
-mkDi :: (Raw, Raw) -> Result
-mkDi (a, b) = Di (map toTick a) (map toTick b)
+mkDi :: (Label, Label) -> (Raw, Raw) -> Result
+mkDi (_a, _b) (a, b)
+  = Di (TL _a (map toTick a)) (TL _b (map toTick b))
 
-mkTri :: (Raw, Raw, Raw) -> Result
-mkTri (a, b, c) = Tri (map toTick a) (map toTick b) (map toTick c)
+mkTri :: (Label, Label, Label) -> (Raw, Raw, Raw) -> Result
+mkTri (_a, _b, _c) (a, b, c)
+  = Tri (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c))
 
+mkTetra :: (Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw) -> Result
+mkTetra (_a, _b, _c, _d) (a, b, c, d)
+  = Tetra (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c)) (TL _d (map toTick d))
 
-mkTetra :: (Raw, Raw, Raw, Raw) -> Result
-mkTetra (a, b, c, d) = Tetra (map toTick a) (map toTick b) (map toTick c) (map toTick d)
-
-mkPenta :: (Raw, Raw, Raw, Raw, Raw) -> Result
-mkPenta (a, b, c, d, e) = Penta (map toTick a) (map toTick b) (map toTick c) (map toTick d) (map toTick e)
+mkPenta :: (Label, Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw, Raw) -> Result
+mkPenta (_a, _b, _c, _d, _e) (a, b, c, d, e)
+  = Penta (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c)) (TL _d (map toTick d)) (TL _e (map toTick e))

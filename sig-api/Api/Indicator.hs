@@ -84,11 +84,12 @@ get = mkIdHandler' xmlJsonO handler
           xs <- collect' findByCodeWithOnlyClosing cd conn
           return $ f c xs
         where
-          f (S n) = mkMono . sma n
-          f (P n s) = mkDi . sma2 (n, s)
-          f (P3 n s m) = mkTri . sma3 (n, s, m)
-          f (P4 n s m l) = mkTetra . sma4 (n, s, m, l)
-          f (P5 n s m l xl) = mkPenta . sma5 (n, s, m, l, xl)
+          mkLabel n = "SMA " ++ show n
+          f (S n) = sma ~> mkMono . mkLabel $ n
+          f (P n s) = sma2 ~> (mkDi . tuply mkLabel) $ (n, s)
+          f (P3 n s m) = sma3 ~> (mkTri . tuply3 mkLabel) $ (n, s, m)
+          f (P4 n s m l) = sma4 ~> (mkTetra . tuply4 mkLabel) $ (n, s, m, l)
+          f (P5 n s m l xl) = sma5 ~> (mkPenta . tuply5 mkLabel) $ (n, s, m, l, xl)
       -- RSI
       rsiHandler = undefined
       -- MACD
