@@ -53,7 +53,7 @@ instance JSONSchema Item where schema = gSchema
 instance FromJSON Item
 instance ToJSON Item
 
-data Stocks = Stocks { brands :: [Brand] -- TODO : we can't choice just one brand, now.
+data Stocks = Stocks { brand :: Maybe Brand
                      , prices :: [Item]
                      }
             deriving (Eq, Generic, Ord, Show, Typeable)
