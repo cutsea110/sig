@@ -172,7 +172,9 @@ $('#code').autocomplete({
 $('#sma-term').blur(function() {
   var api = new RestsigApi('http://localhost/api'),
       cd = $('#code').val(),
-      ps = $('#sma-term').val().split(/[ ,]/).map(function (n) {return parseInt(n);}),
+      ps = $('#sma-term').val().trim().split(/[ ,]/)
+           .map(function (n) {return parseInt(n);})
+           .filter(function(n){return !isNaN(n) && n > 0;}),
       keys = ["n", "s", "m", "l", "xl"],
       opts = {type: 'json'};
 
