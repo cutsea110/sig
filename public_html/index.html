@@ -25,8 +25,13 @@
     <div class="container">
       <form class="form-inline">
 	<div class="form-group">
-          <label class="sr-only form-label" for="code">CODE</label>
+          <label class="form-label" for="code">CODE</label>
           <input id="code" type="search" class="form-control" placeholder="CODE" />
+	</div>
+
+	<div class="form-group">
+          <label class="form-label" for="sma-term">SMA Parameter</label>
+	  <input id="sma-term" type="text" class="form-control" placeholder="5 21 75" />
 	</div>
       </form>
 
@@ -36,16 +41,11 @@
     <script type="text/javascript">
 $(function () {
 
-// TEST BEGIN
-// Array is like as [[day, value],[day, value],[day, value],...]
-Array.prototype.simpleSMA=function(n){
-  return this.map(function(x,i,v){
-    if(i<n-1)return NaN;
-    var res = v.filter(function(_,i2){return i2<=i && i2>i-n;}).reduce(function(p,c){return [c[0],p[1]+c[1]];});
-    return [res[0], res[1]/n];
-  }).slice(n);
-};
-// TEST END
+// set the allowed units for data grouping
+var groupingUnits = [ ['day', [1]]
+                    , ['week', [1]]
+                    , ['month', [1, 2, 3, 4, 6]]
+                    ];
 
 // Chart draw
 var drawChart = function (cd) {
@@ -65,19 +65,16 @@ var drawChart = function (cd) {
             volume = prices.map(function(s) {
                        return [ s.date
                               , s.volume
-                              ]}),
-            close = prices.map(function(s) {
-                       return [ s.date
-                              , s.close
-                              ]}),
-            // set the allowed units for data grouping
-            groupingUnits = [ ['day', [1]]
-                            , ['week', [1]]
-                            , ['month', [1, 2, 3, 4, 6]]
-                            ];
+                              ]});
 
         // create the chart
         $('#chart_div').highcharts('StockChart', {
+
+            plotOptions: {
+              series: {
+                turboThreshold: 365 * 20 // 20 years
+              }
+            },
 
             legend : {
               enabled: true
@@ -125,33 +122,6 @@ var drawChart = function (cd) {
                     units: groupingUnits
                 }
             }, {
-                type: 'line',
-                name: 'SMA 10',
-                data: close.simpleSMA(10),
-		color: 'red',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'line',
-                name: 'SMA 60',
-                data: close.simpleSMA(60),
-		color: 'green',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'line',
-                name: 'SMA 150',
-                data: close.simpleSMA(150),
-		color: 'gold',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
                 type: 'column',
                 name: 'Volume',
                 data: volume,
@@ -170,7 +140,7 @@ var drawChart = function (cd) {
     );
 };
 
-
+$('#code').val('I101');
 drawChart('I101');
 
 // Autocomplete for code
@@ -196,6 +166,43 @@ $('#code').autocomplete({
   autoFocus: true,
   delay: 0,
   minLength: 2
+});
+
+// Add SMA
+$('#sma-term').blur(function() {
+  var api = new RestsigApi('http://localhost/api'),
+      cd = $('#code').val(),
+      ps = $('#sma-term').val().trim().split(/[ ,]/)
+           .map(function (n) {return parseInt(n);})
+           .filter(function(n){return !isNaN(n) && n > 0;}),
+      keys = ["n", "s", "m", "l", "xl"],
+      opts = {type: 'json'};
+
+  for (var i = 0; i < ps.length && i < keys.length; i++) {
+    opts[keys[i]] = ps[i];
+  }
+
+  api.Stocks.byCode(cd).Indicator.sma().get(function(data) {
+    var chart = $('#chart_div').highcharts();
+    for (var i=1; i<=5; i++) {
+      if (data['tl'+i] != null) {
+        chart.addSeries({
+          type: 'line',
+          name : data['tl' + i].label,
+          data: data['tl' + i].ticks.map(function(x){return [x.k, x.v]}),
+          yAxis: 0,
+          dataGrouping: {
+            units: groupingUnits
+          }
+        });
+      }
+    }
+  },
+  function (err) {
+    alert(err);
+  },
+  opts
+  );
 });
 
 });

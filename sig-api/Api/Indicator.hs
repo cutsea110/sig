@@ -65,6 +65,7 @@ pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
     [Just n, Just s, _, _, _]
       -> P <$> readMay n <*> readMay s
     [Just n, _, _, _, _] -> S <$> readMay n
+    _ -> Just $ P3 5 21 60 -- default system
 
 mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> ParamSMA -> ErrorT (Reason e) m o) -> Handler m
 mkIdHandler' d a = mkHandler (mkPar pSMA . d) (\env -> ask >>= flip a (param env))
