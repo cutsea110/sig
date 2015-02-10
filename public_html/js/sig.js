@@ -241,5 +241,54 @@ RestsigApi.prototype.Stocks.byCode =
       };
     return accessor;
   };
+RestsigApi.prototype.Stocks.prototype.Indicator =
+  function Indicator (url, secureUrl, modifyRequest)
+  {
+    if (this instanceof Indicator)
+    {
+      RestsigApi.setContext(this, url, secureUrl, modifyRequest);
+    }
+    else
+    {
+      return Indicator.access(url, secureUrl, modifyRequest);
+    }
+  };
+RestsigApi.prototype.Stocks.prototype.Indicator.apiObjectType = "resourceDir";
+RestsigApi.prototype.Stocks.prototype.Indicator.sma =
+  function ()
+  {
+    var postfix = 'sma/';
+    var accessor = new this(this.contextUrl + postfix, this.secureContextUrl + postfix, this.modifyRequest);
+    accessor.get =
+      function (success, error, params, callOpts)
+      {
+        return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
+      };
+    return accessor;
+  };
+RestsigApi.prototype.Stocks.prototype.Indicator.rsi =
+  function ()
+  {
+    var postfix = 'rsi/';
+    var accessor = new this(this.contextUrl + postfix, this.secureContextUrl + postfix, this.modifyRequest);
+    accessor.get =
+      function (success, error, params, callOpts)
+      {
+        return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
+      };
+    return accessor;
+  };
+RestsigApi.prototype.Stocks.prototype.Indicator.macd =
+  function ()
+  {
+    var postfix = 'macd/';
+    var accessor = new this(this.contextUrl + postfix, this.secureContextUrl + postfix, this.modifyRequest);
+    accessor.get =
+      function (success, error, params, callOpts)
+      {
+        return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
+      };
+    return accessor;
+  };
 
 })(this);

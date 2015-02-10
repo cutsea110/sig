@@ -18,7 +18,7 @@
         </div>
         <ul>
           <li>
-          <a class="resource-link" href="#brands">brands</a></li><li><a class="resource-link" href="#stocks">stocks</a>
+          <a class="resource-link" href="#brands">brands</a></li><li><a class="resource-link" href="#stocks">stocks</a></li><li><a class="resource-link" href="#stocks.indicator">stocks/indicator</a>
           </li>
         </ul>
       </div>
@@ -146,7 +146,49 @@
               , &quot;high&quot;: 0
               }
             ]
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5584195423444924468" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section>
+}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5584195423444924468" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks.indicator"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks/indicator">stocks/indicator</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator<span class="link-block">/macd<br>/rsi<br>/sma</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/sma</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-5652055667404459018"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+  &lt;xs:sequence minOccurs=0&gt;
+    &lt;xs:element name=&#39;modifiedJulianDay&#39;&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:element name=&#39;toModifiedJulianDay&#39; type=&#39;xs:string&#39;/&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+  &lt;/xs:sequence&gt;
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5652055667404459018" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-3658760618224488149"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;modifiedJulianDay&gt;
+  &lt;toModifiedJulianDay&gt;string&lt;/toModifiedJulianDay&gt;
+&lt;/modifiedJulianDay&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3658760618224488149" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv551160990295009411"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ [ &quot;value&quot;
+  , { &quot;Just&quot;: 0
+    }
+  ]
+]</pre></div></div><button class="btn open-modal" data-controls-modal="idv551160990295009411" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>n, s, m, l, xl</td></tr><tr class="stripe-0 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/rsi</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-5652055667404459018"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+  &lt;xs:sequence minOccurs=0&gt;
+    &lt;xs:element name=&#39;modifiedJulianDay&#39;&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:element name=&#39;toModifiedJulianDay&#39; type=&#39;xs:string&#39;/&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+  &lt;/xs:sequence&gt;
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5652055667404459018" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-3658760618224488149"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;modifiedJulianDay&gt;
+  &lt;toModifiedJulianDay&gt;string&lt;/toModifiedJulianDay&gt;
+&lt;/modifiedJulianDay&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3658760618224488149" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv551160990295009411"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ [ &quot;value&quot;
+  , { &quot;Just&quot;: 0
+    }
+  ]
+]</pre></div></div><button class="btn open-modal" data-controls-modal="idv551160990295009411" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>n, s, m, l, xl</td></tr><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/macd</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-5652055667404459018"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+  &lt;xs:sequence minOccurs=0&gt;
+    &lt;xs:element name=&#39;modifiedJulianDay&#39;&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:element name=&#39;toModifiedJulianDay&#39; type=&#39;xs:string&#39;/&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+  &lt;/xs:sequence&gt;
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5652055667404459018" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-3658760618224488149"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;modifiedJulianDay&gt;
+  &lt;toModifiedJulianDay&gt;string&lt;/toModifiedJulianDay&gt;
+&lt;/modifiedJulianDay&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3658760618224488149" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv551160990295009411"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ [ &quot;value&quot;
+  , { &quot;Just&quot;: 0
+    }
+  ]
+]</pre></div></div><button class="btn open-modal" data-controls-modal="idv551160990295009411" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>n, s, m, l, xl</td></tr></tbody></table></section>
       </div>
     </div>
   </body>
