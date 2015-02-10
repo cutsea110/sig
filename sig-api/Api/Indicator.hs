@@ -18,9 +18,9 @@ import Safe (readMay)
 import ApiTypes
 import Api.Stock (WithStock)
 import Query
-import TechnicalIndicators.SMA (sma)
+import TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5)
 import Type.Common (Code)
-import Type.Stock (Stock, Stocks(..))
+import Type.Stock (Stock, Stocks(..), Result(..), mkMono, mkDi, mkTri, mkTetra, mkPenta)
 import Util
 
 data Indicator = SMA
@@ -72,22 +72,27 @@ mkIdHandler' d a = mkHandler (mkPar pSMA . d) (\env -> ask >>= flip a (param env
 get :: Handler WithIndicator
 get = mkIdHandler' xmlJsonO handler
     where
-      handler :: Indicator -> ParamSMA -> ErrorT Reason_ WithIndicator [(Day, Maybe Double)]
+      handler :: Indicator -> ParamSMA -> ErrorT Reason_ WithIndicator Result
       handler SMA = smaHandler
       handler RSI = rsiHandler
       handler MACD = macdHandler
       -- SMA
-      smaHandler :: ParamSMA -> ErrorT Reason_ WithIndicator [(Day, Maybe Double)]
-      smaHandler (S n) = do
-        cd <- lift . lift $ ask
+      smaHandler :: ParamSMA -> ErrorT Reason_ WithIndicator Result
+      smaHandler c = do
+        cd <- getCode
         liftIO $ withDB $ \conn -> do
           xs <- collect' findByCodeWithOnlyClosing cd conn
-          return $ sma n xs
-      smaHandler (P n s) = undefined
-      smaHandler (P3 n s m) = undefined
-      smaHandler (P4 n s m l) = undefined
-      smaHandler (P5 n s m l xl) = undefined
+          return $ f c xs
+        where
+          f (S n) = mkMono . sma n
+          f (P n s) = mkDi . sma2 (n, s)
+          f (P3 n s m) = mkTri . sma3 (n, s, m)
+          f (P4 n s m l) = mkTetra . sma4 (n, s, m, l)
+          f (P5 n s m l xl) = mkPenta . sma5 (n, s, m, l, xl)
       -- RSI
       rsiHandler = undefined
       -- MACD
       macdHandler = undefined
+
+getCode :: ErrorT Reason_ WithIndicator Code
+getCode = lift . lift $ ask

@@ -29,6 +29,7 @@ library
     Type.Brand
     Type.Common
     Type.Stock
+    Type.Stock.Internal
   other-extensions:    TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances
   build-depends:
                        HDBC-postgresql >=2.3 && <2.4
