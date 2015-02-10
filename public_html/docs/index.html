@@ -46,13 +46,13 @@
 &lt;/brands&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1299411366845305574" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv2847894658233079526"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ { &quot;brandCode&quot;: &quot;value&quot;
   , &quot;brandName&quot;: &quot;value&quot;
   }
-]</pre></div></div><button class="btn open-modal" data-controls-modal="idv2847894658233079526" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks">stocks</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block">/code/&lt;string&gt;</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks/code/&lt;string&gt;</td><td>GET</td><td>Retrieve stocks data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1267169658574117585"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+]</pre></div></div><button class="btn open-modal" data-controls-modal="idv2847894658233079526" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks">stocks</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block">/code/&lt;string&gt;</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks/code/&lt;string&gt;</td><td>GET</td><td>Retrieve stocks data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-7224430190326299577"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:element name=&#39;stocks&#39;&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
-        &lt;xs:element name=&#39;brands&#39;&gt;
+        &lt;xs:element name=&#39;brand&#39; minOccurs=0 maxOccurs=1&gt;
           &lt;xs:complexType&gt;
-            &lt;xs:element name=&#39;brand&#39; minOccurs=0&gt;
+            &lt;xs:element name=&#39;brand&#39;&gt;
               &lt;xs:complexType&gt;
                 &lt;xs:sequence&gt;
                   &lt;xs:element name=&#39;code&#39; type=&#39;xs:string&#39;/&gt;
@@ -101,8 +101,8 @@
       &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1267169658574117585" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-2154647868549513353"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;stocks&gt;
-  &lt;brands&gt;
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-7224430190326299577" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5492738132484619133"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;stocks&gt;
+  &lt;brand&gt;
     &lt;brand&gt;
       &lt;code&gt;string&lt;/code&gt;
       &lt;name&gt;string&lt;/name&gt;
@@ -114,7 +114,7 @@
         &lt;/modifiedJulianDay&gt;
       &lt;/lastupdated&gt;
     &lt;/brand&gt;
-  &lt;/brands&gt;
+  &lt;/brand&gt;
   &lt;prices&gt;
     &lt;item&gt;
       &lt;date&gt;
@@ -130,13 +130,12 @@
       &lt;value&gt;string&lt;/value&gt;
     &lt;/item&gt;
   &lt;/prices&gt;
-&lt;/stocks&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-2154647868549513353" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-5584195423444924468"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;brands&quot;: [ { &quot;lastupdated&quot;: &quot;value&quot;
-              , &quot;category&quot;: &quot;value&quot;
-              , &quot;market&quot;: &quot;value&quot;
-              , &quot;name&quot;: &quot;value&quot;
-              , &quot;code&quot;: &quot;value&quot;
-              }
-            ]
+&lt;/stocks&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5492738132484619133" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv5553006326508220437"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;brand&quot;: { &quot;lastupdated&quot;: &quot;value&quot;
+           , &quot;category&quot;: &quot;value&quot;
+           , &quot;market&quot;: &quot;value&quot;
+           , &quot;name&quot;: &quot;value&quot;
+           , &quot;code&quot;: &quot;value&quot;
+           }
 , &quot;prices&quot;: [ { &quot;low&quot;: 0
               , &quot;volume&quot;: 0
               , &quot;value&quot;: 0
@@ -146,7 +145,7 @@
               , &quot;high&quot;: 0
               }
             ]
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5584195423444924468" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks.indicator"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks/indicator">stocks/indicator</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator<span class="link-block">/macd<br>/rsi<br>/sma</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/sma</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-3752748792403516414"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+}</pre></div></div><button class="btn open-modal" data-controls-modal="idv5553006326508220437" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks.indicator"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks/indicator">stocks/indicator</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator<span class="link-block">/macd<br>/rsi<br>/sma</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/sma</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-3752748792403516414"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:choice&gt;
     &lt;xs:element name=&#39;mono&#39;&gt;
       &lt;xs:complexType&gt;

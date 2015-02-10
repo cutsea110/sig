@@ -75,7 +75,7 @@ var drawChart = function (cd) {
     api.Stocks.byCode(cd).get(function (data) {
 
         var prices = data.prices,
-            brand = data.brands[0],
+            brand = data.brand,
             // split the data set into ohlc and volume
             ohlc = prices.map(function(s) {
                      return [ s.date

@@ -5,6 +5,7 @@ module Api.Stock
        ) where
 
 import Control.Monad.Reader
+import Data.Maybe (listToMaybe)
 
 import Rest
 import qualified Rest.Resource as R
@@ -32,4 +33,4 @@ get = mkIdHandler xmlJsonO $ \_ cd -> liftIO $ readStocks cd
         withDB $ \conn -> do
             bs <- collect' findBrand cd conn
             ss <- collect' findByCode cd conn
-            return $ Stocks { brands = bs, prices = ss }
+            return $ Stocks { brand = listToMaybe bs, prices = ss }
