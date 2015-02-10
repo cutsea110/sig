@@ -29,13 +29,35 @@
           <input id="code" type="search" class="form-control" placeholder="CODE" />
 	</div>
 
-	<div class="form-group">
-          <label class="form-label" for="sma-term">SMA Parameter</label>
-	  <input id="sma-term" type="text" class="form-control" placeholder="5 21 75" />
+	<div class="btn-group" aria-label="...">
+	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-sma">SMA</button>
+	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-rsi">RSI</button>
+	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-rsi">MACD</button>
 	</div>
       </form>
 
       <div id="chart_div" style="height: 768px; min-width: 310px"></div>
+    </div>
+
+    <div class="modal" id="modal-sma" tabindex="-1">
+      <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	    <h4 class="modal-title" id="modal-sma-label">Simple Moving Average Settings</h4>
+          </div>
+	  <div class="modal-body">
+	    <input id="sma-term" type="text" class="form-control" placeholder="5 21 75" />
+          </div>
+	  <div class="modal-footer">
+            <button id="add-sma-term" type="button" class="btn btn-primary">Add</button>
+            <button id="rm-last-sma-term" type="button" class="btn btn-danger">Remove last</button>
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+	</div>
+      </div>
     </div>
     
     <script type="text/javascript">
@@ -169,7 +191,7 @@ $('#code').autocomplete({
 });
 
 // Add SMA
-$('#sma-term').blur(function() {
+$('#add-sma-term').click(function() {
   var api = new RestsigApi('http://localhost/api'),
       cd = $('#code').val(),
       ps = $('#sma-term').val().trim().split(/[ ,]/)
@@ -186,7 +208,7 @@ $('#sma-term').blur(function() {
     var chart = $('#chart_div').highcharts();
     for (var i=1; i<=5; i++) {
       if (data['tl'+i] != null) {
-        chart.addSeries({
+        var ret = chart.addSeries({
           type: 'line',
           name : data['tl' + i].label,
           data: data['tl' + i].ticks.map(function(x){return [x.k, x.v]}),
@@ -203,6 +225,14 @@ $('#sma-term').blur(function() {
   },
   opts
   );
+});
+
+// Remove SMA
+$('#rm-last-sma-term').click(function() {
+  var chart = $('#chart_div').highcharts();
+  var lastIdx = chart.series.length;
+  // TODO: manage seriese index on client side
+  chart.series[lastIdx-1].remove();
 });
 
 });
