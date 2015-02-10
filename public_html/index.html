@@ -36,17 +36,6 @@
     <script type="text/javascript">
 $(function () {
 
-// TEST BEGIN
-// Array is like as [[day, value],[day, value],[day, value],...]
-Array.prototype.simpleSMA=function(n){
-  return this.map(function(x,i,v){
-    if(i<n-1)return NaN;
-    var res = v.filter(function(_,i2){return i2<=i && i2>i-n;}).reduce(function(p,c){return [c[0],p[1]+c[1]];});
-    return [res[0], res[1]/n];
-  }).slice(n);
-};
-// TEST END
-
 // Chart draw
 var drawChart = function (cd) {
     var api = new RestsigApi('http://localhost/api');
@@ -65,10 +54,6 @@ var drawChart = function (cd) {
             volume = prices.map(function(s) {
                        return [ s.date
                               , s.volume
-                              ]}),
-            close = prices.map(function(s) {
-                       return [ s.date
-                              , s.close
                               ]}),
             // set the allowed units for data grouping
             groupingUnits = [ ['day', [1]]
@@ -125,33 +110,6 @@ var drawChart = function (cd) {
                     units: groupingUnits
                 }
             }, {
-                type: 'line',
-                name: 'SMA 10',
-                data: close.simpleSMA(10),
-		color: 'red',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'line',
-                name: 'SMA 60',
-                data: close.simpleSMA(60),
-		color: 'green',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'line',
-                name: 'SMA 150',
-                data: close.simpleSMA(150),
-		color: 'gold',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
                 type: 'column',
                 name: 'Volume',
                 data: volume,
@@ -169,7 +127,6 @@ var drawChart = function (cd) {
     {type: 'json'}
     );
 };
-
 
 drawChart('I101');
 
