@@ -83,9 +83,9 @@ instance JSONSchema Tick where schema = gSchema
 instance FromJSON Tick
 instance ToJSON Tick
 
-data Timeline = TL { label :: String
-                   , ticks ::[Tick]
-                   }
+data Timeline = Timeline { label :: String
+                         , ticks ::[Tick]
+                         }
                 deriving (Eq, Generic, Ord, Show, Typeable)
 deriveAll ''Timeline "PFTimeline"
 type instance PF Timeline = PFTimeline
@@ -113,21 +113,24 @@ instance ToJSON Result
 toTick :: (Day, Maybe Double) -> Tick
 toTick = Tick <$> fst <*> snd
 
+toTimeline :: (Label, Raw) -> Timeline
+toTimeline (l, r) = Timeline l (map toTick r)
+
 mkMono :: Label -> Raw -> Result
-mkMono l xs = Mono $ TL l (map toTick xs)
+mkMono l xs = Mono $ toTimeline (l, xs)
 
 mkDi :: (Label, Label) -> (Raw, Raw) -> Result
 mkDi (_a, _b) (a, b)
-  = Di (TL _a (map toTick a)) (TL _b (map toTick b))
+  = Di (toTimeline (_a, a)) (toTimeline (_b, b))
 
 mkTri :: (Label, Label, Label) -> (Raw, Raw, Raw) -> Result
 mkTri (_a, _b, _c) (a, b, c)
-  = Tri (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c))
+  = Tri (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c))
 
 mkTetra :: (Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw) -> Result
 mkTetra (_a, _b, _c, _d) (a, b, c, d)
-  = Tetra (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c)) (TL _d (map toTick d))
+  = Tetra (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d))
 
 mkPenta :: (Label, Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw, Raw) -> Result
 mkPenta (_a, _b, _c, _d, _e) (a, b, c, d, e)
-  = Penta (TL _a (map toTick a)) (TL _b (map toTick b)) (TL _c (map toTick c)) (TL _d (map toTick d)) (TL _e (map toTick e))
+  = Penta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d)) (toTimeline (_e, e))

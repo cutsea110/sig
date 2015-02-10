@@ -3,4 +3,4 @@ module Type.Stock
        )
        where
 
-import Type.Stock.Internal as SI hiding (Raw, Tick (..), Timeline (..), toTick, Mono, Di, Tri, Tetra, Penta)
+import Type.Stock.Internal as SI hiding (Raw, Tick (..), Timeline (..), toTick, toTimeline, Mono, Di, Tri, Tetra, Penta)
