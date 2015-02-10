@@ -45,3 +45,14 @@ findByCode = relation' $ do
                   |*| s ! S.volumeoftrading'
                   |*| s ! S.tradingvalue'
          )
+
+findByCodeWithOnlyClosing :: Relation Code (Day, Maybe Double)
+findByCodeWithOnlyClosing = relation' $ do
+  s <- query stock
+  (ph, ()) <- placeholder $ \c ->
+    wheres $ s ! S.code' .=. c
+  asc $ s ! S.day'
+  return ( ph
+         , (,) |$| s ! S.day'
+               |*| s ! S.closingprice'
+         )
