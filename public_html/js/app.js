@@ -109,15 +109,19 @@ $(function() {
 
     $('#add-sma-term').click(function() {
         var cd = $('#code').val(),
-	    ps = $('#sma-term').val().trim().split(/[ ,]/)
-	    .map(function (n) {return parseInt(n);})
-	    .filter(function(n){return !isNaN(n) && n > 0;}),
-	    keys = ["n", "s", "m", "l", "xl"],
+	    keys = {1: 'n', 2: 's', 3: 'm', 4: 'l', 5: 'xl'},
+	    terms = {},
+	    colors = {},
 	    opts = {type: 'json'};
-	for (var i = 0; i < ps.length && i < keys.length; i++) {
-	    opts[keys[i]] = ps[i];
-	}
 
+	$.each(keys, function (k, v) {
+	    terms[v] = Number($('#sma-term-' + v).val());
+	    colors[v] = $('#sma-color-' + v).val();
+	    if (terms[v] > 0) {
+		opts[v] = terms[v];
+	    }
+	});
+	
         api.Stocks.byCode(cd).Indicator.sma().get(
 	    function(data) {
 		for(var i=1; i<=5; i++) {
@@ -126,6 +130,7 @@ $(function() {
 			    type: 'line',
 			    name: data['tl'+i].label,
 			    data: data['tl'+i].ticks.map(function(s){return [s.k, s.v]}),
+			    color: colors[keys[i]],
 			    yAxis: 0
 			}, false, true);
 		    }
@@ -144,4 +149,6 @@ $(function() {
 	chart.series[lastIdx-1].remove();
     });
 
+    $('.color').colorpicker();
+    
 });
