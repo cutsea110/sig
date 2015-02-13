@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
   <head>
     <meta charset="utf-8">
     <title>sig dev</title>
@@ -19,9 +19,10 @@
     <script>window.jQuery.ui || document.write('<link rel="stylesheet" src="js/jquery-ui.min.css">')</script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" media="screen">
     <script>$.fn.modal || document.write('<link rel="stylesheet" src="js/bootstrap.min.css">')</script>
+
+    <script src="js/app.js"></script>
   </head>
   <body>
-
     <div class="container">
       <form class="form-inline">
 	<div class="form-group">
@@ -36,7 +37,7 @@
 	</div>
       </form>
 
-      <div id="chart_div" style="height: 768px; min-width: 310px"></div>
+      <div id="container" style="height: 768px; min-width: 310px"></div>
     </div>
 
     <div class="modal" id="modal-sma" tabindex="-1">
@@ -59,183 +60,6 @@
 	</div>
       </div>
     </div>
-    
-    <script type="text/javascript">
-$(function () {
 
-// set the allowed units for data grouping
-var groupingUnits = [ ['day', [1]]
-                    , ['week', [1]]
-                    , ['month', [1, 2, 3, 4, 6]]
-                    ];
-
-// Chart draw
-var drawChart = function (cd) {
-    var api = new RestsigApi('http://localhost/api');
-    api.Stocks.byCode(cd).get(function (data) {
-
-        var prices = data.prices,
-            brand = data.brand,
-            // split the data set into ohlc and volume
-            ohlc = prices.map(function(s) {
-                     return [ s.date
-                            , s.open
-                            , s.high
-                            , s.low
-                            , s.close
-                            ]}),
-            volume = prices.map(function(s) {
-                       return [ s.date
-                              , s.volume
-                              ]});
-
-        // create the chart
-        $('#chart_div').highcharts('StockChart', {
-
-            plotOptions: {
-              series: {
-                turboThreshold: 365 * 20 // 20 years
-              }
-            },
-
-            legend : {
-              enabled: true
-            },
-            rangeSelector: {
-                inputEnabled: $('#chart_div').width() > 480,
-                selected: 2
-            },
-
-            title: {
-                text: brand.name + ' Historical'
-            },
-
-            yAxis: [{
-                labels: {
-                    align: 'right',
-                    x: -3
-                },
-                title: {
-                    text: 'OHLC'
-                },
-                height: '60%',
-                lineWidth: 2
-            }, {
-                labels: {
-                    align: 'right',
-                    x: -3
-                },
-                title: {
-                    text: 'Volume'
-                },
-                top: '65%',
-                height: '35%',
-                offset: 0,
-                lineWidth: 2
-            }],
-
-            series: [{
-                type: 'candlestick',
-                name: 'OHLC',
-                data: ohlc,
-		color: 'skyblue',
-                yAxis: 0,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }, {
-                type: 'column',
-                name: 'Volume',
-                data: volume,
-		color: 'orange',
-                yAxis: 1,
-                dataGrouping: {
-                    units: groupingUnits
-                }
-            }]
-        });
-    },
-    function(err) {
-      alert(err);
-    },
-    {type: 'json'}
-    );
-};
-
-$('#code').val('I101');
-drawChart('I101');
-
-// Autocomplete for code
-$('#code').autocomplete({
-  source: function(req,resp) {
-            // sig REST API
-            var api = new RestsigApi('http://localhost/api');
-            api.Brands.byLike('%' + req.term + '%').get(
-              function(data) {
-                resp(data.map(function(b){
-                  return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
-	        }));
-              },
-              function (err) {
-                alert(err);
-              },
-              {type: 'json'}
-            )
-          },
-  select: function(event, ui) {
-    drawChart(ui.item.value);
-  },
-  autoFocus: true,
-  delay: 0,
-  minLength: 2
-});
-
-// Add SMA
-$('#add-sma-term').click(function() {
-  var api = new RestsigApi('http://localhost/api'),
-      cd = $('#code').val(),
-      ps = $('#sma-term').val().trim().split(/[ ,]/)
-           .map(function (n) {return parseInt(n);})
-           .filter(function(n){return !isNaN(n) && n > 0;}),
-      keys = ["n", "s", "m", "l", "xl"],
-      opts = {type: 'json'};
-
-  for (var i = 0; i < ps.length && i < keys.length; i++) {
-    opts[keys[i]] = ps[i];
-  }
-
-  api.Stocks.byCode(cd).Indicator.sma().get(function(data) {
-    var chart = $('#chart_div').highcharts();
-    for (var i=1; i<=5; i++) {
-      if (data['tl'+i] != null) {
-        var ret = chart.addSeries({
-          type: 'line',
-          name : data['tl' + i].label,
-          data: data['tl' + i].ticks.map(function(x){return [x.k, x.v]}),
-          yAxis: 0,
-          dataGrouping: {
-            units: groupingUnits
-          }
-        });
-      }
-    }
-  },
-  function (err) {
-    alert(err);
-  },
-  opts
-  );
-});
-
-// Remove SMA
-$('#rm-last-sma-term').click(function() {
-  var chart = $('#chart_div').highcharts();
-  var lastIdx = chart.series.length;
-  // TODO: manage seriese index on client side
-  chart.series[lastIdx-1].remove();
-});
-
-});
-    </script>
   </body>
 </html>
