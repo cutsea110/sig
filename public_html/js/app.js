@@ -12,13 +12,6 @@ $(function() {
 		enabled: true
             },
 	    plotOptions: {
-		candlestick: {
-		    color: 'green',
-		    upColor: 'red'
-		},
-		column: {
-		    color: 'orange'
-		},
 		series: {
 		    turboThreshold: 365 * 20 // 20 years
 		}
@@ -74,7 +67,7 @@ $(function() {
 		    alert(err);
 		},
 		{type: 'json'}
-	    )
+	    );
         },
         select: function(event, ui) {
             var cd = ui.item.value;

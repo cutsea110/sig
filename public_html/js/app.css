@@ -1,0 +1,4 @@
+/* for autocomplete in twitter bootstrap modal dialog */
+.ui-autocomplete {
+    z-index: 5000;
+}
