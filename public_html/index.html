@@ -31,6 +31,44 @@
     <div class="container">
       <form class="form-inline">
 	<div class="btn-group" aria-label="...">
+	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-ohlc">OHLC</button>
+	  <div class="modal fade" id="modal-ohlc" role="dialog" tabindex="-1">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		  <h4 class="modal-title" id="modal-ohlc-label">OHLC and Volume of trading</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="container">
+		    <div class="row">
+		      <div class="form-group col-md-6">
+			<label class="form-label col-md-2" for="main-code">Main</label>
+			<input id="main-code" type="search"
+			       class="form-control stock-code col-md-1" placeholder="4452-T" />
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="form-group col-md-6">
+			<label class="form-label col-md-2" for="refer-code">Refer</label>
+			<input id="refer-code" type="search"
+			       class="form-control stock-code col-md-1" placeholder="I101" />
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <button id="add-ohlc" type="button" class="btn btn-primary"
+			  data-main="#main-code" data-refer="#refer-code">Add</button>
+		  <button id="rm-last-ohlc" type="button" class="btn btn-danger">Remove last</button>
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	  
 	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-sma">SMA</button>
 	  <div class="modal fade" id="modal-sma" role="dialog" tabindex="-1">
 	    <div class="modal-dialog">
@@ -45,8 +83,8 @@
 		  <div class="container">
 		    <div class="row">
 		      <div class="form-group col-md-6">
-			<label class="form-label col-md-2" for="code">CODE</label>
-			<input id="code" type="search" class="form-control col-md-1" placeholder="CODE" />
+			<label class="form-label col-md-2" for="sma-code">CODE</label>
+			<input id="sma-code" type="search" class="form-control stock-code col-md-1" placeholder="4452-T" />
 		      </div>
 		    </div>
 		    <div class="row">
@@ -109,6 +147,7 @@
 	      </div>
 	    </div>
 	  </div>
+	  
 	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-rsi">RSI</button>
 	  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-rsi">MACD</button>
 	</div>

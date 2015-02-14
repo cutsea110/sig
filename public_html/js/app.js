@@ -35,6 +35,16 @@ $(function() {
                 },
                 height: '60%',
                 lineWidth: 2
+            },{
+                labels: {
+                    align: 'left',
+                    x: 3
+                },
+                title: {
+                    text: 'Reference'
+                },
+                height: '60%',
+                lineWidth: 2
             }, {
                 labels: {
                     align: 'right',
@@ -55,7 +65,7 @@ $(function() {
 
 
     // Autocomplete for code
-    $('#code').autocomplete({
+    $('.stock-code').autocomplete({
         source: function(req,resp) {
             api.Brands.byLike('%' + req.term + '%').get(
 		function(data) {
@@ -69,46 +79,64 @@ $(function() {
 		{type: 'json'}
 	    );
         },
-        select: function(event, ui) {
-            var cd = ui.item.value;
-            api.Stocks.byCode(cd).get(
-                function (data) {
-                    chart.addSeries(
-			{
-			    type: 'candlestick',
-			    name: data.brand.name,
-			    data: data.prices.map(
-				function(s) {
-				    return [s.date, s.open, s.high, s.low, s.close];
-				}),
-			    yAxis: 0
-			}
-		    );
-		    chart.addSeries(
-			{
-			    type: 'column',
-			    name: 'Volume',
-			    data: data.prices.map(
-				function(s) {
-				    return [s.date, s.volume];
-				}),
-			    yAxis: 1
-			}
-		    );
-                },
-                function (err) {
-                    alert(err);
-                },
-                {type: 'json'}
-            );
-        },
         autoFocus: true,
         delay: 0,
         minLength: 2
     });
+    $('#add-ohlc').click(function() {
+	var main_code = $($(this).attr('data-main')).val(),
+	    refer_code = $($(this).attr('data-refer')).val();
+	if (main_code != '') {
+	    api.Stocks.byCode(main_code).get(
+		function (data) {
+		    chart.addSeries({
+			type: 'candlestick',
+			name: data.brand.name,
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.open, s.high, s.low, s.close];
+			    }),
+			yAxis: 0
+		    });
+		    chart.addSeries({
+			type: 'column',
+			name: 'Volume',
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.volume];
+			    }),
+			yAxis: 2
+		    });
+		},
+		function (err) {
+		    alert(err);
+		},
+		{type: 'json'}
+	    );
+	}
+	if (refer_code != '') {
+	    api.Stocks.byCode(refer_code).get(
+		function (data) {
+		    chart.addSeries({
+			type: 'candlestick',
+			name: data.brand.name,
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.open, s.high, s.low, s.close];
+			    }),
+			yAxis: 1
+		    });
+		},
+		function (err) {
+		    alert(err);
+		},
+		{type: 'json'}
+	    );
+	}
+    });
 
     $('#add-sma-term').click(function() {
-        var cd = $('#code').val(),
+        var cd = $('#sma-code').val(),
 	    keys = {1: 'n', 2: 's', 3: 'm', 4: 'l', 5: 'xl'},
 	    terms = {},
 	    colors = {},
