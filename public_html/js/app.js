@@ -83,6 +83,7 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
+    $('#demo-calendar').datetimepicker();
 
     // Autocomplete for code
     $('.stock-code').autocomplete({
