@@ -11,6 +11,12 @@ $(function() {
             legend: {
 		enabled: true
             },
+	    navigator: {
+		enabled: true,
+		series: {
+		    id: 'navigator'
+		}
+	    },
 	    plotOptions: {
 		series: {
 		    turboThreshold: 365 * 20 // 20 years
@@ -34,16 +40,7 @@ $(function() {
                     text: 'OHLC'
                 },
                 height: '60%',
-                lineWidth: 2
-            },{
-                labels: {
-                    align: 'left',
-                    x: 3
-                },
-                title: {
-                    text: 'Reference'
-                },
-                height: '60%',
+                offset: 0,
                 lineWidth: 2
             }, {
                 labels: {
@@ -57,6 +54,29 @@ $(function() {
                 height: '35%',
                 offset: 0,
                 lineWidth: 2
+            }, {
+                labels: {
+                    align: 'left',
+                    x: 3
+                },
+                title: {
+                    text: 'Reference'
+                },
+                height: '60%',
+                offset: 25,
+                lineWidth: 2
+            }, {
+                labels: {
+                    align: 'left',
+                    x: 3
+                },
+                title: {
+                    text: 'Reference'
+                },
+                top: '65%',
+                height: '35%',
+                offset: 25,
+                lineWidth: 2
             }]
 	};
 
@@ -67,17 +87,14 @@ $(function() {
     // Autocomplete for code
     $('.stock-code').autocomplete({
         source: function(req,resp) {
-            api.Brands.byLike('%' + req.term + '%').get(
-		function(data) {
-                    resp(data.map(function(b){
-			return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
-                    }));
-		},
-		function (err) {
-		    alert(err);
-		},
-		{type: 'json'}
-	    );
+            api.Brands.byLike('%' + req.term + '%').get()
+		.done(
+		    function(data) {
+			resp(data.map(function(b){
+			    return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
+			}));
+		    }
+		);
         },
         autoFocus: true,
         delay: 0,
@@ -86,53 +103,59 @@ $(function() {
     $('#add-ohlc').click(function() {
 	var main_code = $($(this).attr('data-main')).val(),
 	    refer_code = $($(this).attr('data-refer')).val();
-	if (main_code != '') {
-	    api.Stocks.byCode(main_code).get(
-		function (data) {
-		    chart.addSeries({
-			type: 'candlestick',
-			name: data.brand.name,
-			data: data.prices.map(
-			    function(s) {
-				return [s.date, s.open, s.high, s.low, s.close];
-			    }),
-			yAxis: 0
-		    });
-		    chart.addSeries({
-			type: 'column',
-			name: 'Volume',
-			data: data.prices.map(
-			    function(s) {
-				return [s.date, s.volume];
-			    }),
-			yAxis: 2
-		    });
-		},
-		function (err) {
-		    alert(err);
-		},
-		{type: 'json'}
-	    );
-	}
-	if (refer_code != '') {
-	    api.Stocks.byCode(refer_code).get(
-		function (data) {
-		    chart.addSeries({
-			type: 'candlestick',
-			name: data.brand.name,
-			data: data.prices.map(
-			    function(s) {
-				return [s.date, s.open, s.high, s.low, s.close];
-			    }),
-			yAxis: 1
-		    });
-		},
-		function (err) {
-		    alert(err);
-		},
-		{type: 'json'}
-	    );
-	}
+	api.Stocks.byCode(main_code).get()
+	    .done(function (data) {
+		var newSeries = {
+		    type: 'candlestick',
+		    color: '#0101df',
+		    upColor: '#df013a',
+		    name: data.brand.name,
+		    data: data.prices.map(
+			function(s) {
+			    return [s.date, s.open, s.high, s.low, s.close];
+			}),
+		    yAxis: 0
+		};
+		var ret = chart.addSeries(newSeries);
+		var nav = chart.get('navigator');
+		nav.setData(newSeries.data);
+		
+		chart.addSeries({
+		    type: 'column',
+		    color: '#ff8000',
+		    name: 'Volume',
+		    data: data.prices.map(
+			function(s) {
+			    return [s.date, s.volume];
+			}),
+		    yAxis: 1
+		});
+	    });
+	api.Stocks.byCode(refer_code).get()
+	    .done(function (data) {
+		chart.addSeries({
+		    type: 'candlestick',
+		    color: '#cee3f6',
+		    upColor: '#f5a9e1',
+		    lineColor: '#d8d8d8',
+		    name: data.brand.name,
+		    data: data.prices.map(
+			function(s) {
+			    return [s.date, s.open, s.high, s.low, s.close];
+			}),
+		    yAxis: 2
+		});
+		chart.addSeries({
+		    type: 'column',
+		    color: '#cecef6',
+		    name: 'Volume',
+		    data: data.prices.map(
+			function(s) {
+			    return [s.date, s.volume];
+			},false,true),
+		    yAxis: 3
+		});
+	    });
     });
 
     $('#add-sma-term').click(function() {
@@ -150,28 +173,25 @@ $(function() {
 	    }
 	});
 	
-        api.Stocks.byCode(cd).Indicator.sma().get(
-	    function(data) {
-		for(var i=1; i<=5; i++) {
-		    if (data['tl'+i] != null) {
-			chart.addSeries({
-			    type: 'line',
-			    name: data['tl'+i].label,
-			    data: data['tl'+i].ticks.map(function(s){return [s.k, s.v]}),
-			    color: colors[keys[i]],
-			    yAxis: 0
-			}, false, true);
+        api.Stocks.byCode(cd).Indicator.sma().get(null, null, opts)
+	    .done(
+		function(data) {
+		    for(var i=1; i<=5; i++) {
+			if (data['tl'+i] != null) {
+			    chart.addSeries({
+				type: 'line',
+				name: data['tl'+i].label,
+				data: data['tl'+i].ticks.map(function(s){return [s.k, s.v]}),
+				color: colors[keys[i]],
+				yAxis: 0
+			    }, false, true);
+			}
 		    }
+		    chart.redraw();
 		}
-		chart.redraw();
-	    },
-	    function(err){
-		alert(err);
-	    },
-	    opts
-	);
+	    );
     });
-
+	
     $('#rm-last-sma-term').click(function() {
 	var lastIdx = chart.series.length;
 	chart.series[lastIdx-1].remove();
