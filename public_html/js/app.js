@@ -83,7 +83,9 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
-    $('#demo-calendar').datetimepicker();
+    $('#demo-calendar').datetimepicker({
+	format: 'YYYY-MM-DD'
+    });
 
     // Autocomplete for code
     $('.stock-code').autocomplete({
@@ -120,6 +122,9 @@ $(function() {
 		var ret = chart.addSeries(newSeries);
 		var nav = chart.get('navigator');
 		nav.setData(newSeries.data);
+		$('input.highcharts-range-selector', '#' + opt.chart.renderTo).datetimepicker({
+		    format: 'YYYY-MM-DD'
+		});
 		
 		chart.addSeries({
 		    type: 'column',
