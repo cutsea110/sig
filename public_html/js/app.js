@@ -83,10 +83,6 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
-    $('#demo-calendar').datetimepicker({
-	format: 'YYYY-MM-DD'
-    });
-
     // Autocomplete for code
     $('.stock-code').autocomplete({
         source: function(req,resp) {
@@ -122,10 +118,16 @@ $(function() {
 		var ret = chart.addSeries(newSeries);
 		var nav = chart.get('navigator');
 		nav.setData(newSeries.data);
-		$('input.highcharts-range-selector', '#' + opt.chart.renderTo).datetimepicker({
-		    format: 'YYYY-MM-DD'
+		setTimeout(function() {
+		    $('input.highcharts-range-selector', '#' + opt.chart.renderTo)
+			.datepicker({
+			    format: 'yyyy-mm-dd',
+			    todayBtn: 'linked',
+			    orientation: 'auto left',
+			    autoclose: true,
+			    todayHighlight: true
+			});
 		});
-		
 		chart.addSeries({
 		    type: 'column',
 		    color: '#ff8000',
