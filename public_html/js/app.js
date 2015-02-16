@@ -128,6 +128,11 @@ $(function() {
 	}
     });
 
+    $('.enable-next').blur(function () {
+	var next = this.dataset.enableNextSelector;
+	$(next).removeAttr('disabled');
+    });
+
     $('#add-sma-term').click(function() {
         var cd = $('#sma-code').val(),
 	    keys = {1: 'n', 2: 's', 3: 'm', 4: 'l', 5: 'xl'},
