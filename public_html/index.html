@@ -46,22 +46,28 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="main-code">Main</label>
-			<input id="main-code" type="search"
-			       class="form-control stock-code col-md-1" placeholder="4452-T" />
+			<input id="main-code" type="search" data-enable-next-selector="#refer-code"
+			       class="form-control stock-code add-stock col-md-1 enable-next" placeholder="4452-T"
+			       data-ohlc-color="#0101df" data-ohlc-upcolor="#df013a" data-ohlc-linecolor="#000000"
+			       data-ohlc-yaxis="0"
+			       data-volume-color="#ff8000"
+			       data-volume-yaxis="1" />
 		      </div>
 		    </div>
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="refer-code">Refer</label>
-			<input id="refer-code" type="search"
-			       class="form-control stock-code col-md-1" placeholder="I101" />
+			<input id="refer-code" type="search" disabled="disabled"
+			       class="form-control stock-code add-stock col-md-1" placeholder="I101"
+			       data-ohlc-color="#cee3f6" data-ohlc-upcolor="#f5a9e1" data-ohlc-linecolor="#d8d8d8"
+			       data-ohlc-yaxis="2"
+			       data-volume-color="#cecef6"
+			       data-volume-yaxis="3" />
 		      </div>
 		    </div>
 		  </div>
 		</div>
 		<div class="modal-footer">
-		  <button id="add-ohlc" type="button" class="btn btn-primary"
-			  data-main="#main-code" data-refer="#refer-code">Add</button>
 		  <button id="rm-last-ohlc" type="button" class="btn btn-danger">Remove last</button>
 		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
@@ -84,15 +90,20 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-code">CODE</label>
-			<input id="sma-code" type="search" class="form-control stock-code col-md-1" placeholder="4452-T" />
+			<input id="sma-code" type="search"
+			       class="form-control stock-code col-md-1 enable-next" placeholder="4452-T"
+			       data-enable-next-selector="#sma-term-n,#sma-color-n" />
 		      </div>
 		    </div>
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-term-n">Normal</label>
-			<input id="sma-term-n" type="number" class="form-control col-md-1" />
+			<input id="sma-term-n" type="number" disabled="disabled"
+			       class="form-control col-md-1 enable-next"
+			       data-enable-next-selector="#sma-term-s,#sma-color-s" />
 			<div class="input-group color col-md-3">
-			  <input id="sma-color-n" type="text" value="#e7154c" class="form-control" />
+			  <input id="sma-color-n" type="text" value="#e7154c" disabled="disabled"
+				 class="form-control" />
 			  <span class="input-group-addon"><i></i></span>
 			</div>
 		      </div>
@@ -100,9 +111,12 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-term-s">Short</label>
-			<input id="sma-term-s" type="number" class="form-control col-md-1" />
+			<input id="sma-term-s" type="number" disabled="disabled" 
+			       class="form-control col-md-1 enable-next"
+			       data-enable-next-selector="#sma-term-m,#sma-color-m" />
 			<div class="input-group color col-md-3">
-			  <input id="sma-color-s" type="text" value="#15e722" class="form-control" />
+			  <input id="sma-color-s" type="text" value="#15e722" disabled="disabled"
+				 class="form-control" />
 			  <span class="input-group-addon"><i></i></span>
 			</div>
 		      </div>
@@ -110,9 +124,12 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-term-m">Middle</label>
-			<input id="sma-term-m" type="number" class="form-control col-md-1" />
+			<input id="sma-term-m" type="number" disabled="disabled"
+			       class="form-control col-md-1 enable-next"
+			       data-enable-next-selector="#sma-term-l,#sma-color-l" />
 			<div class="input-group color col-md-3">
-			  <input id="sma-color-m" type="text" value="#3215e7" class="form-control" />
+			  <input id="sma-color-m" type="text" value="#3215e7" disabled="disabled"
+				 class="form-control" />
 			  <span class="input-group-addon"><i></i></span>
 			</div>
 		      </div>
@@ -120,9 +137,12 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-term-l">Long</label>
-			<input id="sma-term-l" type="number" class="form-control col-md-1" />
+			<input id="sma-term-l" type="number" disabled="disabled"
+			       class="form-control col-md-1 enable-next"
+			       data-enable-next-selector="#sma-term-xl,#sma-color-xl" />
 			<div class="input-group color col-md-3">
-			  <input id="sma-color-l" type="text" value="#f49754" class="form-control" />
+			  <input id="sma-color-l" type="text" value="#f49754" disabled="disabled"
+				 class="form-control" />
 			  <span class="input-group-addon"><i></i></span>
 			</div>
 		      </div>
@@ -130,9 +150,11 @@
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="sma-term-xl">X-Long</label>
-			<input id="sma-term-xl" type="number" class="form-control col-md-1" />
+			<input id="sma-term-xl" type="number" disabled="disabled"
+			       class="form-control col-md-1" />
 			<div class="input-group color col-md-3">
-			  <input id="sma-color-xl" type="text" value="#e7fb81" class="form-control" />
+			  <input id="sma-color-xl" type="text" value="#e7fb81" disabled="disabled"
+				 class="form-control" />
 			  <span class="input-group-addon"><i></i></span>
 			</div>
 		      </div>

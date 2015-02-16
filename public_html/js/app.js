@@ -12,10 +12,7 @@ $(function() {
 		enabled: true
             },
 	    navigator: {
-		enabled: true,
-		series: {
-		    id: 'navigator'
-		}
+		enabled: true
 	    },
 	    plotOptions: {
 		series: {
@@ -100,62 +97,40 @@ $(function() {
         delay: 0,
         minLength: 2
     });
-    $('#add-ohlc').click(function() {
-	var main_code = $($(this).attr('data-main')).val(),
-	    refer_code = $($(this).attr('data-refer')).val();
-	api.Stocks.byCode(main_code).get()
-	    .done(function (data) {
-		var newSeries = {
-		    type: 'candlestick',
-		    color: '#0101df',
-		    upColor: '#df013a',
-		    name: data.brand.name,
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.open, s.high, s.low, s.close];
-			}),
-		    yAxis: 0
-		};
-		var ret = chart.addSeries(newSeries);
-		var nav = chart.get('navigator');
-		nav.setData(newSeries.data);
-		
-		chart.addSeries({
-		    type: 'column',
-		    color: '#ff8000',
-		    name: 'Volume',
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.volume];
-			}),
-		    yAxis: 1
+    $('.add-stock').autocomplete({
+	select: function (ev, ui) {
+	    var self = this;
+	    api.Stocks.byCode(ui.item.value).get()
+		.done(function (data) {
+		    chart.addSeries({
+			type: 'candlestick',
+			color: self.dataset.ohlcColor,
+			upColor: self.dataset.ohlcUpcolor,
+			lineColor: self.dataset.ohlcLinecolor,
+			name: data.brand.name,
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.open, s.high, s.low, s.close];
+			    }),
+			yAxis: parseInt(self.dataset.ohlcYaxis)
+		    });
+		    chart.addSeries({
+			type: 'column',
+			color: self.dataset.volumeColor,
+			name: 'Volume',
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.volume];
+			    }),
+			yAxis: parseInt(self.dataset.volumeYaxis)
+		    });
 		});
-	    });
-	api.Stocks.byCode(refer_code).get()
-	    .done(function (data) {
-		chart.addSeries({
-		    type: 'candlestick',
-		    color: '#cee3f6',
-		    upColor: '#f5a9e1',
-		    lineColor: '#d8d8d8',
-		    name: data.brand.name,
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.open, s.high, s.low, s.close];
-			}),
-		    yAxis: 2
-		});
-		chart.addSeries({
-		    type: 'column',
-		    color: '#cecef6',
-		    name: 'Volume',
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.volume];
-			},false,true),
-		    yAxis: 3
-		});
-	    });
+	}
+    });
+
+    $('.enable-next').blur(function () {
+	var next = this.dataset.enableNextSelector;
+	$(next).removeAttr('disabled');
     });
 
     $('#add-sma-term').click(function() {
