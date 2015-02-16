@@ -99,30 +99,30 @@ $(function() {
     });
     $('.add-stock').autocomplete({
 	select: function (ev, ui) {
-	    var self = $(this);
+	    var self = this;
 	    api.Stocks.byCode(ui.item.value).get()
 		.done(function (data) {
 		    chart.addSeries({
 			type: 'candlestick',
-			color: self.attr('data-ohlc-color'),
-			upColor: self.attr('data-ohlc-upColor'),
-			lineColor: self.attr('data-ohlc-lineColor'),
+			color: self.dataset.ohlcColor,
+			upColor: self.dataset.ohlcUpcolor,
+			lineColor: self.dataset.ohlcLinecolor,
 			name: data.brand.name,
 			data: data.prices.map(
 			    function(s) {
 				return [s.date, s.open, s.high, s.low, s.close];
 			    }),
-			yAxis: parseInt(self.attr('data-ohlc-yAxis'))
+			yAxis: parseInt(self.dataset.ohlcYaxis)
 		    });
 		    chart.addSeries({
 			type: 'column',
-			color: self.attr('data-volume-color'),
+			color: self.dataset.volumeColor,
 			name: 'Volume',
 			data: data.prices.map(
 			    function(s) {
 				return [s.date, s.volume];
 			    }),
-			yAxis: parseInt(self.attr('data-volume-yAxis'))
+			yAxis: parseInt(self.dataset.volumeYaxis)
 		    });
 		});
 	}
