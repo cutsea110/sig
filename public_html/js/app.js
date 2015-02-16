@@ -97,59 +97,35 @@ $(function() {
         delay: 0,
         minLength: 2
     });
-    $('#add-ohlc').click(function() {
-	var main_code = $($(this).attr('data-main')).val(),
-	    refer_code = $($(this).attr('data-refer')).val();
-	api.Stocks.byCode(main_code).get()
-	    .done(function (data) {
-		chart.addSeries({
-		    type: 'candlestick',
-		    color: '#0101df',
-		    upColor: '#df013a',
-		    lineColor: '#000000',
-		    name: data.brand.name,
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.open, s.high, s.low, s.close];
-			}),
-		    yAxis: 0
+    $('.add-stock').autocomplete({
+	select: function (ev, ui) {
+	    var self = $(this);
+	    api.Stocks.byCode(ui.item.value).get()
+		.done(function (data) {
+		    chart.addSeries({
+			type: 'candlestick',
+			color: self.attr('data-ohlc-color'),
+			upColor: self.attr('data-ohlc-upColor'),
+			lineColor: self.attr('data-ohlc-lineColor'),
+			name: data.brand.name,
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.open, s.high, s.low, s.close];
+			    }),
+			yAxis: parseInt(self.attr('data-ohlc-yAxis'))
+		    });
+		    chart.addSeries({
+			type: 'column',
+			color: self.attr('data-volume-color'),
+			name: 'Volume',
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.volume];
+			    }),
+			yAxis: parseInt(self.attr('data-volume-yAxis'))
+		    });
 		});
-		chart.addSeries({
-		    type: 'column',
-		    color: '#ff8000',
-		    name: 'Volume',
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.volume];
-			}),
-		    yAxis: 1
-		});
-	    });
-	api.Stocks.byCode(refer_code).get()
-	    .done(function (data) {
-		chart.addSeries({
-		    type: 'candlestick',
-		    color: '#cee3f6',
-		    upColor: '#f5a9e1',
-		    lineColor: '#d8d8d8',
-		    name: data.brand.name,
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.open, s.high, s.low, s.close];
-			}),
-		    yAxis: 2
-		});
-		chart.addSeries({
-		    type: 'column',
-		    color: '#cecef6',
-		    name: 'Volume',
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.volume];
-			},false,true),
-		    yAxis: 3
-		});
-	    });
+	}
     });
 
     $('#add-sma-term').click(function() {

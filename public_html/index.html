@@ -47,21 +47,27 @@
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="main-code">Main</label>
 			<input id="main-code" type="search"
-			       class="form-control stock-code col-md-1" placeholder="4452-T" />
+			       class="form-control stock-code add-stock col-md-1" placeholder="4452-T"
+			       data-ohlc-color="#0101df" data-ohlc-upColor="#df013a" data-ohlc-lineColor="#000000"
+			       data-ohlc-yAxis="0"
+			       data-volume-color="#ff8000"
+			       data-volume-yAxis="1" />
 		      </div>
 		    </div>
 		    <div class="row">
 		      <div class="form-group col-md-6">
 			<label class="form-label col-md-2" for="refer-code">Refer</label>
 			<input id="refer-code" type="search"
-			       class="form-control stock-code col-md-1" placeholder="I101" />
+			       class="form-control stock-code add-stock col-md-1" placeholder="I101"
+			       data-ohlc-color="#cee3f6" data-ohlc-upColor="#f5a9e1" data-ohlc-lineColor="#d8d8d8"
+			       data-ohlc-yAxis="2"
+			       data-volume-color="#cecef6"
+			       data-volume-yAxis="3" />
 		      </div>
 		    </div>
 		  </div>
 		</div>
 		<div class="modal-footer">
-		  <button id="add-ohlc" type="button" class="btn btn-primary"
-			  data-main="#main-code" data-refer="#refer-code">Add</button>
 		  <button id="rm-last-ohlc" type="button" class="btn btn-danger">Remove last</button>
 		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
