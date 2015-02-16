@@ -106,6 +106,7 @@ $(function() {
 		    type: 'candlestick',
 		    color: '#0101df',
 		    upColor: '#df013a',
+		    lineColor: '#000000',
 		    name: data.brand.name,
 		    data: data.prices.map(
 			function(s) {
