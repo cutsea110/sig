@@ -12,10 +12,7 @@ $(function() {
 		enabled: true
             },
 	    navigator: {
-		enabled: true,
-		series: {
-		    id: 'navigator'
-		}
+		enabled: true
 	    },
 	    plotOptions: {
 		series: {
@@ -105,7 +102,7 @@ $(function() {
 	    refer_code = $($(this).attr('data-refer')).val();
 	api.Stocks.byCode(main_code).get()
 	    .done(function (data) {
-		var newSeries = {
+		chart.addSeries({
 		    type: 'candlestick',
 		    color: '#0101df',
 		    upColor: '#df013a',
@@ -115,11 +112,7 @@ $(function() {
 			    return [s.date, s.open, s.high, s.low, s.close];
 			}),
 		    yAxis: 0
-		};
-		var ret = chart.addSeries(newSeries);
-		var nav = chart.get('navigator');
-		nav.setData(newSeries.data);
-		
+		});
 		chart.addSeries({
 		    type: 'column',
 		    color: '#ff8000',
