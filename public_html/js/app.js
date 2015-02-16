@@ -80,7 +80,6 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
-
     // Autocomplete for code
     $('.stock-code').autocomplete({
         source: function(req,resp) {
@@ -124,10 +123,20 @@ $(function() {
 			    }),
 			yAxis: parseInt(self.dataset.volumeYaxis)
 		    });
+		    setTimeout(function() {
+			$('input.highcharts-range-selector', '#' + opt.chart.renderTo)
+			    .datepicker({
+				format: 'yyyy-mm-dd',
+				todayBtn: 'linked',
+				orientation: 'auto left',
+				autoclose: true,
+				todayHighlight: true
+			    });
+		    }, 0);
 		});
 	}
     });
-
+    
     $('.enable-next').blur(function () {
 	var next = this.dataset.enableNextSelector;
 	$(next).removeAttr('disabled');
