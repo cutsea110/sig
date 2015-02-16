@@ -98,30 +98,30 @@ $(function() {
     });
     $('.add-stock').autocomplete({
 	select: function (ev, ui) {
-	    var self = this;
+	    var self = $(this);
 	    api.Stocks.byCode(ui.item.value).get()
 		.done(function (data) {
 		    chart.addSeries({
 			type: 'candlestick',
-			color: self.dataset.ohlcColor,
-			upColor: self.dataset.ohlcUpcolor,
-			lineColor: self.dataset.ohlcLinecolor,
+			color: self.data('ohlc-color'),
+			upColor: self.data('ohlc-upcolor'),
+			lineColor: self.data('ohlc-linecolor'),
 			name: data.brand.name,
 			data: data.prices.map(
 			    function(s) {
 				return [s.date, s.open, s.high, s.low, s.close];
 			    }),
-			yAxis: parseInt(self.dataset.ohlcYaxis)
+			yAxis: self.data('ohlc-yaxis')
 		    });
 		    chart.addSeries({
 			type: 'column',
-			color: self.dataset.volumeColor,
+			color: self.data('volume-color'),
 			name: 'Volume',
 			data: data.prices.map(
 			    function(s) {
 				return [s.date, s.volume];
 			    }),
-			yAxis: parseInt(self.dataset.volumeYaxis)
+			yAxis: self.data('volume-yaxis')
 		    });
 		    setTimeout(function() {
 			$('input.highcharts-range-selector', '#' + opt.chart.renderTo)
@@ -138,7 +138,7 @@ $(function() {
     });
     
     $('.enable-next').blur(function () {
-	var next = this.dataset.enableNextSelector;
+	var next = $(this).data('enable-next-selector');
 	$(next).removeAttr('disabled');
     });
 
