@@ -120,6 +120,7 @@ $(function() {
     };
     $('.stock-code').typeahead(
 	{
+	    autoselect: true,
 	    hint: true,
 	    highlight: true,
 	    minLength: 2
@@ -144,9 +145,6 @@ $(function() {
 	'typeahead:selected' : function (obj, datum, name) {
 	    drawChart.bind(this)(datum.value);
 	},
-	'typeahead:autocompleted' : function (obj, datum, name) {
-	    drawChart.bind(this)(datum.value);
-	}
     });
     
     $('.enable-next').blur(function () {
