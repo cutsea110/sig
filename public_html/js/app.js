@@ -147,6 +147,12 @@ $(function() {
     $('.enable-next').blur(function () {
 	var next = $(this).data('enable-next-selector');
 	$(next).removeAttr('disabled');
+	if ($(next).data('ttTypeahead') != null) {
+	    $(next).prev().remove();
+	}
+	$(next)
+	    .refreshClass('stock-code')
+	    .refreshClass('add-stock');
     });
 
     $('#add-sma-term').click(function() {
