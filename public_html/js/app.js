@@ -80,44 +80,6 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
-    var drawChart = function (stock_code) {
-	var self = $(this);
-	api.Stocks.byCode(stock_code).get()
-	    .done(function (data) {
-		chart.addSeries({
-		    type: 'candlestick',
-		    color: self.data('ohlc-color'),
-		    upColor: self.data('ohlc-upcolor'),
-		    lineColor: self.data('ohlc-linecolor'),
-		    name: data.brand.name,
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.open, s.high, s.low, s.close];
-			}),
-		    yAxis: self.data('ohlc-yaxis')
-		});
-		chart.addSeries({
-		    type: 'column',
-		    color: self.data('volume-color'),
-		    name: 'Volume',
-		    data: data.prices.map(
-			function(s) {
-			    return [s.date, s.volume];
-			}),
-		    yAxis: self.data('volume-yaxis')
-		});
-		setTimeout(function() {
-		    $('input.highcharts-range-selector', '#' + opt.chart.renderTo)
-			.datepicker({
-			    format: 'yyyy-mm-dd',
-			    todayBtn: 'linked',
-			    orientation: 'auto left',
-			    autoclose: true,
-			    todayHighlight: true
-			});
-		}, 0);
-	    });
-    };
     $('.stock-code').typeahead(
 	{
 	    autoselect: true,
@@ -143,7 +105,42 @@ $(function() {
 	});
     $('.add-stock').on({
 	'typeahead:selected' : function (obj, datum, name) {
-	    drawChart.bind(this)(datum.value);
+	    var self = $(this);
+	    api.Stocks.byCode(datum.value).get()
+		.done(function (data) {
+		    chart.addSeries({
+			type: 'candlestick',
+			color: self.data('ohlc-color'),
+			upColor: self.data('ohlc-upcolor'),
+			lineColor: self.data('ohlc-linecolor'),
+			name: data.brand.name,
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.open, s.high, s.low, s.close];
+			    }),
+			yAxis: self.data('ohlc-yaxis')
+		    });
+		    chart.addSeries({
+			type: 'column',
+			color: self.data('volume-color'),
+			name: 'Volume',
+			data: data.prices.map(
+			    function(s) {
+				return [s.date, s.volume];
+			    }),
+			yAxis: self.data('volume-yaxis')
+		    });
+		    setTimeout(function() {
+			$('input.highcharts-range-selector', '#' + opt.chart.renderTo)
+			    .datepicker({
+				format: 'yyyy-mm-dd',
+				todayBtn: 'linked',
+				orientation: 'auto left',
+				autoclose: true,
+				todayHighlight: true
+			    });
+		    }, 0);
+		});
 	},
     });
     
