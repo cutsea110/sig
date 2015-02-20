@@ -4,7 +4,7 @@ module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 
 import Control.Arrow ((***))
 import Control.Applicative ((<$>), (<*>), liftA, liftA2)
-import Data.List (tails, unfoldr)
+import Data.List (tails, unfoldr, unzip4, unzip5)
 
 -- | special DSL which only use in this module
 --   The argument `x` is supplied to only function `g`.
@@ -32,10 +32,18 @@ para (a, b) (ks, vss) = (zip ka va, zip kb vb)
     where
       (va, vb) = unzip $ map (average2 (a, b)) vss
       (ka, kb) = let ks' = tails ks in (ks' !! (a-1) , ks' !! (b-1))
-      
+
+average3 :: Fractional v => (Int, Int, Int) -> [v] -> (v, v, v)
+average3 (a, b, c) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c)
+    where
+      ttl = scanl (+) 0 xs
+
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
-      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para3 (a, b, c) x = (single a x, single b x, single c x)
+       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
+para3 (a, b, c) (ks, vss) = (zip ka va, zip kb vb, zip kc vc)
+    where
+      (va, vb, vc) = unzip3 $ map (average3 (a, b, c)) vss
+      (ka, kb, kc) = let ks' = tails ks in (ks' !! (a-1), ks' !! (b-1), ks' !! (c-1))
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
