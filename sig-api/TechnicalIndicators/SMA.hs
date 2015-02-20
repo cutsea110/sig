@@ -27,16 +27,26 @@ average2 (a, b) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b)
     where
       ttl = scanl (+) 0 xs
 
+average3 :: Fractional v => (Int, Int, Int) -> [v] -> (v, v, v)
+average3 (a, b, c) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c)
+    where
+      ttl = scanl (+) 0 xs
+
+average4 :: Fractional v => (Int, Int, Int, Int) -> [v] -> (v, v, v, v)
+average4 (a, b, c, d) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c, ttl !! d / fromIntegral d)
+    where
+      ttl = scanl (+) 0 xs
+
+average5 :: Fractional v => (Int, Int, Int, Int, Int) -> [v] -> (v, v, v, v, v)
+average5 (a, b, c, d, e) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c, ttl !! d / fromIntegral d, ttl !! e / fromIntegral e)
+    where
+      ttl = scanl (+) 0 xs
+
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
 para (a, b) (ks, vss) = (zip ka va, zip kb vb)
     where
       (va, vb) = unzip $ map (average2 (a, b)) vss
       (ka, kb) = let ks' = tails ks in (ks' !! (a-1) , ks' !! (b-1))
-
-average3 :: Fractional v => (Int, Int, Int) -> [v] -> (v, v, v)
-average3 (a, b, c) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c)
-    where
-      ttl = scanl (+) 0 xs
 
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
        -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
@@ -47,11 +57,17 @@ para3 (a, b, c) (ks, vss) = (zip ka va, zip kb vb, zip kc vc)
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para4 (a, b, c, d) x = (single a x, single b x, single c x, single d x)
+para4 (a, b, c, d) (ks, vss) = (zip ka va, zip kb vb, zip kc vc, zip kd vd)
+    where
+      (va, vb, vc, vd) = unzip4 $ map (average4 (a, b, c, d)) vss
+      (ka, kb, kc, kd) = let ks' = tails ks in (ks' !! (a-1), ks' !! (b-1), ks' !! (c-1), ks' !! (d-1))
 
 para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para5 (a, b, c, d, e) x = (single a x, single b x, single c x, single d x, single e x)
+para5 (a, b, c, d, e) (ks, vss) = (zip ka va, zip kb vb, zip kc vc, zip kd vd, zip ke ve)
+    where
+      (va, vb, vc, vd, ve) = unzip5 $ map (average5 (a, b, c, d, e)) vss
+      (ka, kb, kc, kd, ke) = let ks' = tails ks in (ks' !! (a-1), ks' !! (b-1), ks' !! (c-1), ks' !! (d-1), ks' !! (e-1))
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
