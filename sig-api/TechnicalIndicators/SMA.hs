@@ -29,19 +29,6 @@ cross4 (f, g, h, j) (a, b, c, d) = (f a, g b, h c, j d)
 cross5 :: (a -> x, b -> y, c -> z, d -> w, e -> v) -> (a, b, c, d, e) -> (x, y, z, w, v)
 cross5 (f, g, h, j, k) (a, b, c, d, e) = (f a, g b, h c, j d, k e)
 
-($++$) :: ([a], [a]) -> ([b], [b]) -> ([(a, b)], [(a, b)])
-($++$) = cross . pair zip
-($+++$) :: ([a], [a], [a]) -> ([b], [b], [b]) -> ([(a, b)], [(a, b)], [(a, b)])
-($+++$) = cross3 . pair3 zip
-($++++$) :: ([a], [a], [a], [a])
-            -> ([b], [b], [b], [b])
-            -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)])
-($++++$) = cross4 . pair4 zip
-($+++++$) :: ([a], [a], [a], [a], [a])
-             -> ([b], [b], [b], [b], [b])
-             -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)], [(a, b)])
-($+++++$) = cross5 . pair5 zip
-
 prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
 prepare = (id *** tails . cleansing) . unzip
 
@@ -95,19 +82,19 @@ paraN _pair _zip _unzip _average ps (ks, vss)
     = (_pair (from ks) ps) `_zip` (_unzip $ map (_average ps) vss)
 
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
-para = paraN pair ($++$) unzip average2
+para = paraN pair (cross . pair zip) unzip average2
 
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
        -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para3 = paraN pair3 ($+++$) unzip3 average3
+para3 = paraN pair3 (cross3 . pair3 zip) unzip3 average3
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para4 = paraN pair4 ($++++$) unzip4 average4
+para4 = paraN pair4 (cross4 . pair4 zip) unzip4 average4
 
 para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para5 = paraN pair5 ($+++++$) unzip5 average5
+para5 = paraN pair5 (cross5 . pair5 zip) unzip5 average5
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
