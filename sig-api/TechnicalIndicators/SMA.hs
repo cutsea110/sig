@@ -49,14 +49,11 @@ averageN _pair ps xs = scanl (+) 0 xs `_divBy` ps
     where
       _divBy = _pair . divBy
 
-average :: Fractional v => Int -> [v] -> v
-average = averageN id
-
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
 
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . (flip from n *** map (average n))
+single n = uncurry zip . (flip from n *** map (averageN id n))
 
 -- | general utility function for para#
 paraN _pair _zip _unzip _average ps (ks, vss)
