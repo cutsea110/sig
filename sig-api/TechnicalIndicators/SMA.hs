@@ -44,32 +44,13 @@ cleansing xs = unfoldr f (Nothing, xs)
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
 
-divBy2 :: Fractional a => [a] -> (Int, Int) -> (a, a)
-divBy2 = pair . divBy
-
-divBy3 :: Fractional a => [a] -> (Int, Int, Int) -> (a, a, a)
-divBy3 = pair3 . divBy
-
-divBy4 :: Fractional a => [a] -> (Int, Int, Int, Int) -> (a, a, a, a)
-divBy4 = pair4 . divBy
-
-divBy5 :: Fractional a => [a] -> (Int, Int, Int, Int, Int) -> (a, a, a, a, a)
-divBy5 = pair5 . divBy
+averageN :: Fractional v => ((Int -> v) -> tuples -> tuples') -> tuples -> [v] -> tuples'
+averageN _pair ps xs = scanl (+) 0 xs `_divBy` ps
+    where
+      _divBy = _pair . divBy
 
 average :: Fractional v => Int -> [v] -> v
-average n xs = scanl (+) 0 xs `divBy` n
-
-average2 :: Fractional v => (Int, Int) -> [v] -> (v, v)
-average2 ps xs = scanl (+) 0 xs `divBy2` ps
-
-average3 :: Fractional v => (Int, Int, Int) -> [v] -> (v, v, v)
-average3 ps xs = scanl (+) 0 xs `divBy3` ps
-
-average4 :: Fractional v => (Int, Int, Int, Int) -> [v] -> (v, v, v, v)
-average4 ps xs = scanl (+) 0 xs `divBy4` ps
-
-average5 :: Fractional v => (Int, Int, Int, Int, Int) -> [v] -> (v, v, v, v, v)
-average5 ps xs = scanl (+) 0 xs `divBy5` ps
+average = averageN id
 
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
@@ -79,22 +60,24 @@ single n = uncurry zip . (flip from n *** map (average n))
 
 -- | general utility function for para#
 paraN _pair _zip _unzip _average ps (ks, vss)
-    = (_pair (from ks) ps) `_zip` (_unzip $ map (_average ps) vss)
+    = (ks `_from` ps) `_zip` (_unzip $ map (_average ps) vss)
+      where
+        _from = _pair . from
 
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
-para = paraN pair (cross . pair zip) unzip average2
+para = paraN pair (cross . pair zip) unzip (averageN pair)
 
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
        -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para3 = paraN pair3 (cross3 . pair3 zip) unzip3 average3
+para3 = paraN pair3 (cross3 . pair3 zip) unzip3 (averageN pair3)
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para4 = paraN pair4 (cross4 . pair4 zip) unzip4 average4
+para4 = paraN pair4 (cross4 . pair4 zip) unzip4 (averageN pair4)
 
 para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para5 = paraN pair5 (cross5 . pair5 zip) unzip5 average5
+para5 = paraN pair5 (cross5 . pair5 zip) unzip5 (averageN pair5)
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
