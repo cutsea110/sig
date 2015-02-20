@@ -19,28 +19,47 @@ single n = uncurry zip . (from *** map (average n))
     where
       from xs = tails xs !! (n-1)
 
+tuply :: (a -> b) -> (a, a) -> (b, b)
+tuply f (a, b) = (f a, f b)
+
+tuply3 :: (a -> b) -> (a, a, a) -> (b, b, b)
+tuply3 f (a, b, c) = (f a, f b, f c)
+
+tuply4 :: (a -> b) -> (a, a, a, a) -> (b, b, b, b)
+tuply4 f (a, b, c, d) = (f a, f b, f c, f d)
+
+tuply5 :: (a -> b) -> (a, a, a, a, a) -> (b, b, b, b, b)
+tuply5 f (a, b, c, d, e) = (f a, f b, f c, f d, f e)
+
+divBy :: Fractional a => [a] -> Int -> a
+divBy ttl n = ttl !! n / fromIntegral n
+
+divBy2 :: Fractional a => [a] -> (Int, Int) -> (a, a)
+divBy2 = tuply . divBy
+
+divBy3 :: Fractional a => [a] -> (Int, Int, Int) -> (a, a, a)
+divBy3 = tuply3 . divBy
+
+divBy4 :: Fractional a => [a] -> (Int, Int, Int, Int) -> (a, a, a, a)
+divBy4 = tuply4 . divBy
+
+divBy5 :: Fractional a => [a] -> (Int, Int, Int, Int, Int) -> (a, a, a, a, a)
+divBy5 = tuply5 . divBy
+
 average :: Fractional v => Int -> [v] -> v
-average n xs = scanl (+) 0 xs !! n / fromIntegral n
+average n xs = scanl (+) 0 xs `divBy` n
 
 average2 :: Fractional v => (Int, Int) -> [v] -> (v, v)
-average2 (a, b) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b)
-    where
-      ttl = scanl (+) 0 xs
+average2 (a, b) xs = scanl (+) 0 xs `divBy2` (a, b)
 
 average3 :: Fractional v => (Int, Int, Int) -> [v] -> (v, v, v)
-average3 (a, b, c) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c)
-    where
-      ttl = scanl (+) 0 xs
+average3 (a, b, c) xs = scanl (+) 0 xs `divBy3` (a, b, c)
 
 average4 :: Fractional v => (Int, Int, Int, Int) -> [v] -> (v, v, v, v)
-average4 (a, b, c, d) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c, ttl !! d / fromIntegral d)
-    where
-      ttl = scanl (+) 0 xs
+average4 (a, b, c, d) xs = scanl (+) 0 xs `divBy4` (a, b, c, d)
 
 average5 :: Fractional v => (Int, Int, Int, Int, Int) -> [v] -> (v, v, v, v, v)
-average5 (a, b, c, d, e) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b, ttl !! c / fromIntegral c, ttl !! d / fromIntegral d, ttl !! e / fromIntegral e)
-    where
-      ttl = scanl (+) 0 xs
+average5 (a, b, c, d, e) xs = scanl (+) 0 xs `divBy5` (a, b, c, d, e)
 
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
 para (a, b) (ks, vss) = (zip ka va, zip kb vb)
