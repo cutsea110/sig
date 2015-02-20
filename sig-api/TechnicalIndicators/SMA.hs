@@ -15,14 +15,24 @@ prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
 prepare = (id *** tails . cleansing) . unzip
 
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . (drop (n-1) *** map (average n))
+single n = uncurry zip . (from *** map (average n))
+    where
+      from xs = tails xs !! (n-1)
 
-average :: Fractional v => Int -> [Maybe v] -> Maybe v
+average :: Fractional v => Int -> [v] -> v
 average n xs = scanl (+) 0 xs !! n / fromIntegral n
 
-para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
-para (a, b) x = (single a x, single b x)
+average2 :: Fractional v => (Int, Int) -> [v] -> (v, v)
+average2 (a, b) xs = (ttl !! a / fromIntegral a, ttl !! b / fromIntegral b)
+    where
+      ttl = scanl (+) 0 xs
 
+para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
+para (a, b) (ks, vss) = (zip ka va, zip kb vb)
+    where
+      (va, vb) = unzip $ map (average2 (a, b)) vss
+      (ka, kb) = let ks' = tails ks in (ks' !! (a-1) , ks' !! (b-1))
+      
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 para3 (a, b, c) x = (single a x, single b x, single c x)
