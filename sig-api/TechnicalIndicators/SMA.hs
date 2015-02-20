@@ -15,10 +15,10 @@ prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
 prepare = (id *** tails . cleansing) . unzip
 
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . (drop (n-1) *** map (average' n))
+single n = uncurry zip . (drop (n-1) *** map (average n))
 
-average' :: Fractional v => Int -> [Maybe v] -> Maybe v
-average' n xs = scanl (+) 0 xs !! n / fromIntegral n
+average :: Fractional v => Int -> [Maybe v] -> Maybe v
+average n xs = scanl (+) 0 xs !! n / fromIntegral n
 
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
 para (a, b) x = (single a x, single b x)
@@ -62,11 +62,6 @@ sma5 :: Fractional v =>
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 sma5 = prepare ~> para5
-
-average :: Fractional a => [a] -> a
-average xs = s / l
-    where
-      (s, l) = foldr (\a (x, y) -> (a + x, 1 + y)) (0,0) xs
 
 cleansing :: [Maybe a] -> [Maybe a]
 cleansing xs = unfoldr f (Nothing, xs)
