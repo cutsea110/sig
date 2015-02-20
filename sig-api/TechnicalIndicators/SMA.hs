@@ -29,8 +29,30 @@ cross4 (f, g, h, j) (a, b, c, d) = (f a, g b, h c, j d)
 cross5 :: (a -> x, b -> y, c -> z, d -> w, e -> v) -> (a, b, c, d, e) -> (x, y, z, w, v)
 cross5 (f, g, h, j, k) (a, b, c, d, e) = (f a, g b, h c, j d, k e)
 
+($++$) :: ([a], [a]) -> ([b], [b]) -> ([(a, b)], [(a, b)])
+($++$) = cross . pair zip
+($+++$) :: ([a], [a], [a]) -> ([b], [b], [b]) -> ([(a, b)], [(a, b)], [(a, b)])
+($+++$) = cross3 . pair3 zip
+($++++$) :: ([a], [a], [a], [a])
+            -> ([b], [b], [b], [b])
+            -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)])
+($++++$) = cross4 . pair4 zip
+($+++++$) :: ([a], [a], [a], [a], [a])
+             -> ([b], [b], [b], [b], [b])
+             -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)], [(a, b)])
+($+++++$) = cross5 . pair5 zip
+
 prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
 prepare = (id *** tails . cleansing) . unzip
+
+cleansing :: [Maybe a] -> [Maybe a]
+cleansing xs = unfoldr f (Nothing, xs)
+  where
+    f (old, []) = Nothing
+    f (old, x:xs) = Just $ maybe nothing just x
+        where
+          nothing = (old, (old, xs))
+          just x' = let new = Just x' in (new, (new, xs))
 
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
@@ -65,35 +87,27 @@ average5 ps xs = scanl (+) 0 xs `divBy5` ps
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
 
-from2 :: [a] -> (Int, Int) -> ([a], [a])
-from2 = pair . from
-
-from3 :: [a] -> (Int, Int, Int) -> ([a], [a], [a])
-from3 = pair3 . from
-
-from4 :: [a] -> (Int, Int, Int, Int) -> ([a], [a], [a], [a])
-from4 = pair4 . from
-
-from5 :: [a] -> (Int, Int, Int, Int, Int) -> ([a], [a], [a], [a], [a])
-from5 = pair5 . from
-
 single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
 single n = uncurry zip . (flip from n *** map (average n))
 
+-- | general utility function for para#
+paraN _pair _zip _unzip _average ps (ks, vss)
+    = (_pair (from ks) ps) `_zip` (_unzip $ map (_average ps) vss)
+
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
-para ps (ks, vss) = (cross . pair zip) (ks `from2` ps) (unzip $ map (average2 ps) vss)
+para = paraN pair ($++$) unzip average2
 
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
        -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para3 ps (ks, vss) = (cross3 . pair3 zip) (ks `from3` ps) (unzip3 $ map (average3 ps) vss)
+para3 = paraN pair3 ($+++$) unzip3 average3
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para4 ps (ks, vss) = (cross4 . pair4 zip) (ks `from4` ps) (unzip4 $ map (average4 ps) vss)
+para4 = paraN pair4 ($++++$) unzip4 average4
 
 para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para5 ps (ks, vss) = (cross5 . pair5 zip) (ks `from5` ps) (unzip5 $ map (average5 ps) vss)
+para5 = paraN pair5 ($+++++$) unzip5 average5
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
@@ -122,15 +136,6 @@ sma5 :: Fractional v =>
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
 sma5 = prepare ~> para5
-
-cleansing :: [Maybe a] -> [Maybe a]
-cleansing xs = unfoldr f (Nothing, xs)
-  where
-    f (old, []) = Nothing
-    f (old, x:xs) = Just $ maybe nothing just x
-        where
-          nothing = (old, (old, xs))
-          just x' = let new = Just x' in (new, (new, xs))
 
 instance Num v => Num (Maybe v) where
   (+) = liftA2 (+)
