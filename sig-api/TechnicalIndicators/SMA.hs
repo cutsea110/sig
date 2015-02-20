@@ -44,8 +44,8 @@ cleansing xs = unfoldr f (Nothing, xs)
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
 
-averageN :: (Applicative f, Num a, Fractional (f a)) =>
-     ((Int -> f a) -> t1 -> t) -> t1 -> [f a] -> t
+averageN :: (Applicative f, Num v, Fractional (f v)) =>
+     ((Int -> f v) -> tuples -> tuples') -> tuples -> [f v] -> tuples'
 averageN _pair ps xs = scanl (+) (pure 0) xs `_divBy` ps
     where
       _divBy = _pair . divBy
