@@ -3,7 +3,7 @@ module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 -- | Simple Moving Average
 
 import Control.Arrow ((***))
-import Control.Applicative ((<$>), (<*>), liftA, liftA2)
+import Control.Applicative (Applicative, (<$>), (<*>), liftA, liftA2, pure)
 import Data.List (tails, unfoldr, unzip4, unzip5)
 
 -- | special DSL which only use in this module
@@ -44,8 +44,9 @@ cleansing xs = unfoldr f (Nothing, xs)
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
 
-averageN :: Fractional v => ((Int -> v) -> tuples -> tuples') -> tuples -> [v] -> tuples'
-averageN _pair ps xs = scanl (+) 0 xs `_divBy` ps
+averageN :: (Applicative f, Num a, Fractional (f a)) =>
+     ((Int -> f a) -> t1 -> t) -> t1 -> [f a] -> t
+averageN _pair ps xs = scanl (+) (pure 0) xs `_divBy` ps
     where
       _divBy = _pair . divBy
 
@@ -111,9 +112,9 @@ instance Num v => Num (Maybe v) where
   negate = liftA negate
   abs = liftA abs
   signum = liftA signum
-  fromInteger = Just . fromInteger
+  fromInteger = pure . fromInteger
 
 instance Fractional v => Fractional (Maybe v) where
   (/) = liftA2 (/)
   recip = liftA recip
-  fromRational = Just . fromRational
+  fromRational = pure . fromRational
