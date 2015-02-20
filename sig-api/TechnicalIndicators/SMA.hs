@@ -32,11 +32,6 @@ cross5 (f, g, h, j, k) (a, b, c, d, e) = (f a, g b, h c, j d, k e)
 prepare :: [(k, Maybe v)] -> ([k], [[Maybe v]])
 prepare = (id *** tails . cleansing) . unzip
 
-single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
-single n = uncurry zip . (from *** map (average n))
-    where
-      from xs = tails xs !! (n-1)
-
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
 
@@ -82,32 +77,23 @@ from4 = pair4 . from
 from5 :: [a] -> (Int, Int, Int, Int, Int) -> ([a], [a], [a], [a], [a])
 from5 = pair5 . from
 
+single :: Fractional v => Int -> ([k], [[Maybe v]]) -> [(k, Maybe v)]
+single n = uncurry zip . (flip from n *** map (average n))
+
 para :: Fractional v => (Int, Int) -> ([k], [[Maybe v]]) -> ([(k, Maybe v)], [(k, Maybe v)])
-para ps (ks, vss) = (cross . pair zip) (ka, kb) (va, vb)
-    where
-      (va, vb) = unzip $ map (average2 ps) vss
-      (ka, kb) = ks `from2` ps
+para ps (ks, vss) = (cross . pair zip) (ks `from2` ps) (unzip $ map (average2 ps) vss)
 
 para3 :: Fractional v => (Int, Int, Int) -> ([k], [[Maybe v]])
        -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para3 ps (ks, vss) = (cross3 . pair3 zip) (ka, kb, kc) (va, vb, vc)
-    where
-      (va, vb, vc) = unzip3 $ map (average3 ps) vss
-      (ka, kb, kc) = ks `from3` ps
+para3 ps (ks, vss) = (cross3 . pair3 zip) (ks `from3` ps) (unzip3 $ map (average3 ps) vss)
 
 para4 :: Fractional v => (Int, Int, Int, Int) -> ([k], [[Maybe v]])
       -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para4 ps (ks, vss) = (cross4 . pair4 zip) (ka, kb, kc, kd) (va, vb, vc, vd)
-    where
-      (va, vb, vc, vd) = unzip4 $ map (average4 ps) vss
-      (ka, kb, kc, kd) = ks `from4` ps
+para4 ps (ks, vss) = (cross4 . pair4 zip) (ks `from4` ps) (unzip4 $ map (average4 ps) vss)
 
 para5 :: Fractional v => (Int, Int, Int, Int, Int) -> ([k], [[Maybe v]])
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-para5 ps (ks, vss) = (cross5 . pair5 zip) (ka, kb, kc, kd, ke) (va, vb, vc, vd, ve)
-    where
-      (va, vb, vc, vd, ve) = unzip5 $ map (average5 ps) vss
-      (ka, kb, kc, kd, ke) = ks `from5` ps
+para5 ps (ks, vss) = (cross5 . pair5 zip) (ks `from5` ps) (unzip5 $ map (average5 ps) vss)
 
 -- | Global Proposition : We suggest that the list of key value pair has been sorted by key.
 --   This module just only calculate simple moving value.
