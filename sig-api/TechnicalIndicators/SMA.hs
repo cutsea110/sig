@@ -45,10 +45,20 @@ divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
 
 averageN :: (Applicative f, Num v, Fractional (f v)) =>
-     ((Int -> f v) -> tuples -> tuples') -> tuples -> [f v] -> tuples'
+            ((Int -> f v) -> tuples -> tuples') -> tuples -> [f v] -> tuples'
 averageN _pair ps xs = scanl (+) (pure 0) xs `_divBy` ps
     where
       _divBy = _pair . divBy
+
+wDivBy :: Fractional a => [(a, a, t)] -> Int -> a
+wDivBy xs c = let (n, d, _) = xs !! c in n / d
+
+waverageN :: (Applicative f, Num v, Fractional (f v)) =>
+             ((Int -> f v) -> tuples -> tuples') -> tuples -> [f v] -> tuples'
+waverageN _pair ps xs = scanl plus (pure 0, pure 1, pure 1) xs `_divBy` ps
+    where
+      plus (ttl, wttl, w) x = (ttl+x*w, wttl+w, w+1)
+      _divBy = _pair . wDivBy
 
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
