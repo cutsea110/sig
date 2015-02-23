@@ -1,5 +1,11 @@
 $(function() {
 
+    Highcharts.setOptions({
+	global: {
+	    useUTC: false
+	}
+    });
+    
     var opt =
 	{
             chart: {
