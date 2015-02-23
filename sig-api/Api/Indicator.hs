@@ -47,11 +47,23 @@ resource = mkResourceReader
            , R.get = Just get
            }
 
+data Pricing = Opening
+             | High
+             | Low
+             | Closing
+               deriving (Eq, Show, Read)
+
 data ParamSMA = S Int
               | P Int Int
               | P3 Int Int Int
               | P4 Int Int Int Int
               | P5 Int Int Int Int Int
+
+pPricing :: Param Pricing
+pPricing = Param ["pricing"] $ \xs ->
+  maybe (Left (ParseError "pricing")) Right $ case xs of
+    (Just p:_) -> readMay p
+    _ -> Just Closing
 
 pSMA :: Param ParamSMA
 pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
@@ -67,24 +79,28 @@ pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
     [Just n, _, _, _, _] -> S <$> readMay n
     _ -> Just $ P3 5 21 60 -- default system
 
-mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> ParamSMA -> ErrorT (Reason e) m o) -> Handler m
-mkIdHandler' d a = mkHandler (mkPar pSMA . d) (\env -> ask >>= flip a (param env))
+mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> (Pricing, ParamSMA) -> ErrorT (Reason e) m o) -> Handler m
+mkIdHandler' d a = mkHandler (addPar pPricing . mkPar pSMA . d) (\env -> ask >>= flip a (param env))
 
 get :: Handler WithIndicator
 get = mkIdHandler' xmlJsonO handler
     where
-      handler :: Indicator -> ParamSMA -> ErrorT Reason_ WithIndicator Result
+      handler :: Indicator -> (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
       handler SMA = smaHandler
       handler RSI = rsiHandler
       handler MACD = macdHandler
       -- SMA
-      smaHandler :: ParamSMA -> ErrorT Reason_ WithIndicator Result
-      smaHandler c = do
+      smaHandler :: (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
+      smaHandler (p, c) = do
         cd <- getCode
         liftIO $ withDB $ \conn -> do
-          xs <- collect' findByCodeWithOnlyClosing cd conn
+          xs <- collect' (finder p) cd conn
           return $ f c xs
         where
+          finder Opening = findByCodeWithOnlyOpening
+          finder High    = findByCodeWithOnlyHigh
+          finder Low     = findByCodeWithOnlyLow
+          finder Closing = findByCodeWithOnlyClosing
           mkLabel n = "SMA " ++ show n
           f (S n) = sma ~> mkMono . mkLabel $ n
           f (P n s) = sma2 ~> (mkDi . tuply mkLabel) $ (n, s)
