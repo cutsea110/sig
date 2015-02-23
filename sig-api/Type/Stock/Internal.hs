@@ -26,7 +26,6 @@ import DataSource (defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
 import Type.Brand (Brand)
-import Type.Common (Label)
 
 type Raw = [(Day, Maybe Double)]
 
@@ -83,8 +82,7 @@ instance JSONSchema Tick where schema = gSchema
 instance FromJSON Tick
 instance ToJSON Tick
 
-data Timeline = Timeline { label :: String
-                         , ticks ::[Tick]
+data Timeline = Timeline { ticks ::[Tick]
                          }
                 deriving (Eq, Generic, Ord, Show, Typeable)
 deriveAll ''Timeline "PFTimeline"
@@ -120,8 +118,27 @@ instance JSONSchema Pricing where schema = gSchema
 instance FromJSON Pricing
 instance ToJSON Pricing
 
+data Terms = Terms { n :: Maybe Int
+                   , s :: Maybe Int
+                   , m :: Maybe Int
+                   , l :: Maybe Int
+                   , xl :: Maybe Int
+                   }
+  deriving (Eq, Generic, Ord, Show, Typeable)
+deriveAll ''Terms "PFTerms"
+type instance PF Terms = PFTerms
+
+instance XmlPickler Terms where xpickle = gxpickle
+instance JSONSchema Terms where schema = gSchema
+instance FromJSON Terms
+instance ToJSON Terms
+
+defaultTerms :: Terms
+defaultTerms = Terms Nothing Nothing Nothing Nothing Nothing
+
 data MetaInfo = MetaInfo { indicator :: Indicator
                          , pricing :: Pricing
+                         , terms :: Terms
                          }
   deriving (Eq, Generic, Ord, Show, Typeable)
 deriveAll ''MetaInfo "PFMetaInfo"
@@ -150,27 +167,27 @@ instance ToJSON Result
 toTick :: (Day, Maybe Double) -> Tick
 toTick = Tick <$> fst <*> snd
 
-toTimeline :: (Label, Raw) -> Timeline
-toTimeline (l, r) = Timeline l (map toTick r)
+toTimeline :: Raw -> Timeline
+toTimeline = Timeline . map toTick
 
-mkMeta :: Indicator -> Pricing -> MetaInfo
-mkMeta i p = MetaInfo i p
+mkMeta :: Indicator -> Pricing -> Terms -> MetaInfo
+mkMeta = MetaInfo
 
-mkMono :: MetaInfo -> Label -> Raw -> Result
-mkMono meta l xs = Mono meta $ toTimeline (l, xs)
+mkMono :: MetaInfo -> Raw -> Result
+mkMono meta xs = Mono meta $ toTimeline xs
 
-mkDi :: MetaInfo -> (Label, Label) -> (Raw, Raw) -> Result
-mkDi meta (_a, _b) (a, b)
-  = Di meta (toTimeline (_a, a)) (toTimeline (_b, b))
+mkDi :: MetaInfo -> (Raw, Raw) -> Result
+mkDi meta (a, b)
+  = Di meta (toTimeline a) (toTimeline b)
 
-mkTri :: MetaInfo -> (Label, Label, Label) -> (Raw, Raw, Raw) -> Result
-mkTri meta (_a, _b, _c) (a, b, c)
-  = Tri meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c))
+mkTri :: MetaInfo -> (Raw, Raw, Raw) -> Result
+mkTri meta (a, b, c)
+  = Tri meta (toTimeline a) (toTimeline b) (toTimeline c)
 
-mkTetra :: MetaInfo -> (Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw) -> Result
-mkTetra meta (_a, _b, _c, _d) (a, b, c, d)
-  = Tetra meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d))
+mkTetra :: MetaInfo -> (Raw, Raw, Raw, Raw) -> Result
+mkTetra meta (a, b, c, d)
+  = Tetra meta (toTimeline a) (toTimeline b) (toTimeline c) (toTimeline d)
 
-mkPenta :: MetaInfo -> (Label, Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw, Raw) -> Result
-mkPenta meta (_a, _b, _c, _d, _e) (a, b, c, d, e)
-  = Penta meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d)) (toTimeline (_e, e))
+mkPenta :: MetaInfo -> (Raw, Raw, Raw, Raw, Raw) -> Result
+mkPenta meta (a, b, c, d, e)
+  = Penta meta (toTimeline a) (toTimeline b) (toTimeline c) (toTimeline d) (toTimeline e)

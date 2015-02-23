@@ -20,9 +20,9 @@ import Api.Stock (WithStock)
 import Query
 import TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5)
 import Type.Common (Code)
-import Type.Stock (Stock, Stocks(..), Result(..), Pricing(..), Indicator(..)
+import Type.Stock (Stock, Stocks(..), Result(..), Pricing(..), Indicator(..), Terms(..), defaultTerms
                   , mkMeta, mkMono, mkDi, mkTri, mkTetra, mkPenta)
-import Util
+import Util (withDB, collect')
 
 instance Info Indicator where
   describe _ = "indicator"
@@ -48,6 +48,13 @@ data ParamSMA = S Int
               | P3 Int Int Int
               | P4 Int Int Int Int
               | P5 Int Int Int Int Int
+
+toTerms :: ParamSMA -> Terms
+toTerms (S n) = defaultTerms { n = Just n }
+toTerms (P n s) = defaultTerms { n = Just n, s = Just s }
+toTerms (P3 n s m) = defaultTerms { n = Just n, s = Just s, m = Just m }
+toTerms (P4 n s m l) = defaultTerms { n = Just n, s = Just s, m = Just m, l = Just l }
+toTerms (P5 n s m l xl) = defaultTerms { n = Just n, s = Just s, m = Just m, l = Just l, xl = Just xl }
 
 pPricing :: Param Pricing
 pPricing = Param ["pricing"] $ \xs ->
@@ -85,18 +92,17 @@ get = mkIdHandler' xmlJsonO handler
         cd <- getCode
         liftIO $ withDB $ \conn -> do
           xs <- collect' (finder p) cd conn
-          return $ f (mkMeta SMA p) c xs
+          return $ f (mkMeta SMA p (toTerms c)) c xs
         where
           finder Opening = findByCodeWithOnlyOpening
           finder High    = findByCodeWithOnlyHigh
           finder Low     = findByCodeWithOnlyLow
           finder Closing = findByCodeWithOnlyClosing
-          mkLabel n = "SMA " ++ show n
-          f meta (S n) = sma ~> mkMono meta . mkLabel $ n
-          f meta (P n s) = sma2 ~> (mkDi meta . tuply mkLabel) $ (n, s)
-          f meta (P3 n s m) = sma3 ~> (mkTri meta . tuply3 mkLabel) $ (n, s, m)
-          f meta (P4 n s m l) = sma4 ~> (mkTetra meta . tuply4 mkLabel) $ (n, s, m, l)
-          f meta (P5 n s m l xl) = sma5 ~> (mkPenta meta . tuply5 mkLabel) $ (n, s, m, l, xl)
+          f mt (S n) = mkMono mt . sma n
+          f mt (P n s) = mkDi mt . sma2 (n, s)
+          f mt (P3 n s m) = mkTri mt . sma3 (n, s, m)
+          f mt (P4 n s m l) = mkTetra mt . sma4 (n, s, m, l)
+          f mt (P5 n s m l xl) = mkPenta mt . sma5 (n, s, m, l, xl)
       -- RSI
       rsiHandler = undefined
       -- MACD
