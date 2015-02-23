@@ -170,7 +170,7 @@ $(function() {
 			if (data['tl'+i] != null) {
 			    chart.addSeries({
 				type: 'line',
-				name: data.meta.indicator + data.meta.terms[keys[i]],
+				name: data.meta.indicator + ' ' + data.meta.terms[keys[i]],
 				data: data['tl'+i].ticks.map(function(s){return [s.k, s.v]}),
 				color: colors[keys[i]],
 				yAxis: 0
