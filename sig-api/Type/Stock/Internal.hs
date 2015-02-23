@@ -95,11 +95,48 @@ instance JSONSchema Timeline where schema = gSchema
 instance FromJSON Timeline
 instance ToJSON Timeline
 
-data Result = Mono {tl1 :: Timeline }
-            | Di { tl1 :: Timeline, tl2 :: Timeline }
-            | Tri { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline }
-            | Tetra { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline }
-            | Penta { tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline, tl5 :: Timeline }
+data Indicator = SMA
+               | RSI
+               | MACD
+  deriving (Eq, Generic, Ord, Show, Typeable, Read)
+deriveAll ''Indicator "PFIndicator"
+type instance PF Indicator = PFIndicator
+
+instance XmlPickler Indicator where xpickle = gxpickle
+instance JSONSchema Indicator where schema = gSchema
+instance FromJSON Indicator
+instance ToJSON Indicator
+
+data Pricing = Opening
+             | High
+             | Low
+             | Closing
+  deriving (Eq, Generic, Ord, Show, Typeable, Read)
+deriveAll ''Pricing "PFPricing"
+type instance PF Pricing = PFPricing
+
+instance XmlPickler Pricing where xpickle = gxpickle
+instance JSONSchema Pricing where schema = gSchema
+instance FromJSON Pricing
+instance ToJSON Pricing
+
+data MetaInfo = MetaInfo { indicator :: Indicator
+                         , pricing :: Pricing
+                         }
+  deriving (Eq, Generic, Ord, Show, Typeable)
+deriveAll ''MetaInfo "PFMetaInfo"
+type instance PF MetaInfo = PFMetaInfo
+
+instance XmlPickler MetaInfo where xpickle = gxpickle
+instance JSONSchema MetaInfo where schema = gSchema
+instance FromJSON MetaInfo
+instance ToJSON MetaInfo
+
+data Result = Mono { meta :: MetaInfo, tl1 :: Timeline }
+            | Di { meta :: MetaInfo, tl1 :: Timeline, tl2 :: Timeline }
+            | Tri { meta :: MetaInfo, tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline }
+            | Tetra { meta :: MetaInfo, tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline }
+            | Penta { meta :: MetaInfo, tl1 :: Timeline, tl2 :: Timeline, tl3 :: Timeline, tl4 :: Timeline, tl5 :: Timeline }
   deriving (Eq, Generic, Ord, Show, Typeable)
            
 deriveAll ''Result "PFResult"
@@ -116,21 +153,24 @@ toTick = Tick <$> fst <*> snd
 toTimeline :: (Label, Raw) -> Timeline
 toTimeline (l, r) = Timeline l (map toTick r)
 
-mkMono :: Label -> Raw -> Result
-mkMono l xs = Mono $ toTimeline (l, xs)
+mkMeta :: Indicator -> Pricing -> MetaInfo
+mkMeta i p = MetaInfo i p
 
-mkDi :: (Label, Label) -> (Raw, Raw) -> Result
-mkDi (_a, _b) (a, b)
-  = Di (toTimeline (_a, a)) (toTimeline (_b, b))
+mkMono :: MetaInfo -> Label -> Raw -> Result
+mkMono meta l xs = Mono meta $ toTimeline (l, xs)
 
-mkTri :: (Label, Label, Label) -> (Raw, Raw, Raw) -> Result
-mkTri (_a, _b, _c) (a, b, c)
-  = Tri (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c))
+mkDi :: MetaInfo -> (Label, Label) -> (Raw, Raw) -> Result
+mkDi meta (_a, _b) (a, b)
+  = Di meta (toTimeline (_a, a)) (toTimeline (_b, b))
 
-mkTetra :: (Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw) -> Result
-mkTetra (_a, _b, _c, _d) (a, b, c, d)
-  = Tetra (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d))
+mkTri :: MetaInfo -> (Label, Label, Label) -> (Raw, Raw, Raw) -> Result
+mkTri meta (_a, _b, _c) (a, b, c)
+  = Tri meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c))
 
-mkPenta :: (Label, Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw, Raw) -> Result
-mkPenta (_a, _b, _c, _d, _e) (a, b, c, d, e)
-  = Penta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d)) (toTimeline (_e, e))
+mkTetra :: MetaInfo -> (Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw) -> Result
+mkTetra meta (_a, _b, _c, _d) (a, b, c, d)
+  = Tetra meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d))
+
+mkPenta :: MetaInfo -> (Label, Label, Label, Label, Label) -> (Raw, Raw, Raw, Raw, Raw) -> Result
+mkPenta meta (_a, _b, _c, _d, _e) (a, b, c, d, e)
+  = Penta meta (toTimeline (_a, a)) (toTimeline (_b, b)) (toTimeline (_c, c)) (toTimeline (_d, d)) (toTimeline (_e, e))
