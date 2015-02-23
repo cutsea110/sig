@@ -20,13 +20,9 @@ import Api.Stock (WithStock)
 import Query
 import TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5)
 import Type.Common (Code)
-import Type.Stock (Stock, Stocks(..), Result(..), mkMono, mkDi, mkTri, mkTetra, mkPenta)
+import Type.Stock (Stock, Stocks(..), Result(..), Pricing(..), Indicator(..)
+                  , mkMeta, mkMono, mkDi, mkTri, mkTetra, mkPenta)
 import Util
-
-data Indicator = SMA
-               | RSI
-               | MACD
-               deriving (Eq, Show, Read, Typeable)
 
 instance Info Indicator where
   describe _ = "indicator"
@@ -53,6 +49,12 @@ data ParamSMA = S Int
               | P4 Int Int Int Int
               | P5 Int Int Int Int Int
 
+pPricing :: Param Pricing
+pPricing = Param ["pricing"] $ \xs ->
+  maybe (Left (ParseError "pricing")) Right $ case xs of
+    (Just p:_) -> readMay p
+    _ -> Just Closing
+
 pSMA :: Param ParamSMA
 pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
   maybe (Left (ParseError "term")) Right $ case xs of
@@ -67,30 +69,34 @@ pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
     [Just n, _, _, _, _] -> S <$> readMay n
     _ -> Just $ P3 5 21 60 -- default system
 
-mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> ParamSMA -> ErrorT (Reason e) m o) -> Handler m
-mkIdHandler' d a = mkHandler (mkPar pSMA . d) (\env -> ask >>= flip a (param env))
+mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> (Pricing, ParamSMA) -> ErrorT (Reason e) m o) -> Handler m
+mkIdHandler' d a = mkHandler (addPar pPricing . mkPar pSMA . d) (\env -> ask >>= flip a (param env))
 
 get :: Handler WithIndicator
 get = mkIdHandler' xmlJsonO handler
     where
-      handler :: Indicator -> ParamSMA -> ErrorT Reason_ WithIndicator Result
+      handler :: Indicator -> (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
       handler SMA = smaHandler
       handler RSI = rsiHandler
       handler MACD = macdHandler
       -- SMA
-      smaHandler :: ParamSMA -> ErrorT Reason_ WithIndicator Result
-      smaHandler c = do
+      smaHandler :: (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
+      smaHandler (p, c) = do
         cd <- getCode
         liftIO $ withDB $ \conn -> do
-          xs <- collect' findByCodeWithOnlyClosing cd conn
-          return $ f c xs
+          xs <- collect' (finder p) cd conn
+          return $ f (mkMeta SMA p) c xs
         where
+          finder Opening = findByCodeWithOnlyOpening
+          finder High    = findByCodeWithOnlyHigh
+          finder Low     = findByCodeWithOnlyLow
+          finder Closing = findByCodeWithOnlyClosing
           mkLabel n = "SMA " ++ show n
-          f (S n) = sma ~> mkMono . mkLabel $ n
-          f (P n s) = sma2 ~> (mkDi . tuply mkLabel) $ (n, s)
-          f (P3 n s m) = sma3 ~> (mkTri . tuply3 mkLabel) $ (n, s, m)
-          f (P4 n s m l) = sma4 ~> (mkTetra . tuply4 mkLabel) $ (n, s, m, l)
-          f (P5 n s m l xl) = sma5 ~> (mkPenta . tuply5 mkLabel) $ (n, s, m, l, xl)
+          f meta (S n) = sma ~> mkMono meta . mkLabel $ n
+          f meta (P n s) = sma2 ~> (mkDi meta . tuply mkLabel) $ (n, s)
+          f meta (P3 n s m) = sma3 ~> (mkTri meta . tuply3 mkLabel) $ (n, s, m)
+          f meta (P4 n s m l) = sma4 ~> (mkTetra meta . tuply4 mkLabel) $ (n, s, m, l)
+          f meta (P5 n s m l xl) = sma5 ~> (mkPenta meta . tuply5 mkLabel) $ (n, s, m, l, xl)
       -- RSI
       rsiHandler = undefined
       -- MACD

@@ -46,6 +46,39 @@ findByCode = relation' $ do
                   |*| s ! S.tradingvalue'
          )
 
+findByCodeWithOnlyOpening :: Relation Code (Day, Maybe Double)
+findByCodeWithOnlyOpening = relation' $ do
+  s <- query stock
+  (ph, ()) <- placeholder $ \c ->
+    wheres $ s ! S.code' .=. c
+  asc $ s ! S.day'
+  return ( ph
+         , (,) |$| s ! S.day'
+               |*| s ! S.openingprice'
+         )
+
+findByCodeWithOnlyHigh :: Relation Code (Day, Maybe Double)
+findByCodeWithOnlyHigh = relation' $ do
+  s <- query stock
+  (ph, ()) <- placeholder $ \c ->
+    wheres $ s ! S.code' .=. c
+  asc $ s ! S.day'
+  return ( ph
+         , (,) |$| s ! S.day'
+               |*| s ! S.highprice'
+         )
+
+findByCodeWithOnlyLow :: Relation Code (Day, Maybe Double)
+findByCodeWithOnlyLow = relation' $ do
+  s <- query stock
+  (ph, ()) <- placeholder $ \c ->
+    wheres $ s ! S.code' .=. c
+  asc $ s ! S.day'
+  return ( ph
+         , (,) |$| s ! S.day'
+               |*| s ! S.lowprice'
+         )
+
 findByCodeWithOnlyClosing :: Relation Code (Day, Maybe Double)
 findByCodeWithOnlyClosing = relation' $ do
   s <- query stock
