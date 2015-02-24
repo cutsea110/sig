@@ -65,6 +65,18 @@ waverageN _pair ps xs = scanl plus (dup3 (pure 0)) xs `_divBy` ps
       plus (ttl, wttl, w) x = let w' = w+1 in (ttl+x*w', wttl+w', w')
       _divBy = _pair . wDivBy
 
+eDivBy :: Fractional a => [(a, v)] -> Int -> (a, v)
+eDivBy xs c = let (ttl, ave) = xs !! c in (ttl / fromIntegral c, ave)
+
+{-
+let xs = map Just [1.0,2.0..10.0]
+id   (\n -> cross ((/fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) 5
+pair (\n -> cross ((/fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) (3, 5)
+
+-}
+eaverageN _pair ps xs = _pair (\n -> cross ((/ fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) ps
+
+
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
 
