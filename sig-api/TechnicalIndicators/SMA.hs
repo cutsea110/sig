@@ -2,7 +2,7 @@ module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 
 -- | Simple Moving Average
 
-import Control.Applicative (Applicative, (<$>), (<*>), pure)
+import Control.Applicative (Applicative, (<*>), pure)
 
 import TechnicalIndicators.Core
 

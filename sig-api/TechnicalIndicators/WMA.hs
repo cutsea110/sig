@@ -2,7 +2,7 @@ module TechnicalIndicators.WMA (wma, wma2, wma3, wma4, wma5) where
 
 -- | Simple Moving Average
 
-import Control.Applicative (Applicative, (<$>), (<*>), pure)
+import Control.Applicative (Applicative, (<*>), pure)
 
 import TechnicalIndicators.Core
 
