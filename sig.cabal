@@ -25,6 +25,7 @@ library
     Ext.Instances
     Ext.Projectable
     Query
+    TechnicalIndicators.Core
     TechnicalIndicators.SMA
     Type.Brand
     Type.Common
