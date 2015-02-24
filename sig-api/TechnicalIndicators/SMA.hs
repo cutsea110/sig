@@ -65,17 +65,18 @@ waverageN _pair ps xs = scanl plus (dup3 (pure 0)) xs `_divBy` ps
       plus (ttl, wttl, w) x = let w' = w+1 in (ttl+x*w', wttl+w', w')
       _divBy = _pair . wDivBy
 
-eDivBy :: Fractional a => [(a, v)] -> Int -> (a, v)
-eDivBy xs c = let (ttl, ave) = xs !! c in (ttl / fromIntegral c, ave)
-
 {-
-let xs = map Just [1.0,2.0..10.0]
-id   (\n -> cross ((/fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) 5
-pair (\n -> cross ((/fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) (3, 5)
-
+let xs = map Just [530,540,535,530,520,510,500,499,510,490,550,440,590,600,610,580,615,580,895,600,600,605,620,575,595,600]
 -}
-eaverageN _pair ps xs = _pair (\n -> cross ((/ fromIntegral n), id) (scanl (\(ttl,prev) x -> (ttl+x, prev+(x-prev)*(2/fromIntegral (n-1)))) (0,0) xs !! n)) ps
-
+eaverageN :: (Applicative f, Num a, Fractional (f a)) =>
+     ((Int -> (f a, f a)) -> tuples -> tuples') -> tuples -> [f a] -> tuples'
+eaverageN _pair ps xs = _pair (_divBy <*> accum) ps
+    where
+      _divBy n = cross ((/ fromIntegral n), id)
+      accum n = scanl plus (dup (pure 0)) xs !! n
+          where
+            plus (ttl, prev) x = (ttl+x, prev+(x-prev)*alpha)
+            alpha = 2 / fromIntegral (n-1)
 
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
