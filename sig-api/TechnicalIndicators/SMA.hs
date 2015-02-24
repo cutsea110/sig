@@ -11,6 +11,11 @@ import Data.List (tails, unfoldr, unzip4, unzip5)
 (~>) :: (a -> b) -> (t -> b -> c) -> t -> a -> c
 f ~> g = (.) <$> g <*> const f
 
+dup a = (a, a)
+dup3 a = (a, a, a)
+dup4 a = (a, a, a, a)
+dup5 a = (a, a, a, a, a)
+
 pair :: (a -> b) -> (a, a) -> (b, b)
 pair f (a, b) = (f a, f b)
 pair3 :: (a -> b) -> (a, a, a) -> (b, b, b)
@@ -55,9 +60,9 @@ wDivBy xs c = let (n, d, _) = xs !! c in n / d
 
 waverageN :: (Applicative f, Num v, Fractional (f v)) =>
              ((Int -> f v) -> tuples -> tuples') -> tuples -> [f v] -> tuples'
-waverageN _pair ps xs = scanl plus (pure 0, pure 0, pure 1) xs `_divBy` ps
+waverageN _pair ps xs = scanl plus (dup3 (pure 0)) xs `_divBy` ps
     where
-      plus (ttl, wttl, w) x = (ttl+x*w, wttl+w, w+1)
+      plus (ttl, wttl, w) x = let w' = w+1 in (ttl+x*w', wttl+w', w')
       _divBy = _pair . wDivBy
 
 from :: [a] -> Int -> [a]
