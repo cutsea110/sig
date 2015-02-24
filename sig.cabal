@@ -27,6 +27,7 @@ library
     Query
     TechnicalIndicators.Core
     TechnicalIndicators.SMA
+    TechnicalIndicators.WMA
     Type.Brand
     Type.Common
     Type.Stock
