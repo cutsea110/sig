@@ -2,9 +2,9 @@ module TechnicalIndicators.SMA (sma, sma2, sma3, sma4, sma5) where
 
 -- | Simple Moving Average
 
-import Control.Applicative (Applicative, (<*>), pure)
+import Control.Applicative (Applicative, pure)
 
-import TechnicalIndicators.Core
+import TechnicalIndicators.Core (single, para, para3, para4, para5)
 
 divBy :: Fractional a => [a] -> Int -> a
 divBy ttl n = ttl !! n / fromIntegral n
@@ -19,26 +19,26 @@ averageN _pair ps xs = scanl (+) (pure 0) xs `_divBy` ps
 --   This module just only calculate simple moving value.
 
 sma :: Fractional v => Int -> [(k, Maybe v)] -> [(k, Maybe v)]
-sma = prepare ~> single averageN
+sma = single averageN
 
 sma2 :: Fractional v =>
      (Int, Int) -> [(k, Maybe v)] -> ([(k, Maybe v)], [(k, Maybe v)])
-sma2 = prepare ~> para averageN
+sma2 = para averageN
 
 sma3 :: Fractional v =>
      (Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma3 = prepare ~> para3 averageN
+sma3 = para3 averageN
 
 sma4 :: Fractional v =>
      (Int, Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma4 = prepare ~> para4 averageN
+sma4 = para4 averageN
 
 sma5 :: Fractional v =>
      (Int, Int, Int, Int, Int)
      -> [(k, Maybe v)]
      -> ([(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)], [(k, Maybe v)])
-sma5 = prepare ~> para5 averageN
+sma5 = para5 averageN

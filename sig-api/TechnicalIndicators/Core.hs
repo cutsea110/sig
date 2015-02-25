@@ -1,4 +1,22 @@
-module TechnicalIndicators.Core where
+module TechnicalIndicators.Core
+       ( dup
+       , dup3
+       , dup4
+       , dup5
+       , pair
+       , pair3
+       , pair4
+       , pair5
+       , cross
+       , cross3
+       , cross4
+       , cross5
+       , single
+       , para
+       , para3
+       , para4
+       , para5
+       ) where
 
 import Control.Arrow ((***))
 import Control.Applicative (Applicative, (<$>), (<*>), liftA, liftA2, pure)
@@ -47,9 +65,11 @@ cleansing xs = unfoldr f (Nothing, xs)
 from :: [a] -> Int -> [a]
 from xs n = tails xs !! (n-1)
 
-single :: ((a2 -> a2) -> Int -> a1 -> b)
-       -> Int -> ([a], [a1]) -> [(a, b)]
-single average n = uncurry zip . (flip from n *** map (average id n))
+single :: ((a -> a) -> Int -> [Maybe v] -> b)
+       -> Int -> [(k, Maybe v)] -> [(k, b)]
+single average = prepare ~> accum
+    where
+      accum n = uncurry zip . (flip from n *** map (average id n))
 
 -- | general utility function for para#
 paraN _pair _zip _unzip _average ps (ks, vss)
@@ -57,29 +77,31 @@ paraN _pair _zip _unzip _average ps (ks, vss)
       where
         _from = _pair . from
 
-para :: (((a2 -> b1) -> (a2, a2) -> (b1, b1))
-             -> (Int, Int) -> a1 -> (b, b))
-     -> (Int, Int) -> ([a], [a1]) -> ([(a, b)], [(a, b)])
-para average = paraN pair (cross . pair zip) unzip (average pair)
+para :: (((a1 -> b1) -> (a1, a1) -> (b1, b1))
+         -> (Int, Int) -> [Maybe v] -> (b, b))
+     -> (Int, Int) -> [(a, Maybe v)] -> ([(a, b)], [(a, b)])
+para average = prepare ~> paraN pair (cross . pair zip) unzip (average pair)
 
-para3 :: (((a2 -> b1) -> (a2, a2, a2) -> (b1, b1, b1))
-              -> (Int, Int, Int) -> a1 -> (b, b, b))
-      -> (Int, Int, Int) -> ([a], [a1]) -> ([(a, b)], [(a, b)], [(a, b)])
-para3 average = paraN pair3 (cross3 . pair3 zip) unzip3 (average pair3)
+para3 :: (((a1 -> b1) -> (a1, a1, a1) -> (b1, b1, b1))
+              -> (Int, Int, Int) -> [Maybe v] -> (b, b, b))
+      -> (Int, Int, Int)
+      -> [(a, Maybe v)]
+      -> ([(a, b)], [(a, b)], [(a, b)])
+para3 average = prepare ~> paraN pair3 (cross3 . pair3 zip) unzip3 (average pair3)
 
-para4 :: (((a2 -> b1) -> (a2, a2, a2, a2) -> (b1, b1, b1, b1))
-              -> (Int, Int, Int, Int) -> a1 -> (b, b, b, b))
+para4 :: (((a -> b1) -> (a, a, a, a) -> (b1, b1, b1, b1))
+              -> (Int, Int, Int, Int) -> [Maybe v] -> (b, b, b, b))
       -> (Int, Int, Int, Int)
-      -> ([a], [a1])
-      -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)])
-para4 average = paraN pair4 (cross4 . pair4 zip) unzip4 (average pair4)
+      -> [(k, Maybe v)]
+      -> ([(k, b)], [(k, b)], [(k, b)], [(k, b)])
+para4 average = prepare ~> paraN pair4 (cross4 . pair4 zip) unzip4 (average pair4)
 
-para5 :: (((a2 -> b1) -> (a2, a2, a2, a2, a2) -> (b1, b1, b1, b1, b1))
-              -> (Int, Int, Int, Int, Int) -> a1 -> (b, b, b, b, b))
+para5 :: (((a -> b1) -> (a, a, a, a, a) -> (b1, b1, b1, b1, b1))
+              -> (Int, Int, Int, Int, Int) -> [Maybe v] -> (b, b, b, b, b))
       -> (Int, Int, Int, Int, Int)
-      -> ([a], [a1])
-      -> ([(a, b)], [(a, b)], [(a, b)], [(a, b)], [(a, b)])
-para5 average = paraN pair5 (cross5 . pair5 zip) unzip5 (average pair5)
+      -> [(k, Maybe v)]
+      -> ([(k, b)], [(k, b)], [(k, b)], [(k, b)], [(k, b)])
+para5 average = prepare ~> paraN pair5 (cross5 . pair5 zip) unzip5 (average pair5)
 
 instance Num v => Num (Maybe v) where
   (+) = liftA2 (+)
