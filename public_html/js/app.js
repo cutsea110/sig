@@ -86,26 +86,33 @@ $(function() {
     var chart = new Highcharts.StockChart(opt);
     var api = new RestsigApi('http://localhost/api');
 
-    // Autocomplete for code
-    $('.stock-code').autocomplete({
-        source: function(req,resp) {
-            api.Brands.byLike('%' + req.term + '%').get()
-		.done(
-		    function(data) {
-			resp(data.map(function(b){
+    $('.stock-code').typeahead(
+	{
+	    autoselect: true,
+	    hint: true,
+	    highlight: true,
+	    minLength: 2
+	},
+	{
+	    displayKey: 'value',
+	    source: function (query, process) {
+		api.Brands.byLike('%' + query + '%').get()
+		    .done(function (data) {
+			process(data.map(function (b) {
 			    return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
 			}));
-		    }
-		);
-        },
-        autoFocus: true,
-        delay: 0,
-        minLength: 2
-    });
-    $('.add-stock').autocomplete({
-	select: function (ev, ui) {
+		    });
+	    },
+	    templates: {
+		suggestion: function (b) {
+		    return b.label;
+		}
+	    }
+	});
+    $('.add-stock').on({
+	'typeahead:selected' : function (obj, datum, name) {
 	    var self = $(this);
-	    api.Stocks.byCode(ui.item.value).get()
+	    api.Stocks.byCode(datum.value).get()
 		.done(function (data) {
 		    chart.addSeries({
 			type: 'candlestick',
@@ -140,12 +147,18 @@ $(function() {
 			    });
 		    }, 0);
 		});
-	}
+	},
     });
     
     $('.enable-next').blur(function () {
 	var next = $(this).data('enable-next-selector');
 	$(next).removeAttr('disabled');
+	if ($(next).data('ttTypeahead') != null) {
+	    $(next).prev().remove();
+	}
+	$(next)
+	    .refreshClass('stock-code')
+	    .refreshClass('add-stock');
     });
 
     $('#add-sma-term').click(function() {
