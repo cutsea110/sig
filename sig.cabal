@@ -25,7 +25,10 @@ library
     Ext.Instances
     Ext.Projectable
     Query
+    TechnicalIndicators.Core
+    TechnicalIndicators.EMA
     TechnicalIndicators.SMA
+    TechnicalIndicators.WMA
     Type.Brand
     Type.Common
     Type.Stock
