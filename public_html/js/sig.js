@@ -204,17 +204,10 @@ RestsigApi.prototype.Brands =
     }
   };
 RestsigApi.prototype.Brands.apiObjectType = "resourceDir";
-RestsigApi.prototype.Brands.byLike =
-  function (string)
+RestsigApi.prototype.Brands.list =
+  function (success, error, params, callOpts)
   {
-    var postfix = 'like/' + encodeURIComponent(string) + '/';
-    var accessor = new this(this.contextUrl + postfix, this.secureContextUrl + postfix, this.modifyRequest);
-    accessor.get =
-      function (success, error, params, callOpts)
-      {
-        return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
-      };
-    return accessor;
+    return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
   };
 RestsigApi.prototype.Stocks =
   function Stocks (url, secureUrl, modifyRequest)

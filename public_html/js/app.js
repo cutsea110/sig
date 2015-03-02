@@ -96,9 +96,9 @@ $(function() {
 	{
 	    displayKey: 'value',
 	    source: function (query, process) {
-		api.Brands.byLike('%' + query + '%').get()
+		api.Brands.list(null,null,{type:'json', q:'"%' + query + '%"'})
 		    .done(function (data) {
-			process(data.map(function (b) {
+			process(data.items.map(function (b) {
 			    return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
 			}));
 		    });

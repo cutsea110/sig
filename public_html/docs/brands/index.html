@@ -16,11 +16,11 @@
         <div class="page-header">
           <h1>Navigation</h1>
         </div>
-        <h3>Context</h3> <a class="resource-link" href="./brands">brands</a>
+        <h3>Context</h3> <a class="resource-link" href="public_html/brands">brands</a>
         <h3>Sub-resources</h3>          
         <div class="span8">
           <ul>
-            <li><a class="resource-link" href="./brands">brands</a></li>
+            <li><a class="resource-link" href="public_html/brands">brands</a></li>
           </ul>
         </div>
       </div>
@@ -37,33 +37,48 @@
           </div>
           <div class="span8">
             <h2>Identifiers</h2>
-            <p>/brands<span class="link-block">/like/&lt;string&gt;</span></p>
+            <p>/brands</p>
           </div>
         </div>
         <div class="row">
           <div class="span16">
-            <table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/brands/like/&lt;string&gt;</td><td>GET</td><td>Retrieve brands data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-17382029589188821"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
-  &lt;xs:element name=&#39;brands&#39;&gt;
+            <table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/brands</td><td>GET</td><td>List brandss</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-4273754450946179118"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+  &lt;xs:element name=&#39;list&#39;&gt;
     &lt;xs:complexType&gt;
-      &lt;xs:element name=&#39;item&#39; minOccurs=0&gt;
-        &lt;xs:complexType&gt;
-          &lt;xs:sequence&gt;
-            &lt;xs:element name=&#39;brandCode&#39; type=&#39;xs:string&#39;/&gt;
-            &lt;xs:element name=&#39;brandName&#39; type=&#39;xs:string&#39;/&gt;
-          &lt;/xs:sequence&gt;
-        &lt;/xs:complexType&gt;
-      &lt;/xs:element&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name=&#39;offset&#39; type=&#39;xs:string&#39;/&gt;
+        &lt;xs:element name=&#39;count&#39; type=&#39;xs:string&#39;/&gt;
+        &lt;xs:element name=&#39;items&#39;&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:element name=&#39;item&#39; minOccurs=0&gt;
+              &lt;xs:complexType&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element name=&#39;brandCode&#39; type=&#39;xs:string&#39;/&gt;
+                  &lt;xs:element name=&#39;brandName&#39; type=&#39;xs:string&#39;/&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:complexType&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-17382029589188821" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv1299411366845305574"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;brands&gt;
-  &lt;item&gt;
-    &lt;brandCode&gt;string&lt;/brandCode&gt;
-    &lt;brandName&gt;string&lt;/brandName&gt;
-  &lt;/item&gt;
-&lt;/brands&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1299411366845305574" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv2847894658233079526"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">[ { &quot;brandCode&quot;: &quot;value&quot;
-  , &quot;brandName&quot;: &quot;value&quot;
-  }
-]</pre></div></div><button class="btn open-modal" data-controls-modal="idv2847894658233079526" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table>
+&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-4273754450946179118" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5420544024645599711"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;list&gt;
+  &lt;offset&gt;string&lt;/offset&gt;
+  &lt;count&gt;string&lt;/count&gt;
+  &lt;items&gt;
+    &lt;item&gt;
+      &lt;brandCode&gt;string&lt;/brandCode&gt;
+      &lt;brandName&gt;string&lt;/brandName&gt;
+    &lt;/item&gt;
+  &lt;/items&gt;
+&lt;/list&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5420544024645599711" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv7716137129173919832"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;offset&quot;: 0
+, &quot;count&quot;: 0
+, &quot;items&quot;: [ { &quot;brandCode&quot;: &quot;value&quot;
+             , &quot;brandName&quot;: &quot;value&quot;
+             }
+           ]
+}</pre></div></div><button class="btn open-modal" data-controls-modal="idv7716137129173919832" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>offset, count, q</td></tr></tbody></table>
           </div>
         </div>
       </div>
