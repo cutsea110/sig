@@ -12,7 +12,7 @@ import Safe (readMay)
 
 import ApiTypes
 import Query
-import Type.Brand (Brand, Brands(..), Item)
+import Type.Brand (Item)
 import Type.Common (Code, Name)
 import Util
 

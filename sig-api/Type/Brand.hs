@@ -44,13 +44,3 @@ instance XmlPickler Item where xpickle = gxpickle
 instance JSONSchema Item where schema = gSchema
 instance FromJSON Item
 instance ToJSON Item
-
-data Brands = Brands [Item] deriving (Eq, Generic, Ord, Show, Typeable)
-
-deriveAll ''Brands "PFBrands"
-type instance PF Brands = PFBrands
-
-instance XmlPickler Brands where xpickle = gxpickle
-instance JSONSchema Brands where schema = gSchema
-instance FromJSON Brands
-instance ToJSON Brands
