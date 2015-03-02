@@ -8,7 +8,6 @@ import Rest
 import Rest.Dictionary (Param(..), Modifier)
 import Rest.Handler (mkGenHandler)
 import qualified Rest.Resource as R
-import Safe (readMay)
 
 import ApiTypes
 import Query
@@ -30,7 +29,7 @@ resource = mkResourceReader
 pQ :: Param SubString
 pQ = Param ["q"] $ \xs ->
      maybe (Left (ParseError "q")) Right $ case xs of
-       (Just q:_) -> readMay q
+       (Just q:_) -> Just q
        _ -> Nothing
 
 mkListing' d a = mkGenHandler (mkPar pQ . d) (a . param)

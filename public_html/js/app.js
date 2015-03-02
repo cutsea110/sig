@@ -96,7 +96,7 @@ $(function() {
 	{
 	    displayKey: 'value',
 	    source: function (query, process) {
-		api.Brands.list(null,null,{type:'json', q:'"%' + query + '%"'})
+		api.Brands.list(null,null,{type:'json', q:'%' + query + '%'})
 		    .done(function (data) {
 			process(data.items.map(function (b) {
 			    return {label: b.brandName + '(' + b.brandCode + ')', value: b.brandCode};
