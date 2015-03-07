@@ -3,6 +3,7 @@ module Api.Brand (resource) where
 import Control.Arrow ((&&&))
 import Control.Monad.Error (ErrorT)
 import Control.Monad.Reader
+import Network.HTTP.Base (urlDecode)
 
 import Rest
 import Rest.Dictionary (Param(..), Modifier)
@@ -47,7 +48,7 @@ pLike :: Param Like
 pLike = Param ["like"] $ \xs ->
         maybe (Left (ParseError "like")) Right $ case xs of
           (Just like:_) -> readMay like
-          _ -> Just RightLike
+          _ -> Just BothLike
 
 mkListing' d a = mkGenHandler (addPar pLike . mkPar pQ . d) (a . param)
 
@@ -55,6 +56,6 @@ list :: ListHandler SigApi
 list = mkListing' xmlJsonO handler
     where
       handler :: (Like, SubString) -> ErrorT Reason_ SigApi [Item]
-      handler (like, q) = let q' = like %% q in liftIO $ readBrands (q', q')
+      handler (like, q) = let q' = like %% urlDecode q in liftIO $ readBrands (q', q')
       readBrands :: (Code, Name) -> IO [Item]
       readBrands = withDB . collect' findLikeCodeOrName
