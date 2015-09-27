@@ -4,8 +4,8 @@ import Network.Wai.Handler.Warp (run)
 import Rest.Driver.Wai (apiToApplication)
 
 import Api (api)
-import ApiTypes (Config(..), SigApi(..), runSigApi)
-import DataSource (connect, defaultConfig)
+import ApiTypes (runSigApi)
+import DataSource (defaultConfig)
 
 main :: IO ()
 main = do
