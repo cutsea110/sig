@@ -5,9 +5,13 @@ stack install mighttpd2
 stack clean
 stack build
 
+# Generate docs
+
+./sig-gen -d './public_html' -s rest-gen/files/Docs/
+
 # Generate client codes
 
-## generate haskell code
+## Generate haskell code
 
 ./sig-gen -h
 

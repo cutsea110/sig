@@ -1,13 +1,13 @@
 <html>
   <head>
     <title>Silk API Documentation version 1.0.0</title>
-    <link rel="stylesheet" type="text/css" href="Docs/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="Docs/prettify.css">
-    <link rel="stylesheet" type="text/css" href="Docs/docs.css">
-    <script type="text/javascript" src="Docs/jquery-nightly.js"></script>
-    <script type="text/javascript" src="Docs/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="Docs/prettify.js"></script>
-    <script type="text/javascript" src="Docs/docs.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Docs/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./Docs/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./Docs/docs.css">
+    <script type="text/javascript" src="./Docs/jquery-nightly.js"></script>
+    <script type="text/javascript" src="./Docs/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="./Docs/prettify.js"></script>
+    <script type="text/javascript" src="./Docs/docs.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -25,7 +25,7 @@
       <div class="content">
         
         <br/><br/>  
-        <section><a name="brands"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./brands">brands</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/brands</p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/brands</td><td>GET</td><td>List brandss</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-4273754450946179118"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+        <section><a name="brands"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./brands">brands</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/brands</p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/brands</td><td>GET</td><td>List brandss</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-4273754450946179118"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:element name=&#39;list&#39;&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
@@ -46,7 +46,7 @@
       &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-4273754450946179118" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5420544024645599711"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;list&gt;
+&lt;/complexType&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-4273754450946179118" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5420544024645599711"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;list&gt;
   &lt;offset&gt;string&lt;/offset&gt;
   &lt;count&gt;string&lt;/count&gt;
   &lt;items&gt;
@@ -55,13 +55,13 @@
       &lt;brandName&gt;string&lt;/brandName&gt;
     &lt;/item&gt;
   &lt;/items&gt;
-&lt;/list&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5420544024645599711" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv7716137129173919832"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;offset&quot;: 0
+&lt;/list&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5420544024645599711" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv7716137129173919832"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;offset&quot;: 0
 , &quot;count&quot;: 0
 , &quot;items&quot;: [ { &quot;brandCode&quot;: &quot;value&quot;
              , &quot;brandName&quot;: &quot;value&quot;
              }
            ]
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv7716137129173919832" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>offset, count, like, q</td></tr></tbody></table></section><section><a name="stocks"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks">stocks</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block">/code/&lt;string&gt;</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks/code/&lt;string&gt;</td><td>GET</td><td>Retrieve stocks data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-7224430190326299577"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7716137129173919832" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>offset, count, like, q</td></tr></tbody></table></section><section><a name="stocks"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks">stocks</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block">/code/&lt;string&gt;</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks/code/&lt;string&gt;</td><td>GET</td><td>Retrieve stocks data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv-7224430190326299577"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:element name=&#39;stocks&#39;&gt;
     &lt;xs:complexType&gt;
       &lt;xs:sequence&gt;
@@ -116,7 +116,7 @@
       &lt;/xs:sequence&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-7224430190326299577" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5492738132484619133"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;stocks&gt;
+&lt;/complexType&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-7224430190326299577" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv-5492738132484619133"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;stocks&gt;
   &lt;brand&gt;
     &lt;brand&gt;
       &lt;code&gt;string&lt;/code&gt;
@@ -145,7 +145,7 @@
       &lt;value&gt;string&lt;/value&gt;
     &lt;/item&gt;
   &lt;/prices&gt;
-&lt;/stocks&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv-5492738132484619133" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv5553006326508220437"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;brand&quot;: { &quot;lastupdated&quot;: &quot;value&quot;
+&lt;/stocks&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5492738132484619133" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv5553006326508220437"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;brand&quot;: { &quot;lastupdated&quot;: &quot;value&quot;
            , &quot;category&quot;: &quot;value&quot;
            , &quot;market&quot;: &quot;value&quot;
            , &quot;name&quot;: &quot;value&quot;
@@ -160,7 +160,7 @@
               , &quot;high&quot;: 0
               }
             ]
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv5553006326508220437" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks.indicator"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks/indicator">stocks/indicator</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator<span class="link-block">/macd<br>/rsi<br>/sma</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/sma</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv5553006326508220437" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>None</td></tr></tbody></table></section><section><a name="stocks.indicator"></a><div class="row"><div class="span16 page-header resource-title"><h1><a class="resource-link" href="./stocks/indicator">stocks/indicator</a></h1></div></div><div class="row"><div class="span10"><h2>Description</h2><p></p></div><div class="span6"><h2>Identifiers</h2><p>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator<span class="link-block">/macd<br>/rsi<br>/sma</span></p></div></div><br><table class="bordered-table resource-table"><thead><th class="URL">URL</th><th class="Method">Method</th><th class="Description">Description</th><th class="Input">Input</th><th class="Output">Output</th><th class="Errors">Errors</th><th class="Parameters">Parameters</th></thead><tbody><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/sma</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:choice&gt;
     &lt;xs:element name=&#39;mono&#39;&gt;
       &lt;xs:complexType&gt;
@@ -833,7 +833,7 @@
       &lt;/xs:complexType&gt;
     &lt;/xs:element&gt;
   &lt;/xs:choice&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;mono&gt;
+&lt;/complexType&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;mono&gt;
   &lt;meta&gt;
     &lt;metaInfo&gt;
       &lt;indicator&gt;
@@ -867,7 +867,7 @@
       &lt;/ticks&gt;
     &lt;/timeline&gt;
   &lt;/tl1&gt;
-&lt;/mono&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+&lt;/mono&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
                                , &quot;m&quot;: 0
                                , &quot;n&quot;: 0
                                , &quot;xl&quot;: 0
@@ -882,7 +882,492 @@
                               ]
                    }
           }
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr><tr class="stripe-0 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/rsi</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5038073630484128751"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;high&quot;
+                    , &quot;indicator&quot;: &quot;rSI&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5038073630484128751" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-6599066848002822848"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;low&quot;
+                    , &quot;indicator&quot;: &quot;mACD&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-6599066848002822848" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1704634642055802649"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;closing&quot;
+                    , &quot;indicator&quot;: &quot;sMA&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1704634642055802649" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5216919646097906492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;opening&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5216919646097906492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8442845425804385817"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;high&quot;
+                  , &quot;indicator&quot;: &quot;rSI&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8442845425804385817" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2964949032425029410"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;low&quot;
+                  , &quot;indicator&quot;: &quot;mACD&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2964949032425029410" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv6443202775239476103"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;closing&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv6443202775239476103" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2961926285723318079"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;opening&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2961926285723318079" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2325000885516792024"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;high&quot;
+                   , &quot;indicator&quot;: &quot;rSI&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2325000885516792024" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv4132832198929353999"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;low&quot;
+                   , &quot;indicator&quot;: &quot;mACD&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv4132832198929353999" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1628862566980704580"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;closing&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1628862566980704580" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv148852105402485286"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv148852105402485286" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8796335576914573421"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8796335576914573421" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7397595405675425492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7397595405675425492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv3914868882979379609"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3914868882979379609" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5617756459284978953"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5617756459284978953" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-9137819265521430584"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-9137819265521430584" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2618058304198410327"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2618058304198410327" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7663283001443928076"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7663283001443928076" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr><tr class="stripe-0 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/rsi</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:choice&gt;
     &lt;xs:element name=&#39;mono&#39;&gt;
       &lt;xs:complexType&gt;
@@ -1555,7 +2040,7 @@
       &lt;/xs:complexType&gt;
     &lt;/xs:element&gt;
   &lt;/xs:choice&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;mono&gt;
+&lt;/complexType&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;mono&gt;
   &lt;meta&gt;
     &lt;metaInfo&gt;
       &lt;indicator&gt;
@@ -1589,7 +2074,7 @@
       &lt;/ticks&gt;
     &lt;/timeline&gt;
   &lt;/tl1&gt;
-&lt;/mono&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+&lt;/mono&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
                                , &quot;m&quot;: 0
                                , &quot;n&quot;: 0
                                , &quot;xl&quot;: 0
@@ -1604,7 +2089,492 @@
                               ]
                    }
           }
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/macd</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5038073630484128751"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;high&quot;
+                    , &quot;indicator&quot;: &quot;rSI&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5038073630484128751" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-6599066848002822848"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;low&quot;
+                    , &quot;indicator&quot;: &quot;mACD&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-6599066848002822848" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1704634642055802649"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;closing&quot;
+                    , &quot;indicator&quot;: &quot;sMA&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1704634642055802649" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5216919646097906492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;opening&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5216919646097906492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8442845425804385817"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;high&quot;
+                  , &quot;indicator&quot;: &quot;rSI&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8442845425804385817" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2964949032425029410"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;low&quot;
+                  , &quot;indicator&quot;: &quot;mACD&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2964949032425029410" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv6443202775239476103"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;closing&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv6443202775239476103" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2961926285723318079"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;opening&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2961926285723318079" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2325000885516792024"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;high&quot;
+                   , &quot;indicator&quot;: &quot;rSI&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2325000885516792024" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv4132832198929353999"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;low&quot;
+                   , &quot;indicator&quot;: &quot;mACD&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv4132832198929353999" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1628862566980704580"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;closing&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1628862566980704580" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv148852105402485286"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv148852105402485286" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8796335576914573421"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8796335576914573421" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7397595405675425492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7397595405675425492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv3914868882979379609"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3914868882979379609" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5617756459284978953"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5617756459284978953" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-9137819265521430584"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-9137819265521430584" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2618058304198410327"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2618058304198410327" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7663283001443928076"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7663283001443928076" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr><tr class="stripe-1 url-main-row"><td>/stocks<span class="link-block"><span class="link-block">/code/&lt;string&gt;</span></span>/indicator/macd</td><td>GET</td><td>Retrieve indicator data</td><td>None</td><td><table class="data-description"><tr><td>XML</td><td>JSON</td></tr><tr><td><div class="modal hide fade code" id="idv1949749567615027865"><div class="modal-header"><a href="#" class="close">x</a><h3>Schema</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;complexType name=&#39;data&#39;&gt;
   &lt;xs:choice&gt;
     &lt;xs:element name=&#39;mono&#39;&gt;
       &lt;xs:complexType&gt;
@@ -2277,7 +3247,7 @@
       &lt;/xs:complexType&gt;
     &lt;/xs:element&gt;
   &lt;/xs:choice&gt;
-&lt;/complexType&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-xml">&lt;mono&gt;
+&lt;/complexType&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1949749567615027865" data-backdrop="true" data-keyboard="true">Schema</button><div class="modal hide fade code" id="idv3333422170513750394"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-xml">&lt;mono&gt;
   &lt;meta&gt;
     &lt;metaInfo&gt;
       &lt;indicator&gt;
@@ -2311,7 +3281,7 @@
       &lt;/ticks&gt;
     &lt;/timeline&gt;
   &lt;/tl1&gt;
-&lt;/mono&gt;</pre></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+&lt;/mono&gt;</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3333422170513750394" data-backdrop="true" data-keyboard="true">Example</button></td><td><div class="modal hide fade code" id="idv-3615196290334358342"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
                                , &quot;m&quot;: 0
                                , &quot;n&quot;: 0
                                , &quot;xl&quot;: 0
@@ -2326,7 +3296,492 @@
                               ]
                    }
           }
-}</pre></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr></tbody></table></section>
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-3615196290334358342" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5038073630484128751"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;high&quot;
+                    , &quot;indicator&quot;: &quot;rSI&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5038073630484128751" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-6599066848002822848"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;low&quot;
+                    , &quot;indicator&quot;: &quot;mACD&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-6599066848002822848" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1704634642055802649"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;mono&quot;: { &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                               , &quot;m&quot;: 0
+                               , &quot;n&quot;: 0
+                               , &quot;xl&quot;: 0
+                               , &quot;s&quot;: 0
+                               }
+                    , &quot;pricing&quot;: &quot;closing&quot;
+                    , &quot;indicator&quot;: &quot;sMA&quot;
+                    }
+          , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                , &quot;v&quot;: 0
+                                }
+                              ]
+                   }
+          }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1704634642055802649" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5216919646097906492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;opening&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5216919646097906492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8442845425804385817"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;high&quot;
+                  , &quot;indicator&quot;: &quot;rSI&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8442845425804385817" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2964949032425029410"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;low&quot;
+                  , &quot;indicator&quot;: &quot;mACD&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2964949032425029410" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv6443202775239476103"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;di&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                             , &quot;m&quot;: 0
+                             , &quot;n&quot;: 0
+                             , &quot;xl&quot;: 0
+                             , &quot;s&quot;: 0
+                             }
+                  , &quot;pricing&quot;: &quot;closing&quot;
+                  , &quot;indicator&quot;: &quot;sMA&quot;
+                  }
+        , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                              , &quot;v&quot;: 0
+                              }
+                            ]
+                 }
+        }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv6443202775239476103" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2961926285723318079"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;opening&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2961926285723318079" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-2325000885516792024"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;high&quot;
+                   , &quot;indicator&quot;: &quot;rSI&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-2325000885516792024" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv4132832198929353999"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;low&quot;
+                   , &quot;indicator&quot;: &quot;mACD&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv4132832198929353999" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv1628862566980704580"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tri&quot;: { &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                              , &quot;m&quot;: 0
+                              , &quot;n&quot;: 0
+                              , &quot;xl&quot;: 0
+                              , &quot;s&quot;: 0
+                              }
+                   , &quot;pricing&quot;: &quot;closing&quot;
+                   , &quot;indicator&quot;: &quot;sMA&quot;
+                   }
+         , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                               , &quot;v&quot;: 0
+                               }
+                             ]
+                  }
+         }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv1628862566980704580" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv148852105402485286"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv148852105402485286" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-8796335576914573421"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-8796335576914573421" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7397595405675425492"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7397595405675425492" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv3914868882979379609"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;tetra&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv3914868882979379609" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-5617756459284978953"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;opening&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-5617756459284978953" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv-9137819265521430584"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;high&quot;
+                     , &quot;indicator&quot;: &quot;rSI&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv-9137819265521430584" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv2618058304198410327"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;low&quot;
+                     , &quot;indicator&quot;: &quot;mACD&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv2618058304198410327" data-backdrop="true" data-keyboard="true">Example</button><div class="modal hide fade code" id="idv7663283001443928076"><div class="modal-header"><a href="#" class="close">x</a><h3>Example</h3></div><div class="modal-body"><div style="overflow:auto; max-height:600px"><pre class="prettyprint lang-js">{ &quot;penta&quot;: { &quot;tl4&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl2&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl5&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;tl3&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           , &quot;meta&quot;: { &quot;terms&quot;: { &quot;l&quot;: 0
+                                , &quot;m&quot;: 0
+                                , &quot;n&quot;: 0
+                                , &quot;xl&quot;: 0
+                                , &quot;s&quot;: 0
+                                }
+                     , &quot;pricing&quot;: &quot;closing&quot;
+                     , &quot;indicator&quot;: &quot;sMA&quot;
+                     }
+           , &quot;tl1&quot;: { &quot;ticks&quot;: [ { &quot;k&quot;: &quot;value&quot;
+                                 , &quot;v&quot;: 0
+                                 }
+                               ]
+                    }
+           }
+}</pre></div></div></div><button class="btn open-modal" data-controls-modal="idv7663283001443928076" data-backdrop="true" data-keyboard="true">Example</button></td></tr></table></td><td>None</td><td>pricing, n, s, m, l, xl</td></tr></tbody></table></section>
       </div>
     </div>
   </body>
