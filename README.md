@@ -1,3 +1,7 @@
+stack install mighty
+stack clean
+stack build
+
 cabal clean
 cabal configure
 cabal build

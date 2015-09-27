@@ -1,5 +1,6 @@
 module DataSource
        ( connect
+       , conn
        , defaultConfig
        ) where
 

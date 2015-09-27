@@ -23,8 +23,9 @@ library
     ApiTypes
     DataSource
     Ext.Instances
-    Ext.Projectable
+    Ext.TH
     Query
+    Stock
     TechnicalIndicators.Core
     TechnicalIndicators.EMA
     TechnicalIndicators.SMA
@@ -33,34 +34,42 @@ library
     Type.Common
     Type.Stock
     Type.Stock.Internal
-  other-extensions:    TemplateHaskell, MultiParamTypeClasses, DeriveGeneric, FlexibleInstances
+    Util
+  other-extensions:    TemplateHaskell
+                     , MultiParamTypeClasses
+                     , DataKinds
+                     , DeriveGeneric
+                     , FlexibleContexts
+                     , FlexibleInstances
+                     , StandaloneDeriving
   build-depends:
                        HDBC-postgresql >=2.3 && <2.4
                      , HDBC-session >=0.1 && <0.2
                      , HTTP >=4000.2 && <4000.3
-                     , aeson >=0.7 && <0.8
-                     , base >=4.7 && <4.8
+                     , aeson >=0.7 && <0.11
+                     , base >=4.7 && <4.9
                      , bytestring >=0.10 && <0.11
                      , containers >=0.5 && <0.6
                      , generic-aeson >=0.2 && <0.3
+                     , generic-xmlpickler >=0.1 && <0.2
                      , hxt >=9.3 && <9.4
                      , json-schema >=0.7 && <0.8
-                     , mtl >=2.1 && <2.2
+                     , mtl >=2.1 && <2.3
                      , names-th >=0.1 && <0.2
                      , persistable-record >=0.1 && <0.2
                      , regular >=0.3 && <0.4
-                     , regular-xmlpickler >=0.2 && <0.3
-                     , relational-query >=0.4 && <0.5
+                     , relational-query >=0.4 && <0.7
                      , relational-query-HDBC >=0.1 && <0.2
-                     , rest-core >=0.34 && <0.35
+                     , rest-core >=0.34 && <0.37
                      , rest-wai >=0.1 && <0.2
                      , safe >=0.3 && <0.4
                      , scientific >=0.3 && <0.4
                      , sql-words >=0.1 && <0.2
                      , stm >=2.4 && <2.5
-                     , text >=1.1 && <1.2
-                     , time >=1.4 && <1.5
-                     , warp >=3.0 && <3.1
+                     , text >=1.1 && <1.3
+                     , time >=1.4 && <1.6
+                     , transformers >=0.4 && <0.5
+                     , warp >=3.0 && <3.2
   hs-source-dirs:      sig-api
   default-language:    Haskell2010
 
@@ -69,17 +78,17 @@ executable sig
   main-is:             Main.hs
   hs-source-dirs:      wai
   build-depends:
-                       base >=4.7 && <4.8
+                       base >=4.7 && <4.9
                      , rest-wai >=0.1 && <0.2
                      , sig
-                     , warp >=3.0 && <3.1
+                     , warp >=3.0 && <3.2
 
 executable sig-gen
   default-language:    Haskell2010
   main-is:             Main.hs
   hs-source-dirs:      generate
   build-depends:
-                       base >=4.7 && <4.8
-                     , rest-core >=0.34 && <0.35
-                     , rest-gen >=0.16 && <0.17
+                       base >=4.7 && <4.9
+                     , rest-core >=0.34 && <0.37
+                     , rest-gen >=0.16 && <0.19
                      , sig

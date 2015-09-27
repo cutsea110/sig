@@ -16,16 +16,16 @@ import Database.HDBC.Query.TH (defineTableFromDB, makeRecordPersistableDefault)
 import Database.HDBC.Schema.PostgreSQL (driverPostgreSQL)
 import Database.Record.TH (derivingShow, derivingEq)
 import Generics.Regular
-import Generics.Regular.XmlPickler
+import Generics.XmlPickler
 import GHC.Generics
 import Text.XML.HXT.Arrow.Pickle
 
-import Brand (Brand)
-import DataSource (connect)
+import Type.Brand (Brand)
+import DataSource (conn, defaultConfig)
 import Ext.Instances
 import Ext.TH (derivingGeneric, derivingOrd, derivingTypeable)
 
-defineTableFromDB connect driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
+defineTableFromDB (conn defaultConfig) driverPostgreSQL "public" "stock" [derivingEq, derivingGeneric, derivingOrd, derivingShow, derivingTypeable]
 
 deriveAll ''Stock "PFStock"
 type instance PF Stock = PFStock

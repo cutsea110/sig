@@ -17,7 +17,7 @@ import Database.HDBC.Query.TH (defineTableFromDB, makeRecordPersistableDefault)
 import Database.HDBC.Schema.PostgreSQL (driverPostgreSQL)
 import Database.Record.TH (derivingShow, derivingEq)
 import Generics.Regular
-import Generics.Regular.XmlPickler
+import Generics.XmlPickler
 import GHC.Generics
 import Text.XML.HXT.Arrow.Pickle
 

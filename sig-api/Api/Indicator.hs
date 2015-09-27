@@ -1,14 +1,15 @@
-{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveDataTypeable, DataKinds #-}
 module Api.Indicator where
 
 import Control.Applicative ((<$>),(<*>))
-import Control.Monad.Error (ErrorT)
+import Control.Monad.Trans.Except (ExceptT)
 import Control.Monad.Reader
 import Data.Time.Calendar (Day)
 import Data.Typeable
 
 import Rest hiding (Single)
 import Rest.Dictionary (Param(..), Modifier)
+import Rest.Dictionary.Types
 import Rest.Handler (mkHandler)
 import Rest.Info
 import Rest.ShowUrl
@@ -76,18 +77,20 @@ pSMA = Param ["n", "s", "m", "l", "xl"] $ \xs ->
     [Just n, _, _, _, _] -> S <$> readMay n
     _ -> Just $ P3 5 21 60 -- default system
 
-mkIdHandler' :: MonadReader id m => Modifier h p i o e -> (id -> (Pricing, ParamSMA) -> ErrorT (Reason e) m o) -> Handler m
+mkIdHandler' :: MonadReader a m => (Dict () () 'Nothing 'Nothing 'Nothing -> Dict h x i' o' e')
+     -> (a -> (Pricing, ParamSMA) -> ExceptT (Reason (FromMaybe Void e')) m (FromMaybe () o'))
+     -> Handler m
 mkIdHandler' d a = mkHandler (addPar pPricing . mkPar pSMA . d) (\env -> ask >>= flip a (param env))
 
 get :: Handler WithIndicator
 get = mkIdHandler' xmlJsonO handler
     where
-      handler :: Indicator -> (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
+      handler :: Indicator -> (Pricing, ParamSMA) -> ExceptT Reason_ WithIndicator Result
       handler SMA = smaHandler
       handler RSI = rsiHandler
       handler MACD = macdHandler
       -- SMA
-      smaHandler :: (Pricing, ParamSMA) -> ErrorT Reason_ WithIndicator Result
+      smaHandler :: (Pricing, ParamSMA) -> ExceptT Reason_ WithIndicator Result
       smaHandler (p, c) = do
         cd <- getCode
         liftIO $ withDB $ \conn -> do
@@ -108,5 +111,5 @@ get = mkIdHandler' xmlJsonO handler
       -- MACD
       macdHandler = undefined
 
-getCode :: ErrorT Reason_ WithIndicator Code
+getCode :: ExceptT Reason_ WithIndicator Code
 getCode = lift . lift $ ask

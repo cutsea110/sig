@@ -1,7 +1,7 @@
 module Api.Brand (resource) where
 
 import Control.Arrow ((&&&))
-import Control.Monad.Error (ErrorT)
+import Control.Monad.Trans.Except (ExceptT)
 import Control.Monad.Reader
 import Network.HTTP.Base (urlDecode)
 
@@ -55,7 +55,7 @@ mkListing' d a = mkGenHandler (addPar pLike . mkPar pQ . d) (a . param)
 list :: ListHandler SigApi
 list = mkListing' xmlJsonO handler
     where
-      handler :: (Like, SubString) -> ErrorT Reason_ SigApi [Item]
+      handler :: (Like, SubString) -> ExceptT Reason_ SigApi [Item]
       handler (like, q) = let q' = like %% urlDecode q in liftIO $ readBrands (q', q')
       readBrands :: (Code, Name) -> IO [Item]
       readBrands = withDB . collect' findLikeCodeOrName

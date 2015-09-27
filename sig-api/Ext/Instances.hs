@@ -3,6 +3,7 @@
   , DeriveGeneric
   , FlexibleInstances
   , MultiParamTypeClasses
+  , StandaloneDeriving
   , TemplateHaskell
   , TypeFamilies
   #-}
@@ -13,12 +14,12 @@ import Data.JSON.Schema hiding (Number)
 import Data.Scientific (toRealFloat)
 import Data.Text (Text, unpack)
 import Data.Time (UTCTime(..))
-import Data.Time.Calendar (Day)
+import Data.Time.Calendar (Day(..))
 import Data.Time.Clock.POSIX (posixSecondsToUTCTime, utcTimeToPOSIXSeconds)
 import Data.Typeable
 import GHC.Generics
 import Generics.Regular
-import Generics.Regular.XmlPickler
+import Generics.XmlPickler
 import Text.XML.HXT.Arrow.Pickle
 
 -- | Day
@@ -34,6 +35,8 @@ instance JSONSchema Day where
 
 deriveAll ''Day "PFDay"
 type instance PF Day = PFDay
+
+deriving instance Generic Day
 
 instance XmlPickler Day where
   xpickle = gxpickle
