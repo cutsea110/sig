@@ -12,185 +12,179 @@ var obfuscatedRequire = function (moduleName)
   return module["r" + "equire"](moduleName);
 }
 
-var RestsigApi =
-  function (url, secureUrl, modifyRequest)
-  {
-    var self = this;
-    var postfix          = '/v' + this.version + '/';
-    var contextUrl       = url + postfix;
-    var secureContextUrl = (secureUrl || url.replace(/^http:/, "https:")) + postfix;
-
-    this.cookieJar = isNodeJs ? obfuscatedRequire('request').jar() : undefined;
-
-    if(!modifyRequest) modifyRequest = function (req) { return req; };
-
-    var finalModifyRequest = function (req)
+function RestsigApi (url, secureUrl, modifyRequest)
+{
+  var RestsigApi =
+    function (url, secureUrl, modifyRequest)
     {
-      if (isNodeJs) req.jar = self.cookieJar;
-      return modifyRequest(req);
+      var self = this;
+      var postfix          = '/v' + this.version + '/';
+      var contextUrl       = url + postfix;
+      var secureContextUrl = (secureUrl || url.replace(/^http:/, "https:")) + postfix;
+
+      this.cookieJar = isNodeJs ? obfuscatedRequire('request').jar() : undefined;
+
+      if(!modifyRequest) modifyRequest = function (req) { return req; };
+
+      var finalModifyRequest = function (req)
+      {
+        if (isNodeJs) req.jar = self.cookieJar;
+        return modifyRequest(req);
+      }
+
+      RestsigApi.setContext(this, contextUrl, secureContextUrl, finalModifyRequest);
+    };
+
+  var jqFun;
+  if (isNodeJs)
+  {
+    RestsigApi.ajaxCall = nodeRequest;
+  }
+  else
+  {
+    if (isCommonJs) {
+      jqFun = function () { return require("jquery"); };
+    } else if (typeof define === "function" && define.amd) {
+      jqFun = function () { return window.$; };
+    } else {
+      jqFun = function () { return window.$; };
     }
 
-    RestsigApi.setContext(this, contextUrl, secureContextUrl, finalModifyRequest);
+    RestsigApi.ajaxCall = jQueryRequest;
+  }
+
+  RestsigApi.addObject = function (obj1, obj2)
+  {
+    for (var fld in obj2)
+      obj1[fld] = obj2[fld];
   };
 
-var jqFun;
-if (isNodeJs)
-{
-  // Export as Node module.
-  module.exports = RestsigApi;
+  RestsigApi.defaultAjaxOptions = {};
+  RestsigApi.defaultHeaders = {};
 
-  RestsigApi.ajaxCall = nodeRequest;
-}
-else
-{
-  if (isCommonJs) {
-    // Export as CommonJs
-    module.exports = RestsigApi;
-    jqFun = function () { return require("jquery"); };
-  } else if (typeof define === "function" && define.amd) {
-    // Export as AMD.
-    define("RestsigApi", [], function () { return RestsigApi; });
-    jqFun = function () { return window.$; };
-  } else {
-    // Export as global.
-    window.RestsigApi = RestsigApi;
-    jqFun = function () { return window.$; };
+  function jQueryRequest (method, url, params, success, error, contentType, acceptHeader, data, callOpts, modifyRequest)
+  {
+    var q = window.Q || function (a) { return a };
+    var jq = jqFun();
+
+    var headers = jq.extend(true, {}, RestsigApi.defaultHeaders);
+    RestsigApi.addObject(headers, { Accept : acceptHeader });
+
+    var callData =
+      { type        : method
+      , url         : url + (params ? '?' + jq.param(params) : '')
+      , cache       : false
+      , success     : success || function () {}
+      , error       : error || function () {}
+      , contentType : contentType
+      , headers     : headers
+      , xhrFields   : { withCredentials: true }
+      , data        : data || []
+      };
+
+    callData = modifyRequest(callData);
+
+    RestsigApi.addObject(callData, RestsigApi.defaultAjaxOptions);
+    RestsigApi.addObject(callData, callOpts);
+
+    return q(jq.ajax(callData));
   }
 
-  RestsigApi.ajaxCall = jQueryRequest;
-}
-
-RestsigApi.addObject = function (obj1, obj2)
-{
-  for (var fld in obj2)
-    obj1[fld] = obj2[fld];
-};
-
-RestsigApi.defaultAjaxOptions = {};
-RestsigApi.defaultHeaders = {};
-
-function jQueryRequest (method, url, params, success, error, contentType, acceptHeader, data, callOpts, modifyRequest)
-{
-  var q = window.Q || function (a) { return a };
-  var jq = jqFun();
-
-  var headers = jq.extend(true, {}, RestsigApi.defaultHeaders);
-  RestsigApi.addObject(headers, { Accept : acceptHeader });
-
-  var callData =
-    { type        : method
-    , url         : url + (params ? '?' + jq.param(params) : '')
-    , cache       : false
-    , success     : success || function () {}
-    , error       : error || function () {}
-    , contentType : contentType
-    , headers     : headers
-    , xhrFields   : { withCredentials: true }
-    , data        : data || []
-    };
-
-  callData = modifyRequest(callData);
-
-  RestsigApi.addObject(callData, RestsigApi.defaultAjaxOptions);
-  RestsigApi.addObject(callData, callOpts);
-
-  return q(jq.ajax(callData));
-}
-
-function nodeRequest (method, url, params, onSuccess, onError, contentType, acceptHeader, data, callOpts, modifyRequest)
-{
-  var allParams = {};
-  RestsigApi.addObject(allParams, params);
-
-  if (method === "GET" || method === "HEAD")
-    // Avoid cached API responses.
-    allParams._ = Date.now();
-
-  var headers = { "Content-type" : contentType
-                , "Accept"       : acceptHeader
-                };
-
-  RestsigApi.addObject(headers, RestsigApi.defaultHeaders);
-
-  var callData =
-    { url     : url
-    , qs      : allParams
-    , method  : method
-    , headers : headers
-    };
-
-  if (data) callData.body = data;
-
-  callData = modifyRequest(callData);
-
-  RestsigApi.addObject(callData, RestsigApi.defaultAjaxOptions);
-  RestsigApi.addObject(callData, callOpts);
-
-  return require("q").Promise(function (resolve, reject)
+  function nodeRequest (method, url, params, onSuccess, onError, contentType, acceptHeader, data, callOpts, modifyRequest)
   {
-    obfuscatedRequire("request")(callData, callback);
+    var allParams = {};
+    RestsigApi.addObject(allParams, params);
 
-    function callback (error, message, body)
+    if (method === "GET" || method === "HEAD")
+      // Avoid cached API responses.
+      allParams._ = Date.now();
+
+    var headers = { "Content-type" : contentType
+                  , "Accept"       : acceptHeader
+                  };
+
+    RestsigApi.addObject(headers, RestsigApi.defaultHeaders);
+
+    var callData =
+      { url     : url
+      , qs      : allParams
+      , method  : method
+      , headers : headers
+      };
+
+    if (data) callData.body = data;
+
+    callData = modifyRequest(callData);
+
+    RestsigApi.addObject(callData, RestsigApi.defaultAjaxOptions);
+    RestsigApi.addObject(callData, callOpts);
+
+    return require("q").Promise(function (resolve, reject)
     {
-      if (message && message.statusCode >= 200 && message.statusCode < 300)
+      obfuscatedRequire("request")(callData, callback);
+
+      function callback (error, message, body)
       {
-        var parsedResponse = parse(body);
-        onSuccess && onSuccess(parsedResponse, message);
-        resolve(parsedResponse)
-      }
-      else
-      {
-        if (!error)
+        if (message && message.statusCode >= 200 && message.statusCode < 300)
         {
-          error = new Error("HTTP request error");
-          error.statusCode = message.statusCode;
-          error.responseBody = body;
+          var parsedResponse = parse(body, message.headers);
+          onSuccess && onSuccess(parsedResponse, message);
+          resolve(parsedResponse)
         }
+        else
+        {
+          if (!error)
+          {
+            error = new Error("HTTP request error");
+            error.statusCode = message && message.statusCode;
+            error.responseBody = body;
+          }
 
-        error.response = parse(body);
+          error.response = parse(body, message ? message.headers : {});
 
-        if (onError)
-          onError(error);
+          if (onError)
+            onError(error);
 
-        reject(error);
+          reject(error);
+        }
       }
-    }
-  });
+    });
 
-  function parse (response)
-  {
-    if (acceptHeader.split(";").indexOf('text/json') >= 0)
+    function parse (response, headers)
     {
-      var r = response;
-      try
+      if (headers["content-type"] && headers["content-type"].split(";").indexOf("application/json") >= 0)
       {
-        r = JSON.parse(response);
-      }
-      catch (e)
-      {
+        var r = response;
+        try
+        {
+          r = JSON.parse(response);
+        }
+        catch (e)
+        {
+          return r;
+        }
         return r;
       }
-      return r;
+      else return response;
     }
-    else return response;
   }
-}
 
-RestsigApi.setContext =
-  function (obj, url, secureUrl, modifyRequest)
-  {
-    obj.contextUrl = url;
-    obj.secureContextUrl = secureUrl;
-    obj.modifyRequest = modifyRequest;
-    for (var fld in obj)
+  RestsigApi.setContext =
+    function (obj, url, secureUrl, modifyRequest)
     {
-      if (obj[fld] != undefined && obj[fld].apiObjectType != undefined && obj[fld].apiObjectType == 'resourceDir')
+      obj.contextUrl = url;
+      obj.secureContextUrl = secureUrl;
+      obj.modifyRequest = modifyRequest;
+      for (var fld in obj)
       {
-        var postfix = fld.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '/';
-        RestsigApi.setContext(obj[fld], url + postfix, secureUrl + postfix, modifyRequest);
+        if (obj[fld] != undefined && obj[fld].apiObjectType != undefined && obj[fld].apiObjectType == 'resourceDir')
+        {
+          var postfix = fld.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + '/';
+          RestsigApi.setContext(obj[fld], url + postfix, secureUrl + postfix, modifyRequest);
+        }
       }
-    }
-  };RestsigApi.prototype.version = "1.0.0";
+    };
+RestsigApi.prototype.version = "1.0.0";
 RestsigApi.prototype.Brands =
   function Brands (url, secureUrl, modifyRequest)
   {
@@ -282,6 +276,27 @@ RestsigApi.prototype.Stocks.prototype.Indicator.macd =
         return RestsigApi.ajaxCall("GET", this.contextUrl + '', params, success, error, "text/plain", "text/json", undefined, callOpts, this.modifyRequest);
       };
     return accessor;
-  };
+  };  return new RestsigApi (url, secureUrl, modifyRequest);
+}
+
+var jqFun;
+if (isNodeJs)
+{
+  // Export as Node module.
+  module.exports = RestsigApi;
+}
+else
+{
+  if (isCommonJs) {
+    // Export as CommonJs
+    module.exports = RestsigApi;
+  } else if (typeof define === "function" && define.amd) {
+    // Export as AMD.
+    define("RestsigApi", [], function () { return RestsigApi; });
+  } else {
+    // Export as global.
+    window.RestsigApi = RestsigApi;
+  }
+}
 
 })(this);
